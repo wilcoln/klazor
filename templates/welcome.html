@@ -5,8 +5,17 @@
     <title>Welcome</title>
 </head>
 <body>
-    {% if person.age > 10 %}
-    Bienvenu {{ person.name }}
-    {% endif %}
+    <h1> {{ courses | length }} Cours disponibles</h1>
+    {% for course in  courses %}
+        <div>
+            {{ course.title }}
+            <a href="/view_course/{{course.id}}">View</a>
+            <a href="/edit_course/{{course.id}}">Edit</a>
+        </div>
+    {% endfor %}
+
+    <a href="/add_course" > Ajouter un cours</a>
+    <a href="/add_instructor" > Ajouter un intructeur</a>
+
 </body>
 </html>

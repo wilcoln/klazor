@@ -45,22 +45,20 @@ class Item(models.Model):
     type = models.CharField(max_length=2, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=9, blank=True, null=True)
-    id_next = models.IntegerField(blank=True, null=True)
-    id_prev = models.IntegerField(blank=True, null=True)
+    next = models.IntegerField(blank=True, null=True)
+    prev = models.IntegerField(blank=True, null=True)
 
     class Meta:
         db_table = 'item'
 
 
-class MoocCourse(models.Model):
-    id_course = models.ForeignKey(Course, models.DO_NOTHING, db_column='id_course')
+class MoocCourse(Course):
 
     class Meta:
         db_table = 'mooc_course'
 
 
-class NonSchool(models.Model):
-    id_instructor = models.ForeignKey(Instructor, models.DO_NOTHING, db_column='id_instructor')
+class NonSchool(Instructor):
 
     class Meta:
         db_table = 'non_school'
@@ -68,13 +66,13 @@ class NonSchool(models.Model):
 
 class Note(models.Model):
     content = models.TextField(blank=True, null=True)
-    id_item = models.ForeignKey(Item, models.DO_NOTHING, db_column='id_item')
+    item = models.ForeignKey(Item, models.DO_NOTHING)
 
     class Meta:
         db_table = 'note'
 
 
-class School(models.Model):
+class School(Instructor):
     admissions_link = models.TextField(blank=True, null=True)
     programs_link = models.TextField(blank=True, null=True)
 
@@ -82,10 +80,9 @@ class School(models.Model):
         db_table = 'school'
 
 
-class SchoolCourse(models.Model):
+class SchoolCourse(Course):
     year = models.SmallIntegerField(blank=True, null=True)
     semester = models.SmallIntegerField(blank=True, null=True)
-    id_course = models.ForeignKey(Course, models.DO_NOTHING, db_column='id_course')
     items = models.ManyToManyField(Item, through='ASchoolCourseItem')
 
     class Meta:
@@ -94,7 +91,7 @@ class SchoolCourse(models.Model):
 
 class Week(models.Model):
     title = models.CharField(max_length=20, blank=True, null=True)
-    id_mooc_course = models.ForeignKey(MoocCourse, models.DO_NOTHING, db_column='id_mooc_course')
+    mooc_course = models.ForeignKey(MoocCourse, models.DO_NOTHING)
     items = models.ManyToManyField(Item, through='AWeekItem')
 
     class Meta:
@@ -102,45 +99,45 @@ class Week(models.Model):
 
 
 class ACategoryCourse(models.Model):
-    id_category = models.ForeignKey('Category', models.DO_NOTHING, db_column='id_category', primary_key=True)
-    id_course = models.ForeignKey('Course', models.DO_NOTHING, db_column='id_course')
+    category = models.ForeignKey('Category', models.DO_NOTHING)
+    course = models.ForeignKey('Course', models.DO_NOTHING)
 
     class Meta:
         db_table = 'a_category_course'
-        unique_together = (('id_category', 'id_course'),)
+        unique_together = (('category', 'course'),)
 
 
 class ACourseInstructor(models.Model):
-    id_course = models.ForeignKey('Course', models.DO_NOTHING, db_column='id_course', primary_key=True)
-    id_instructor = models.ForeignKey('Instructor', models.DO_NOTHING, db_column='id_instructor')
+    course = models.ForeignKey('Course', models.DO_NOTHING)
+    instructor = models.ForeignKey('Instructor', models.DO_NOTHING)
 
     class Meta:
         db_table = 'a_course_instructor'
-        unique_together = (('id_course', 'id_instructor'),)
+        unique_together = (('course', 'instructor'),)
 
 
 class ACourseResource(models.Model):
-    id_resource = models.ForeignKey('Resource', models.DO_NOTHING, db_column='id_resource', primary_key=True)
-    id_course = models.ForeignKey('Course', models.DO_NOTHING, db_column='id_Course')
+    resource = models.ForeignKey('Resource', models.DO_NOTHING)
+    course = models.ForeignKey('Course', models.DO_NOTHING)
 
     class Meta:
         db_table = 'a_course_resource'
-        unique_together = (('id_resource', 'id_course'),)
+        unique_together = (('resource', 'course'),)
 
 
 class ASchoolCourseItem(models.Model):
-    id_school_course = models.ForeignKey('SchoolCourse', models.DO_NOTHING, db_column='id_school_course', primary_key=True)
-    id_item = models.ForeignKey('Item', models.DO_NOTHING, db_column='id_item')
+    school_course = models.ForeignKey('SchoolCourse', models.DO_NOTHING)
+    item = models.ForeignKey('Item', models.DO_NOTHING)
 
     class Meta:
         db_table = 'a_school_course_item'
-        unique_together = (('id_school_course', 'id_item'),)
+        unique_together = (('school_course', 'item'),)
 
 
 class AWeekItem(models.Model):
-    id_week = models.ForeignKey('Week', models.DO_NOTHING, db_column='id_week', primary_key=True)
-    id_item = models.ForeignKey('Item', models.DO_NOTHING, db_column='id_item')
+    week = models.ForeignKey('Week', models.DO_NOTHING)
+    item = models.ForeignKey('Item', models.DO_NOTHING)
 
     class Meta:
         db_table = 'a_week_item'
-        unique_together = (('id_week', 'id_item'),)
+        unique_together = (('week', 'item'),)
