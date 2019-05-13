@@ -1,5 +1,5 @@
 from django.contrib import admin
-from courses.models import *
+from klazor.models import *
 
 admin.site.register(SchoolCourse)
 admin.site.register(MoocCourse)

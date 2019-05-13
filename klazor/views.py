@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from courses.models import *
+from klazor.models import *
 
 from django.shortcuts import HttpResponse
 
