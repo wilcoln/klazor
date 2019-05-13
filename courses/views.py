@@ -22,25 +22,20 @@ def save_course(request):
 
     itype = request.POST.get('type')
     title = request.POST.get('title')
-    instructorId = request.POST.get('instructor')
+    instructor_id = request.POST.get('instructor')
     if itype == 'school':
-        schoolCourse = SchoolCourse()
-        schoolCourse.title = title
-        lien = ACourseInstructor()
-        schoolCourse.year = request.POST.get('year')
-        schoolCourse.semester = request.POST.get('semester')
-        schoolCourse.save()
-        lien.instructor = Instructor.objects.get(pk=instructorId)
-        lien.course = schoolCourse
-        lien.save()
+        school_course = SchoolCourse()
+        school_course.title = title
+        school_course.year = request.POST.get('year')
+        school_course.semester = request.POST.get('semester')
+        school_course.save()
+        school_course.instructors.add(Instructor.objects.get(pk=instructor_id))
+        school_course.save()
     else:
-        moocCourse = MoocCourse()
-        moocCourse.title = title
-        lien = ACourseInstructor()
-        moocCourse.save()
-        lien.instructor = Instructor.objects.get(pk=instructorId)
-        lien.course = moocCourse
-        lien.save()
+        mooc_course = MoocCourse()
+        mooc_course.title = title
+        mooc_course.instructors.add(Instructor.objects.get(pk=instructor_id))
+        mooc_course.save()
 
     return response
 
@@ -60,7 +55,7 @@ def save_instructor(request):
         school.programs_link = request.POST.get('programs-link')
         school.save()
     else:
-        notschool = NonSchool()
+        notschool = NotSchool()
         notschool.title = title
         notschool.link = link
         notschool.save()

@@ -11,6 +11,9 @@ from django.db import models
 class Category(models.Model):
     title = models.CharField(max_length=20, blank=True, null=True)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = 'category'
 
@@ -19,6 +22,9 @@ class Instructor(models.Model):
     title = models.CharField(max_length=20, blank=True, null=True)
     link = models.TextField(blank=True, null=True)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = 'instructor'
 
@@ -26,15 +32,21 @@ class Instructor(models.Model):
 class Resource(models.Model):
     title = models.CharField(max_length=60, blank=True, null=True)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = 'resource'
 
 
 class Course(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
-    instructors = models.ManyToManyField(Instructor, through='ACourseInstructor')
-    resources = models.ManyToManyField(Resource, through='ACourseResource')
-    categories = models.ManyToManyField(Category, through='ACategoryCourse')
+    categories = models.ManyToManyField(Category, blank=True)
+    instructors = models.ManyToManyField(Instructor, blank=True)
+    resources = models.ManyToManyField(Resource, blank=True)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         db_table = 'course'
@@ -42,11 +54,36 @@ class Course(models.Model):
 
 class Item(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
-    type = models.CharField(max_length=2, blank=True, null=True)
+    # Choices for type
+    CM = 'CM'
+    MC = 'MC'
+    TD = 'TD'
+    TP = 'TP'
+    TYPE_CHOICES = (
+        (CM, 'Cours magistral'),
+        (MC, 'Element Mooc'),
+        (TD, 'Travaux dirigés'),
+        (TP, 'Travaux pratiques')
+    )
+
+    type = models.CharField(max_length=2, choices=TYPE_CHOICES, default=CM)
     content = models.TextField(blank=True, null=True)
-    status = models.CharField(max_length=9, blank=True, null=True)
+
+    # Choices for status
+    UNSTARTED = 'UNSTARTED'
+    RUNNING = 'RUNNING'
+    COMPLETED = 'COMPLETED'
+    STATUS_CHOICES = (
+        (UNSTARTED, 'Not started'),
+        (RUNNING, 'On going'),
+        (COMPLETED, 'Completed'),
+    )
+    status = models.CharField(max_length=9, choices=STATUS_CHOICES, default=UNSTARTED)
     next = models.IntegerField(blank=True, null=True)
     prev = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         db_table = 'item'
@@ -58,15 +95,18 @@ class MoocCourse(Course):
         db_table = 'mooc_course'
 
 
-class NonSchool(Instructor):
+class NotSchool(Instructor):
 
     class Meta:
-        db_table = 'non_school'
+        db_table = 'not_school'
 
 
 class Note(models.Model):
     content = models.TextField(blank=True, null=True)
     item = models.ForeignKey(Item, models.DO_NOTHING)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         db_table = 'note'
@@ -83,7 +123,7 @@ class School(Instructor):
 class SchoolCourse(Course):
     year = models.SmallIntegerField(blank=True, null=True)
     semester = models.SmallIntegerField(blank=True, null=True)
-    items = models.ManyToManyField(Item, through='ASchoolCourseItem')
+    items = models.ManyToManyField(Item)
 
     class Meta:
         db_table = 'school_course'
@@ -92,52 +132,10 @@ class SchoolCourse(Course):
 class Week(models.Model):
     title = models.CharField(max_length=20, blank=True, null=True)
     mooc_course = models.ForeignKey(MoocCourse, models.DO_NOTHING)
-    items = models.ManyToManyField(Item, through='AWeekItem')
+    items = models.ManyToManyField(Item)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         db_table = 'week'
-
-
-class ACategoryCourse(models.Model):
-    category = models.ForeignKey('Category', models.DO_NOTHING)
-    course = models.ForeignKey('Course', models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'a_category_course'
-        unique_together = (('category', 'course'),)
-
-
-class ACourseInstructor(models.Model):
-    course = models.ForeignKey('Course', models.DO_NOTHING)
-    instructor = models.ForeignKey('Instructor', models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'a_course_instructor'
-        unique_together = (('course', 'instructor'),)
-
-
-class ACourseResource(models.Model):
-    resource = models.ForeignKey('Resource', models.DO_NOTHING)
-    course = models.ForeignKey('Course', models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'a_course_resource'
-        unique_together = (('resource', 'course'),)
-
-
-class ASchoolCourseItem(models.Model):
-    school_course = models.ForeignKey('SchoolCourse', models.DO_NOTHING)
-    item = models.ForeignKey('Item', models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'a_school_course_item'
-        unique_together = (('school_course', 'item'),)
-
-
-class AWeekItem(models.Model):
-    week = models.ForeignKey('Week', models.DO_NOTHING)
-    item = models.ForeignKey('Item', models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'a_week_item'
-        unique_together = (('week', 'item'),)

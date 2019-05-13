@@ -18,6 +18,7 @@ from django.urls import path
 from courses.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', welcome),
     path('welcome/', welcome),
     path('add_course/', add_course),
     path('add_instructor/', add_instructor),
