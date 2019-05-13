@@ -1,2 +1,2 @@
 # klazor
-Nothing less than the best binder ever
+A practical binder

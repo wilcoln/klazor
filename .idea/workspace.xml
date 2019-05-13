@@ -2,25 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6825bb71-a0d1-45fb-927c-bcc94e6a9a85" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/klazor/migrations/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/courses.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/migrations/0002_auto_20190513_0519.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/migrations/0003_auto_20190513_0536.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/courses/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/wsgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/creation.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reset.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,36 +17,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/klazor/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="7" column="52" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/klazor/admin.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="220">
               <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/klazor/wsgi.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-              <folding>
-                <element signature="e#222#231#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,6 +58,18 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="44">
+                <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/klazor/forms.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -129,8 +100,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/klazor/__init__.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backup.sql">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
@@ -184,12 +160,14 @@
         <option value="$PROJECT_DIR$/klazor/views.py" />
         <option value="$PROJECT_DIR$/klazor/urls.py" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="1920" />
-    <option name="height" value="1032" />
+    <option name="x" value="1780" />
+    <option name="width" value="1612" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -204,16 +182,6 @@
             <path>
               <item name="klazor" type="b2602c69:ProjectViewProjectNode" />
               <item name="klazor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="klazor" type="b2602c69:ProjectViewProjectNode" />
-              <item name="klazor" type="462c0819:PsiDirectoryNode" />
-              <item name="klazor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="klazor" type="b2602c69:ProjectViewProjectNode" />
-              <item name="klazor" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -277,15 +245,16 @@
       <option name="presentableId" value="Default" />
       <updated>1557691774218</updated>
       <workItem from="1557691775261" duration="19976000" />
-      <workItem from="1557742457823" duration="811000" />
+      <workItem from="1557742457823" duration="3017000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20787000" />
+    <option name="totallyTimeSpent" value="22993000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1032" extended-state="6" />
+    <frame x="1920" y="0" width="1920" height="1080" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25320512" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -301,7 +270,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32921347" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.33033708" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.31343284" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -430,13 +399,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -449,6 +411,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/klazor/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backup.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="44">
+            <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
