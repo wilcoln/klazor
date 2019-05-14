@@ -20,10 +20,10 @@
                                 </video>
                             {% elif content.audiocontent %}
                                 <audio controls>
-                                   <source src="{% static content.audiocontent.audio.url %}" type="audio/mp4">
+                                   <source src="{{ content.audiocontent.audio.url }}" type="audio/mp4">
                                 </audio>
                             {% elif content.imagecontent %}
-                                <img src="{% static content.imagecontent.image.url %}"  width="100%" alt="">
+                                <img src="{{ content.imagecontent.image.url }}"  width="100%" alt="{{ content.imagecontent.image.title }}">
                             {% elif content.markdowncontent %}
                                 {# TODO use marked framework and replace this! #}
                                 <div>
