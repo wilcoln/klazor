@@ -24,6 +24,7 @@ urlpatterns = [
     path('', welcome),
     path('welcome/', welcome),
     path('mooc_courses/<int:id>/', view_mooc_course, name='mooc-course'),
-    path('school_courses/<int:id>/', view_school_course, name='school-course')
+    path('school_courses/<int:id>/', view_school_course, name='school-course'),
+    path('mooc_course_item/<int:id>/', view_mooc_course_item, name='mooc-course-item')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
