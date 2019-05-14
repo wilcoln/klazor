@@ -1,0 +1,8 @@
+      <!-- menu -->
+      <div id="CourseMenu">
+        <div class="list-group">
+          {% for item in school_course.item_set.all %}
+              <a href="{% url 'school-course-item' item.id %}" class="w-100 list-group-item list-group-item-dark rounded-0" data-toggle="collapse" data-parent="#CourseMenu">  <span class="badge badge-light" style="transform: translateY(-2px)"> {{ forloop.counter }}</span>   {{ item.type }}: {{ item.title|truncatechars:30}}</a>
+          {% endfor %}
+        </div>
+      </div>

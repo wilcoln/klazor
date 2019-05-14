@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "bootstrap": "^4.3.1",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "marked": "^0.6.2",
     "popper.js": "^1.15.0",

@@ -2,10 +2,10 @@
 {% load static %}
 {% block title %} {{ mooc_course_item.title }} {% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="base-container">
     <div class="row">
-        <div class="col-md-3 bg-dark">
-        {% include 'includes/components/navs/mooc_course.html' %}
+        <div class="col-md-3">
+        {% include 'includes/components/navs/mooc_course.html' with mooc_course=mooc_course_item.week_set.first.mooc_course mooc_course_item=mooc_course_item%}
         </div>
         <div class="col-md-9 bg-light p-4">
             <h1 class="text-center">{{ mooc_course_item.title}}</h1>

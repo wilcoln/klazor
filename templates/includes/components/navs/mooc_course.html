@@ -1,0 +1,13 @@
+      <!-- menu -->
+      <div id="CourseMenu">
+        <div class="list-group">
+          {% for week in mooc_course.week_set.all %}
+              <a href="#_{{ week.id }}" class="w-100 list-group-item list-group-item-dark rounded-0" data-toggle="collapse" data-parent="#CourseMenu"> Semaine {{ forloop.counter }}: {{ week.title|truncatechars:30}} <i class="fa fa-caret-down float-right"></i></a>
+              <div class="collapse" id="_{{ week.id }}">
+              {% for item in week.item_set.all %}
+                  <a href="{% url 'mooc-course-item' item.id %}" class="list-group-item rounded-0">{{ item.title }}</a>
+              {% endfor %}
+              </div>
+          {% endfor %}
+        </div>
+      </div>
