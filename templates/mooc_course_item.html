@@ -1,0 +1,40 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %} {{ mooc_course_item.title }} {% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-3 bg-dark">
+        {% include 'includes/components/navs/mooc_course.html' %}
+        </div>
+        <div class="col-md-9 bg-light p-4">
+            <h1 class="text-center">{{ mooc_course_item.title}}</h1>
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for content in mooc_course_item.content_set.all  %}
+                            {% if content.videocontent %}
+                                <video width="100%" controls>
+                                   <source src="{{ content.videocontent.video.url }}" type="video/mp4">
+                                </video>
+                            {% elif content.audiocontent %}
+                                <audio controls>
+                                   <source src="{% static content.audiocontent.audio.url %}" type="audio/mp4">
+                                </audio>
+                            {% elif content.imagecontent %}
+                            {% elif content.markdowncontent %}
+                                {# TODO use marked framework and replace this! #}
+                                <div>
+                                    {{ content.markdowncontent.text }}
+                                </div>
+                            {% endif %}
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}
