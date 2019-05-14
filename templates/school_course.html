@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+{% block title %} {{ school_course.title }} {% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-3 bg-dark">
+        {% include 'includes/components/navs/school_course.html' %}
+        </div>
+        <div class="col-md-9 bg-light p-4">
+            <h1 class="text-center">{{ school_course.title}}</h1>
+            <hr>
+            <div class="container">
+                <h2 class="text-muted">Contenu du cours </h2><br>
+                {% for item in school_course.item_set.all %}
+                    <a href="{% url 'school-course-item' item.id %}">
+                        <div class="row">
+                        <h3 class="col-md-12">{{ item.type }} : {{ item.title }}</h3>
+                    </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

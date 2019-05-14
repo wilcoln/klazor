@@ -26,3 +26,7 @@ def view_school_course(request, id):
 def view_mooc_course_item(request, id):
     mooc_course_item = Item.objects.get(pk=id)
     return render(request, 'mooc_course_item.html', {'mooc_course_item': mooc_course_item})
+
+def view_school_course_item(request, id):
+    school_course_item = Item.objects.get(pk=id)
+    return render(request, 'school_course_item.html', {'school_course_item': school_course_item})
