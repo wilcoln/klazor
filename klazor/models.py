@@ -53,17 +53,17 @@ class Course(models.Model):
         db_table = 'course'
 
 
-class Note(models.Model):
+class Sheet(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        db_table = 'note'
+        db_table = 'sheet'
 
 
-class Item(Note):
+class Item(Sheet):
 
     # Choices for type
     CM = 'CM'
@@ -139,7 +139,7 @@ class Week(models.Model):
 
 
 class Content(models.Model):
-    note = models.ForeignKey(Note, models.DO_NOTHING)
+    sheet = models.ForeignKey(Sheet, models.DO_NOTHING)
 
     class Meta:
         db_table = 'content'

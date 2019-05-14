@@ -5,7 +5,7 @@ from django.shortcuts import HttpResponse
 
 
 def welcome(request):
-    return render(request, 'welcome.html', {'courses': Course.objects.all()})
+    return render(request, 'welcome.html', {'courses': MoocCourse.objects.all()})
 
 
 def add_course(request):
@@ -14,7 +14,6 @@ def add_course(request):
 
 def add_instructor(request):
     return render(request, 'add_instructor.html')
-
 
 def save_course(request):
     response = HttpResponse()
