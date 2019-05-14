@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6825bb71-a0d1-45fb-927c-bcc94e6a9a85" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/klazor/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/welcome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/klazor/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/klazor/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/klazor/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/klazor/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +21,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/klazor/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+            <state relative-caret-position="308">
+              <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -39,20 +39,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/klazor/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="128" column="10" selection-start-line="128" selection-start-column="6" selection-end-line="128" selection-end-column="10" />
+            <state relative-caret-position="502">
+              <caret line="182" column="48" selection-start-line="182" selection-start-column="48" selection-end-line="182" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="13" selection-start-column="13" selection-end-column="13" />
+            <state relative-caret-position="44">
+              <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -81,8 +81,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/klazor/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="33" column="9" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="9" />
+            <state relative-caret-position="348">
+              <caret line="127" column="13" lean-forward="true" selection-start-line="127" selection-start-column="13" selection-end-line="127" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/django/conf/urls/static.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/django/conf/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-5034">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+              <folding>
+                <element signature="e#247#263#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,27 +116,6 @@
               <folding>
                 <element signature="e#84#93#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/klazor/wsgi.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
-              <folding>
-                <element signature="e#222#231#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backup.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-103">
-              <caret line="685" column="40" selection-start-line="685" selection-start-column="40" selection-end-line="685" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -137,20 +137,25 @@
       <find>, db_column=''</find>
       <find>ACate</find>
       <find>School</find>
-      <find>Item</find>
       <find>datab</find>
       <find>MANGA====</find>
       <find>courses</find>
       <find>title</find>
       <find>os.environ</find>
       <find>WSGI</find>
-      <find>djan</find>
       <find>Mooc</find>
       <find>Week</find>
+      <find>note</find>
+      <find>Item</find>
+      <find>djan</find>
+      <find>MEDIA_ROOT</find>
+      <find>Video</find>
+      <find>URL</find>
     </findStrings>
     <replaceStrings>
       <replace>'</replace>
       <replace>', '</replace>
+      <replace>sheet</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -172,13 +177,14 @@
         <option value="$PROJECT_DIR$/klazor/forms.py" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/klazor/admin.py" />
-        <option value="$PROJECT_DIR$/klazor/models.py" />
         <option value="$PROJECT_DIR$/manage.py" />
         <option value="$PROJECT_DIR$/klazor/views.py" />
         <option value="$PROJECT_DIR$/klazor/urls.py" />
         <option value="$PROJECT_DIR$/templates/welcome.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/klazor/admin.py" />
+        <option value="$PROJECT_DIR$/klazor/settings.py" />
+        <option value="$PROJECT_DIR$/klazor/models.py" />
       </list>
     </option>
   </component>
@@ -203,11 +209,6 @@
               <item name="klazor" type="b2602c69:ProjectViewProjectNode" />
               <item name="klazor" type="462c0819:PsiDirectoryNode" />
               <item name="klazor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="klazor" type="b2602c69:ProjectViewProjectNode" />
-              <item name="klazor" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -310,18 +311,17 @@
       <updated>1557691774218</updated>
       <workItem from="1557691775261" duration="19976000" />
       <workItem from="1557742457823" duration="4647000" />
-      <workItem from="1557782805721" duration="11459000" />
+      <workItem from="1557782805721" duration="16749000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36082000" />
+    <option name="totallyTimeSpent" value="41372000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1032" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25641027" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25641027" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -335,8 +335,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32921347" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.31348315" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32921347" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.31348315" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="12" visible="true" weight="0.32921347" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -414,16 +414,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/klazor/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/klazor/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -431,30 +421,6 @@
           <folding>
             <element signature="e#222#231#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/klazor/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="33" column="9" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="39" selection-start-line="15" selection-start-column="18" selection-end-line="16" selection-end-column="39" />
-          <folding>
-            <element signature="e#84#93#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/klazor/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="128" column="10" selection-start-line="128" selection-start-column="6" selection-end-line="128" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -468,13 +434,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/klazor/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/welcome.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
@@ -484,8 +443,66 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        <state relative-caret-position="44">
+          <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="16" column="39" selection-start-line="15" selection-start-column="18" selection-end-line="16" selection-end-column="39" />
+          <folding>
+            <element signature="e#84#93#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/django/conf/urls/static.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/django/conf/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5034">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#247#263#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/klazor/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/klazor/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/klazor/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="127" column="13" lean-forward="true" selection-start-line="127" selection-start-column="13" selection-end-line="127" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/klazor/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="182" column="48" selection-start-line="182" selection-start-column="48" selection-end-line="182" selection-end-column="48" />
         </state>
       </provider>
     </entry>

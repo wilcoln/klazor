@@ -31,13 +31,23 @@ class Instructor(models.Model):
 
 class Resource(models.Model):
     title = models.CharField(max_length=60, blank=True, null=True)
-    file = models.FileField(upload_to='Resources/', )
-
-    def __str__(self):
-        return self.title
 
     class Meta:
         db_table = 'resource'
+
+
+class DocumentResource(Resource):
+    document = models.FileField(upload_to='resources/documents', )
+
+    class Meta:
+        db_table = 'document_resource'
+
+
+class LinkResource(Resource):
+    link = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'link_resource'
 
 
 class Course(models.Model):
@@ -145,30 +155,32 @@ class Content(models.Model):
         db_table = 'content'
 
 
-class Markdown(Content):
+class MarkdownContent(Content):
     text = models.TextField(blank=True, null=True)
 
     class Meta:
-        db_table = 'markdown'
+        db_table = 'markdown_content'
 
 
-class Video(Content):
+class VideoContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
-    url = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.title
+    video = models.FileField(upload_to='videos')
 
     class Meta:
-        db_table = 'video'
+        db_table = 'video_content'
 
 
-class Audio(Content):
+class AudioContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
-    url = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.title
+    audio = models.FileField(upload_to='audios')
 
     class Meta:
-        db_table = 'audio'
+        db_table = 'audio_content'
+
+
+class ImageContent(Content):
+    title = models.CharField(max_length=50, blank=True, null=True)
+    video = models.FileField(upload_to='images')
+
+    class Meta:
+        db_table = 'image_content'
