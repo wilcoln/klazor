@@ -39,11 +39,11 @@ class Resource(models.Model):
         db_table = 'resource'
 
 
-class DocumentResource(Resource):
-    document = models.FileField(upload_to='resources/documents', )
+class FileResource(Resource):
+    file = models.FileField(upload_to='resources/files', )
 
     class Meta:
-        db_table = 'document_resource'
+        db_table = 'file_resource'
 
 
 class LinkResource(Resource):
@@ -189,7 +189,7 @@ class AudioContent(Content):
 
 class ImageContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
-    video = models.FileField(upload_to='images')
+    image = models.FileField(upload_to='images')
 
     def __str__(self):
         return self.title

@@ -23,6 +23,7 @@
                                    <source src="{% static content.audiocontent.audio.url %}" type="audio/mp4">
                                 </audio>
                             {% elif content.imagecontent %}
+                                <img src="{% static content.imagecontent.image.url %}"  width="100%" alt="">
                             {% elif content.markdowncontent %}
                                 {# TODO use marked framework and replace this! #}
                                 <div>
