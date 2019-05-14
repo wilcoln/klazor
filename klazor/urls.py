@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', welcome),
     path('welcome/', welcome),
+    path('mooc_courses/<int:id>/', view_mooc_course, name='mooc-course'),
+    path('school_courses/<int:id>/', view_school_course, name='school-course'),
     path('add_course/', add_course),
     path('add_instructor/', add_instructor),
     path('save_course/', save_course),

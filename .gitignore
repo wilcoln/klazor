@@ -3,3 +3,4 @@ node_modules/
 media/
 __pycache__/
 backup.sql
+todo

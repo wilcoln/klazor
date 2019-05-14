@@ -1,55 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-</head>
-<body>
-    <h1> {{ courses | length }} Cours disponibles</h1>
-    {% for course in  courses %}
-        <div>
-            <h1>{{ course.title }}</h1>
-             Ce cours a {{ course.week_set.all |length}}semaines
-            {% for week in  course.week_set.all %}
-                <div>
-                    <h2>{{ week.title }}</h2>
-                     Cette semaine a {{ week.item_set.all | length}} éléments
-                     {% for item in  week.item_set.all %}
-                        <div>
-                            <h3>{{ item.title }}</h3>
-                             {% for content in  item.content_set.all %}
-                                {% if content.videocontent %}
-                                    <div>
-                                    {{ content.videocontent.title }}
-                                    <video width="320" height="240" controls>
-                                      <source src="{{ content.videocontent.video.url }}" type="video/mp4">
-                                    </video>
-                                    </div>
-                                   {% elif content.imagecontent  %}
-                                    <div>
-                                    {{ content.imagecontent.title }}
-                                        <img src="{{ content.imagecontent.image.url }}" alt="">
-                                    </div>
-                                    {% elif content.markdowncontent  %}
-                                    <div>
-                                        <textarea name="" id="" cols="30" rows="10">
-                                            {{ content.markdowncontent.text }}
-                                        </textarea>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-
-
-                        </div>
-                    {% endfor %}
-
-                </div>
+{% extends 'layouts/base.html' %}
+{% block title %} Welcome {% endblock %}
+{% block content %}
+    <div class="container">
+    <h1 class="text-center text-uppercase mb-4"> Tous les cours disponibles</h1>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+        <h2 class="text-center">Moocs</h2>
+            {% for mooc_course in  mooc_courses %}
+                <ol>
+                    <li>
+                        <a href="{% url 'mooc-course' mooc_course.id %}">{{ mooc_course.title }}</a><br>
+                        <small class="text-muted ">{{ mooc_course.week_set.all |length }} semaines</small>
+                    </li>
+                </ol>
             {% endfor %}
         </div>
-    {% endfor %}
-
-    <a href="/add_course" > Ajouter un cours</a>
-    <a href="/add_instructor" > Ajouter un intructeur</a>
-
-</body>
-</html>
+        <div class="col-md-6">
+             <h2 class="text-center">Cours académiques</h2>
+            {% for school_course in  school_courses %}
+                <ol>
+                    <li>
+                        <a href="{% url 'school-course' school_course.id %}">{{ school_course.title }}</a><br>
+                        <small class="text-muted">{{ school_course.item_set.all |length }} items</small>
+                    </li>
+                </ol>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock %}
