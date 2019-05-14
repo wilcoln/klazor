@@ -13,15 +13,30 @@
             {% for week in  course.week_set.all %}
                 <div>
                     <h2>{{ week.title }}</h2>
-                     Cette semaine a {{ week.items.all | length}} éléments
-                     {% for item in  week.items.all %}
+                     Cette semaine a {{ week.item_set.all | length}} éléments
+                     {% for item in  week.item_set.all %}
                         <div>
                             <h3>{{ item.title }}</h3>
                              {% for content in  item.content_set.all %}
-                                <div>
-                                    {{ content.video.title }}
-                                    <iframe width="560" height="315" src="{{ content.video.url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
+                                {% if content.videocontent %}
+                                    <div>
+                                    {{ content.videocontent.title }}
+                                    <video width="320" height="240" controls>
+                                      <source src="{{ content.videocontent.video.url }}" type="video/mp4">
+                                    </video>
+                                    </div>
+                                   {% elif content.imagecontent  %}
+                                    <div>
+                                    {{ content.imagecontent.title }}
+                                        <img src="{{ content.imagecontent.image.url }}" alt="">
+                                    </div>
+                                    {% elif content.markdowncontent  %}
+                                    <div>
+                                        <textarea name="" id="" cols="30" rows="10">
+                                            {{ content.markdowncontent.text }}
+                                        </textarea>
+                                    </div>
+                                {% endif %}
                             {% endfor %}
 
 

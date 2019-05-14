@@ -32,6 +32,9 @@ class Instructor(models.Model):
 class Resource(models.Model):
     title = models.CharField(max_length=60, blank=True, null=True)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = 'resource'
 
@@ -52,9 +55,9 @@ class LinkResource(Resource):
 
 class Course(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
-    categories = models.ManyToManyField(Category, blank=True)
-    instructors = models.ManyToManyField(Instructor, blank=True)
-    resources = models.ManyToManyField(Resource, blank=True)
+    category_set = models.ManyToManyField(Category, blank=True)
+    instructor_set = models.ManyToManyField(Instructor, blank=True)
+    resource_set = models.ManyToManyField(Resource, blank=True)
 
     def __str__(self):
         return self.title
@@ -130,7 +133,7 @@ class School(Instructor):
 class SchoolCourse(Course):
     year = models.SmallIntegerField(blank=True, null=True)
     semester = models.SmallIntegerField(blank=True, null=True)
-    items = models.ManyToManyField(Item)
+    item_set = models.ManyToManyField(Item)
 
     class Meta:
         db_table = 'school_course'
@@ -139,7 +142,7 @@ class SchoolCourse(Course):
 class Week(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
     mooc_course = models.ForeignKey(MoocCourse, models.DO_NOTHING)
-    items = models.ManyToManyField(Item)
+    item_set = models.ManyToManyField(Item)
 
     def __str__(self):
         return self.title
@@ -166,6 +169,9 @@ class VideoContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
     video = models.FileField(upload_to='videos')
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = 'video_content'
 
@@ -174,6 +180,9 @@ class AudioContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
     audio = models.FileField(upload_to='audios')
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = 'audio_content'
 
@@ -181,6 +190,9 @@ class AudioContent(Content):
 class ImageContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
     video = models.FileField(upload_to='images')
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         db_table = 'image_content'

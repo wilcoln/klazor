@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from klazor.views import *
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', welcome),
@@ -25,4 +28,4 @@ urlpatterns = [
     path('save_course/', save_course),
     path('save_instructor/', save_instructor)
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
