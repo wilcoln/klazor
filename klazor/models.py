@@ -31,6 +31,7 @@ class Instructor(models.Model):
 
 class Resource(models.Model):
     title = models.CharField(max_length=60, blank=True, null=True)
+    url = models.CharField(max_length=60, blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -52,8 +53,18 @@ class Course(models.Model):
         db_table = 'course'
 
 
-class Item(models.Model):
+class Note(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'note'
+
+
+class Item(Note):
+
     # Choices for type
     CM = 'CM'
     MC = 'MC'
@@ -67,7 +78,6 @@ class Item(models.Model):
     )
 
     type = models.CharField(max_length=2, choices=TYPE_CHOICES, default=CM)
-    content = models.TextField(blank=True, null=True)
 
     # Choices for status
     UNSTARTED = 'UNSTARTED'
@@ -90,26 +100,13 @@ class Item(models.Model):
 
 
 class MoocCourse(Course):
-
     class Meta:
         db_table = 'mooc_course'
 
 
 class NotSchool(Instructor):
-
     class Meta:
         db_table = 'not_school'
-
-
-class Note(models.Model):
-    content = models.TextField(blank=True, null=True)
-    item = models.ForeignKey(Item, models.DO_NOTHING)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        db_table = 'note'
 
 
 class School(Instructor):
@@ -130,7 +127,7 @@ class SchoolCourse(Course):
 
 
 class Week(models.Model):
-    title = models.CharField(max_length=20, blank=True, null=True)
+    title = models.CharField(max_length=50, blank=True, null=True)
     mooc_course = models.ForeignKey(MoocCourse, models.DO_NOTHING)
     items = models.ManyToManyField(Item)
 
@@ -139,3 +136,39 @@ class Week(models.Model):
 
     class Meta:
         db_table = 'week'
+
+
+class Content(models.Model):
+    note = models.ForeignKey(Note, models.DO_NOTHING)
+
+    class Meta:
+        db_table = 'content'
+
+
+class Markdown(Content):
+    text = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'markdown'
+
+
+class Video(Content):
+    title = models.CharField(max_length=50, blank=True, null=True)
+    url = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'video'
+
+
+class Audio(Content):
+    title = models.CharField(max_length=50, blank=True, null=True)
+    url = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'audio'
