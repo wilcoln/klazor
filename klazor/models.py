@@ -199,3 +199,14 @@ class ImageContent(Content):
 
     class Meta:
         db_table = 'image_content'
+
+
+class Folder(models.Model):
+    name = models.CharField(max_length=20, blank=True, null=True)
+    sheet_set = models.ManyToManyField(Sheet)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'folder'
