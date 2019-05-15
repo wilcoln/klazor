@@ -26,8 +26,8 @@
                                 <img src="{{ content.imagecontent.image.url }}"  width="100%" alt="{{ content.imagecontent.image.title }}">
                             {% elif content.markdowncontent %}
                                 {# TODO use marked framework and replace this! #}
-                                <div>
-                                    {{ content.markdowncontent.text }}
+                                <div id="id_{{ content.markdowncontent.id }}">
+
                                 </div>
                             {% endif %}
                             <hr>
@@ -38,4 +38,16 @@
         </div>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'marked/lib/marked.js' %}"></script>
+    <script>
+        {% for content in school_course_item.content_set.all  %}
+               {% if content.markdowncontent %}
+                    let text{{ content.markdowncontent.id }} = '{{ content.markdowncontent.text }}'
+                    text{{ content.markdowncontent.id }} = marked(text{{ content.markdowncontent.id }})
+                  document.getElementById('id_{{ content.markdowncontent.id }}').innerHTML = text{{ content.markdowncontent.id }}
+                {% endif %}
+         {% endfor %}
+    </script>
 {% endblock %}
