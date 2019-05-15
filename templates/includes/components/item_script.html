@@ -3,9 +3,11 @@
 <script>
     {% for content in item.content_set.all  %}
         {% if content.markdowncontent %}
-            let text{{ content.markdowncontent.id }} = '{{ content.markdowncontent.text }}'
-            text{{ content.markdowncontent.id }} = marked(text{{ content.markdowncontent.id }})
-            document.getElementById('id_{{ content.markdowncontent.id }}').innerHTML = text{{ content.markdowncontent.id }}
+            let text{{ content.markdowncontent.id }} = `{{ content.markdowncontent.text }}`
+            text{{ content.markdowncontent.id }} = text{{ content.markdowncontent.id }}.replace(/&gt;+/g, '>')
+            text{{ content.markdowncontent.id }} = text{{ content.markdowncontent.id }}.replace(/&quot;+/g, '"')
+            let text{{ content.markdowncontent.id }}_marked = marked(text{{ content.markdowncontent.id }})
+            document.getElementById('id_{{ content.markdowncontent.id }}').innerHTML = text{{ content.markdowncontent.id }}_marked
         {% endif %}
     {% endfor %}
 </script>
