@@ -6,7 +6,7 @@
             <div class="col-md-3">
                 {% include 'includes/components/navs/school_course.html' with school_course=school_course %}
             </div>
-            <div class="col-md-9 bg-light p-4">
+            <div class="col-md-9">
                 <h1 class="text-center">{{ school_course.title }}</h1>
                 <hr>
                 <div class="container">
@@ -15,7 +15,7 @@
                         {% for item in school_course.item_set.all %}
                             <a href="{% url 'school-course-item' item.id %}">
                                 <div class="row">
-                                    <h3 class="col-md-12">{{ item.type }} : {{ item.title }}</h3>
+                                    <h3 class="col-md-12">{{ forloop.counter }}. {{ item.type }} : {{ item.title }}</h3>
                                 </div>
                             </a>
                         {% endfor %}

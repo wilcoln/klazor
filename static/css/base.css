@@ -10,6 +10,14 @@ h2{
     color: grey;
 }
 
+h3{
+    font-size: 1.2rem;
+    color: grey;
+}
+a:hover h3{
+    color: #007bff;
+}
+
 .tiny.card i.fa{
     position:absolute;
     top: .5rem;
@@ -32,7 +40,7 @@ blockquote {
     border: 1px solid #cccccc;
     background-color: white;
     padding: 2rem 2rem;
-    box-shadow: .0rem .2rem .4rem rgba(0,0,0,.2);
+    box-shadow: .0rem .1rem .1rem rgba(0,0,0,.1);
     border-radius: 5px;
 }
 .welcome.toolbar{
