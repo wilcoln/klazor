@@ -10,18 +10,22 @@
             <h1 class="text-center">{{ mooc_course.title}}</h1>
             <hr>
             <div class="container">
-                <h2 class="text-muted">Contenu du cours </h2><br>
-                {% for week in mooc_course.week_set.all  %}
-                    <div class="row">
-                        <h3 class="col-md-3">Semaine {{ forloop.counter }}</h3>
-                        <h3 class="col-md-9">{{ week.title }}</h3>
-                    </div>
-                    <ul class="row">
-                        {% for item in week.item_set.all %}
-                            <li class="col-md-9 offset-3"><a href="{% url 'mooc-course-item' item.id %}">{{ item.title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% endfor %}
+                <section>
+                    <h2 class="text-muted">Contenu du cours </h2><br>
+                    {% for week in mooc_course.week_set.all  %}
+                        <div class="row">
+                            <h3 class="col-md-3">Semaine {{ forloop.counter }}</h3>
+                            <h3 class="col-md-9">{{ week.title }}</h3>
+                        </div>
+                        <ul class="row">
+                            {% for item in week.item_set.all %}
+                                <li class="col-md-9 offset-3"><a href="{% url 'mooc-course-item' item.id %}">{{ item.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </section>
+                <hr>
+                {% include 'includes/components/resources.html' with resources=mooc_course.resource_set.all %}
             </div>
         </div>
         </div>
