@@ -5,49 +5,14 @@
     <div class="base-container">
     <div class="row">
         <div class="col-md-3">
-        {% include 'includes/components/navs/school_course.html' with school_course=school_course_item.schoolcourse_set.first %}
+            {% include 'includes/components/navs/school_course.html' with school_course=school_course_item.schoolcourse_set.first %}
         </div>
         <div class="col-md-9 bg-light p-4">
-            <h1 class="text-center">{{ school_course_item.title}}</h1>
-            <hr>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        {% for content in school_course_item.content_set.all  %}
-                            {% if content.videocontent %}
-                                <video width="100%" controls>
-                                   <source src="{{ content.videocontent.video.url }}" type="video/mp4">
-                                </video>
-                            {% elif content.audiocontent %}
-                                <audio controls>
-                                   <source src="{{ content.audiocontent.audio.url }}" type="audio/mp4">
-                                </audio>
-                            {% elif content.imagecontent %}
-                                <img src="{{ content.imagecontent.image.url }}"  width="100%" alt="{{ content.imagecontent.image.title }}">
-                            {% elif content.markdowncontent %}
-                                {# TODO use marked framework and replace this! #}
-                                <div id="id_{{ content.markdowncontent.id }}">
-
-                                </div>
-                            {% endif %}
-                            <hr>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+             {% include 'includes/components/item.html' with item=school_course_item %}
         </div>
         </div>
     </div>
 {% endblock %}
 {% block script %}
-    <script src="{% static 'marked/lib/marked.js' %}"></script>
-    <script>
-        {% for content in school_course_item.content_set.all  %}
-               {% if content.markdowncontent %}
-                    let text{{ content.markdowncontent.id }} = '{{ content.markdowncontent.text }}'
-                    text{{ content.markdowncontent.id }} = marked(text{{ content.markdowncontent.id }})
-                  document.getElementById('id_{{ content.markdowncontent.id }}').innerHTML = text{{ content.markdowncontent.id }}
-                {% endif %}
-         {% endfor %}
-    </script>
+            {% include 'includes/components/item_script.html' with item=school_course_item %}
 {% endblock %}
