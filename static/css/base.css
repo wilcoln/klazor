@@ -8,3 +8,10 @@ blockquote {
   margin: 1.5em 10px;
   padding: 0.5em 10px;
 }
+.sheet-component{
+    border: 1px solid #cccccc;
+    background-color: white;
+    padding: 2rem 2rem;
+    box-shadow: .0rem .2rem .4rem rgba(0,0,0,.2);
+    border-radius: 5px;
+}

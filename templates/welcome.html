@@ -2,31 +2,69 @@
 {% block title %} Welcome {% endblock %}
 {% block content %}
     <div class="container">
-    <h1 class="text-center text-uppercase mb-4"> Tous les cours disponibles</h1>
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
-        <h2 class="text-center">Moocs</h2>
-            {% for mooc_course in  mooc_courses %}
-                <ol>
-                    <li>
-                        <a href="{% url 'mooc-course' mooc_course.id %}">{{ mooc_course.title }}</a><br>
-                        <small class="text-muted ">{{ mooc_course.week_set.all |length }} semaines</small>
-                    </li>
-                </ol>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center text-uppercase mb-4"> cours disponibles</h1>
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center">Moocs</h2>
+                {% for mooc_course in  mooc_courses %}
+                    <ol>
+                        <li>
+                            <a href="{% url 'mooc-course' mooc_course.id %}">{{ mooc_course.title }}</a><br>
+                            <small class="text-muted ">{{ mooc_course.week_set.all |length }} semaines</small>
+                        </li>
+                    </ol>
+                {% endfor %}
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center">Cours académiques</h2>
+                {% for school_course in  school_courses %}
+                    <ol>
+                        <li>
+                            <a href="{% url 'school-course' school_course.id %}">{{ school_course.title }}</a><br>
+                            <small class="text-muted">{{ school_course.item_set.all |length }} items</small>
+                        </li>
+                    </ol>
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center text-uppercase mb-4"> Dossiers</h1>
+            </div>
+
+            {% for folder in  folders %}
+                <div class="col-md-2 ">
+                    <a href="{% url 'folder' folder.id %}">
+                        <div class="card">
+                            <div class="card-body">{{ folder.name }}<br>
+                                <small class="text-muted ">{{ folder.sheet_set.all |length }} sheets</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
         </div>
-        <div class="col-md-6">
-             <h2 class="text-center">Cours académiques</h2>
-            {% for school_course in  school_courses %}
-                <ol>
-                    <li>
-                        <a href="{% url 'school-course' school_course.id %}">{{ school_course.title }}</a><br>
-                        <small class="text-muted">{{ school_course.item_set.all |length }} items</small>
-                    </li>
-                </ol>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center text-uppercase mb-4"> Vrac</h1>
+            </div>
+            {% for sheet in  free_sheets %}
+                <div class="col-md-2 mb-0">
+                    <a href="{% url 'sheet' sheet.id %}">
+                        <div class="card mb-3">
+                            <div class="card-body">{{ sheet.title }}<br>
+                                <small class="text-muted ">{{ sheet.content_set.all|length }} contents</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
         </div>
+        <hr>
     </div>
-    </div>
+
 {% endblock %}

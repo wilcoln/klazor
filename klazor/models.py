@@ -203,7 +203,7 @@ class ImageContent(Content):
 
 class Folder(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
-    sheet_set = models.ManyToManyField(Sheet)
+    sheet_set = models.ManyToManyField(Sheet, blank=True)
 
     def __str__(self):
         return self.name

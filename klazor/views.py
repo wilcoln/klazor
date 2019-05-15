@@ -7,9 +7,14 @@ from django.shortcuts import HttpResponse
 def welcome(request):
     mooc_courses = MoocCourse.objects.all()
     school_courses = SchoolCourse.objects.all()
+    folders = Folder.objects.all()
+    # TODO Change this silly query
+    free_sheets = Sheet.objects.all()
     return render(request, 'welcome.html', {
         'mooc_courses': mooc_courses,
-        'school_courses': school_courses
+        'school_courses': school_courses,
+        'folders': folders,
+        'free_sheets': free_sheets
     })
 
 
@@ -27,6 +32,16 @@ def view_mooc_course_item(request, id):
     mooc_course_item = Item.objects.get(pk=id)
     return render(request, 'mooc_course_item.html', {'mooc_course_item': mooc_course_item})
 
+
 def view_school_course_item(request, id):
     school_course_item = Item.objects.get(pk=id)
     return render(request, 'school_course_item.html', {'school_course_item': school_course_item})
+
+
+def view_folder(request, id):
+    return welcome(request)
+
+
+def view_sheet(request, id):
+    sheet = Sheet.objects.get(pk=id)
+    return render(request, 'sheet.html', {'sheet': sheet})
