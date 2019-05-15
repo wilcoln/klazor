@@ -1,15 +1,14 @@
 {% extends 'layouts/base.html' %}
 {% block title %} Welcome {% endblock %}
 {% block content %}
-    {% include 'includes/components/menus/welcome.html' %}
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1> Cours disponibles <span class="float-right badge badge-primary"> {{ mooc_courses.all.count|add:school_courses.all.count }}</span></h1>
+                <h1> Cours disponibles <small>({{ mooc_courses.all.count|add:school_courses.all.count}})</small> <a href="" class="float-right badge badge-primary"> <i class="fa fa-plus"></i></a></h1>
 
             </div>
             <div class="col-md-6">
-                <h2>Moocs <span class="float-right badge badge-secondary"> {{ mooc_courses.all.count}}</span></h2>
+                <h2>Moocs <small>({{ mooc_courses.all.count|default:0}})</small> <a href="" class="float-right badge badge-secondary"> <i class="fa fa-plus"></i></a></h2>
                 <div class="row">
                     {% for mooc_course in  mooc_courses %}
                         <div class="col-md-12">
@@ -19,7 +18,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h2>Cours académiques <span class="float-right badge badge-secondary"> {{ mooc_courses.all.count}}</span></h2>
+                <h2>Cours académiques <small>({{ school_courses.all.count|default:0}})</small> <a href="" class="float-right badge badge-secondary"><i class="fa fa-plus"></i> </a></h2>
                 <div class="row">
                     {% for school_course in  school_courses %}
                         <div class="col-md-12">
@@ -32,7 +31,7 @@
         <hr>
         <div class="row">
             <div class="col-12">
-                <h1> Dossiers <span class="float-right badge badge-primary"> {{ folders.all.count}}</span></h1>
+                <h1> Dossiers <small>({{ folders.all.count|default:0}})</small><a href="" class="float-right badge badge-primary"> <i class="fa fa-plus"></i></a></h1>
             </div>
 
             {% for folder in  folders %}
@@ -44,7 +43,7 @@
         <hr>
         <div class="row">
             <div class="col-12">
-                <h1> Feuilles libres <span class="float-right badge badge-primary"> {{ free_sheets.all.count|default:0}}</span></h1>
+                <h1> Feuilles libres <small>({{ free_sheets.all.count|default:0}})</small> <a href="" class="float-right badge badge-primary"><i class="fa fa-plus"></i> </a></h1>
             </div>
             {% for sheet in  free_sheets %}
                 <div class="col-md-2 mb-0">
