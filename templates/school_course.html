@@ -21,7 +21,9 @@
                         {% endfor %}
                     </section>
                     <hr>
-                    {% include 'includes/components/resources.html' with resources=school_course.resource_set.all %}
+                    {% include 'includes/components/course_resources.html' with resources=school_course.resource_set.all %}
+                    <hr>
+                    {% include 'includes/components/course_instructors.html' with instructors=school_course.instructor_set.all %}
                 </div>
             </div>
         </div>
