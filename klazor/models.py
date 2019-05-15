@@ -161,6 +161,9 @@ class Content(models.Model):
 class MarkdownContent(Content):
     text = models.TextField(blank=True, null=True)
 
+    def __str__(self):
+        return (self.text[:75] + '...') if len(self.text) > 75 else self.text
+
     class Meta:
         db_table = 'markdown_content'
 
