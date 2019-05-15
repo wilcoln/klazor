@@ -9,7 +9,8 @@ def welcome(request):
     school_courses = SchoolCourse.objects.all()
     folders = Folder.objects.all()
     # TODO Change this silly query
-    free_sheets = Sheet.objects.all()
+    folder_free_sheets = Sheet.objects.filter(folder__sheet_set__folder__isnull=True)  # sheets libre de tout dossier
+    free_sheets = [sheet for sheet in folder_free_sheets if not hasattr(sheet, 'item')]  # sheets libre de tout dossier ET non Item
     return render(request, 'welcome.html', {
         'mooc_courses': mooc_courses,
         'school_courses': school_courses,

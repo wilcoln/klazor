@@ -5,12 +5,14 @@
         <div class="col-md-12">
             {% for content in sheet.content_set.all %}
                 {% if content.videocontent %}
-                    <figure class="figure">
-                        <video width="100%" controls>
-                            <source src="{{ content.videocontent.video.url }}" type="video/mp4">
-                        </video>
+                    <div class="d-flex justify-content-center">
+                        <figure class="figure">
+                            <video width="100%" controls>
+                                <source src="{{ content.videocontent.video.url }}" type="video/mp4">
+                            </video>
                         <figcaption class="figure-caption text-center">{{ content.videocontent.title }}</figcaption>
                     </figure>
+                    </div>
                 {% elif content.audiocontent %}
                     <div class="d-flex justify-content-center">
                         <figure class="figure">
@@ -21,11 +23,13 @@
                         </figure>
                     </div>
                 {% elif content.imagecontent %}
-                    <figure class="figure">
+                    <div class="d-flex justify-content-center">
+                        <figure class="figure">
                         <img src="{{ content.imagecontent.image.url }}" width="100%"
                              alt="{{ content.imagecontent.image.title }}">
                         <figcaption class="figure-caption text-center">{{ content.imagecontent.title }}</figcaption>
                     </figure>
+                    </div>
                 {% elif content.markdowncontent %}
                     {# TODO use marked framework and replace this! #}
                     <div id="id_{{ content.markdowncontent.id }}"></div>

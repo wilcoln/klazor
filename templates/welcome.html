@@ -1,38 +1,38 @@
 {% extends 'layouts/base.html' %}
 {% block title %} Welcome {% endblock %}
 {% block content %}
+    {% include 'includes/components/menus/welcome.html' %}
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center text-uppercase mb-4"> cours disponibles</h1>
+                <h1> Cours disponibles <span class="float-right badge badge-primary"> {{ mooc_courses.all.count|add:school_courses.all.count }}</span></h1>
+
             </div>
             <div class="col-md-6">
-                <h2 class="text-center">Moocs</h2>
-                {% for mooc_course in  mooc_courses %}
-                    <ol>
-                        <li>
-                            <a href="{% url 'mooc-course' mooc_course.id %}">{{ mooc_course.title }}</a><br>
-                            <small class="text-muted ">{{ mooc_course.week_set.all |length }} semaines</small>
-                        </li>
-                    </ol>
-                {% endfor %}
+                <h2>Moocs <span class="float-right badge badge-secondary"> {{ mooc_courses.all.count}}</span></h2>
+                <div class="row">
+                    {% for mooc_course in  mooc_courses %}
+                        <div class="col-md-12">
+                            {% include 'includes/components/tiny/mooc_course.html' with mooc_course=mooc_course %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="col-md-6">
-                <h2 class="text-center">Cours académiques</h2>
-                {% for school_course in  school_courses %}
-                    <ol>
-                        <li>
-                            <a href="{% url 'school-course' school_course.id %}">{{ school_course.title }}</a><br>
-                            <small class="text-muted">{{ school_course.item_set.all |length }} items</small>
-                        </li>
-                    </ol>
-                {% endfor %}
+                <h2>Cours académiques <span class="float-right badge badge-secondary"> {{ mooc_courses.all.count}}</span></h2>
+                <div class="row">
+                    {% for school_course in  school_courses %}
+                        <div class="col-md-12">
+                            {% include 'includes/components/tiny/school_course.html' with school_course=school_course %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center text-uppercase mb-4"> Dossiers</h1>
+                <h1> Dossiers <span class="float-right badge badge-primary"> {{ folders.all.count}}</span></h1>
             </div>
 
             {% for folder in  folders %}
@@ -44,7 +44,7 @@
         <hr>
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center text-uppercase mb-4"> Vrac</h1>
+                <h1> Feuilles libres <span class="float-right badge badge-primary"> {{ free_sheets.all.count|default:0}}</span></h1>
             </div>
             {% for sheet in  free_sheets %}
                 <div class="col-md-2 mb-0">
