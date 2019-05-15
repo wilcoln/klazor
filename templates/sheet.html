@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% block title %} {{ sheet.title }}{% endblock %}
 {% block content %}
     {% include 'includes/components/sheet.html' with sheet=sheet %}
 {% endblock %}

@@ -39,7 +39,8 @@ def view_school_course_item(request, id):
 
 
 def view_folder(request, id):
-    return welcome(request)
+    folder = Folder.objects.get(pk=id)
+    return render(request, 'folder.html', {'folder': folder})
 
 
 def view_sheet(request, id):

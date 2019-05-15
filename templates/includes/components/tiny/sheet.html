@@ -1,0 +1,7 @@
+<a href="{% url 'sheet' sheet.id %}">
+    <div class="card mb-3">
+        <div class="card-body">{{ sheet.title }}<br>
+            <small class="text-muted ">{{ sheet.content_set.all|length }} contents</small>
+        </div>
+    </div>
+</a>

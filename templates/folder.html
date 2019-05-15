@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+{% block title %} {{ folder.name }} {% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+            <div class="col-12">
+                <h1 class="text-center text-uppercase mb-4"> {{ folder.name }}</h1>
+            </div>
+            {% for sheet in  folder.sheet_set.all %}
+                <div class="col-md-2 mb-0">
+                    {% include 'includes/components/tiny/sheet.html'  with sheet=sheet %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

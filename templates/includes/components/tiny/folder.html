@@ -1,0 +1,7 @@
+<a href="{% url 'folder' folder.id %}">
+    <div class="card">
+        <div class="card-body">{{ folder.name }}<br>
+            <small class="text-muted ">{{ folder.sheet_set.all |length }} sheets</small>
+        </div>
+    </div>
+</a>

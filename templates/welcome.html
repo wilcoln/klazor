@@ -37,13 +37,7 @@
 
             {% for folder in  folders %}
                 <div class="col-md-2 ">
-                    <a href="{% url 'folder' folder.id %}">
-                        <div class="card">
-                            <div class="card-body">{{ folder.name }}<br>
-                                <small class="text-muted ">{{ folder.sheet_set.all |length }} sheets</small>
-                            </div>
-                        </div>
-                    </a>
+                    {% include 'includes/components/tiny/folder.html' with folder=folder %}
                 </div>
             {% endfor %}
         </div>
@@ -54,13 +48,7 @@
             </div>
             {% for sheet in  free_sheets %}
                 <div class="col-md-2 mb-0">
-                    <a href="{% url 'sheet' sheet.id %}">
-                        <div class="card mb-3">
-                            <div class="card-body">{{ sheet.title }}<br>
-                                <small class="text-muted ">{{ sheet.content_set.all|length }} contents</small>
-                            </div>
-                        </div>
-                    </a>
+                    {% include 'includes/components/tiny/sheet.html' %}
                 </div>
             {% endfor %}
         </div>
