@@ -1,0 +1,29 @@
+.sheet-component{
+    border: 1px solid #cccccc;
+    background-color: white;
+    padding: 2rem 2rem;
+    box-shadow: .0rem .1rem .1rem rgba(0,0,0,.1);
+    border-radius: 5px;
+}
+.sheet.toolbar{
+    position: relative;
+    right: 1rem;
+    top: .5rem;
+}
+.sheet.toolbar .btn-group i.fa.fa-plus{
+    transform: translateY(3px) translateX(6px);
+}
+.sheet.toolbar .btn-group i{
+    font-size: 1.1rem;
+    color: grey;
+}
+.sheet.toolbar .btn-group a{
+    margin-bottom: 1rem;
+}
+.sheet.toolbar .btn-group a:hover *{
+    transform: scale(1.1);
+    color: #007bff;
+}
+.sheet.toolbar .btn-group i + i{
+    font-size: 1.5rem;
+}

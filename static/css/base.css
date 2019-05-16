@@ -36,32 +36,3 @@ blockquote {
   margin: 1.5em 10px;
   padding: 0.5em 10px;
 }
-.sheet-component{
-    border: 1px solid #cccccc;
-    background-color: white;
-    padding: 2rem 2rem;
-    box-shadow: .0rem .1rem .1rem rgba(0,0,0,.1);
-    border-radius: 5px;
-}
-.welcome.toolbar{
-    position: absolute;
-    right: 50px;
-    top: 30%;
-}
-.welcome.toolbar .btn-group-vertical i.fa.fa-plus{
-    transform: translateY(3px) translateX(6px);
-}
-.welcome.toolbar .btn-group-vertical i{
-    font-size: 1.4rem;
-    color: grey;
-}
-.welcome.toolbar .btn-group-vertical a{
-    margin-bottom: 1rem;
-}
-.welcome.toolbar .btn-group-vertical a:hover i{
-    transform: scale(1.1);
-    color: #007bff;
-}
-.welcome.toolbar .btn-group-vertical i + i{
-    font-size: 2rem;
-}
