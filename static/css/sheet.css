@@ -17,10 +17,10 @@
     font-size: 1.1rem;
     color: grey;
 }
-.sheet.toolbar .btn-group a{
+.sheet.toolbar .btn-group div{
     margin-bottom: 1rem;
 }
-.sheet.toolbar .btn-group a:hover *{
+.sheet.toolbar .btn-group div:hover *{
     transform: scale(1.1);
     color: #007bff;
 }

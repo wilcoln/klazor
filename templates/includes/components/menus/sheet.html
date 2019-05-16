@@ -1,7 +1,9 @@
 <div class="sticky-top container sheet toolbar">
-    <div class="btn-group" role="group">
-        <a href=""><i class="fa fa-plus"></i> <i class="fa fa-file-movie-o"></i></a>
-        <a href=""><i class="fa fa-plus"></i> <i class="fa fa-file-audio-o"></i></a>
-        <a href=""><i class="fa fa-plus"></i> <i class="fa fa-file-text-o"></i></a>
+    {# TODO This menu doesnt toggle, fix it. With the style too!! #}
+    <div v-on:click="toggleMode" ><i class="fa" v-bind:class="{ 'fa-eye': editMode, 'fa-edit':!editMode}"></i></div>
+    <div v-if="editMode" class="btn-group" role="group">
+        <div><i class="fa fa-plus"></i> <i class="fa fa-file-movie-o"></i></div>
+        <div><i class="fa fa-plus"></i> <i class="fa fa-file-audio-o"></i></div>
+        <div><i class="fa fa-plus"></i> <i class="fa fa-file-text-o"></i></div>
     </div>
 </div>

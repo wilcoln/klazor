@@ -1,11 +1,94 @@
 {% load static %}
+{% include 'includes/components/vuejs/markdown_content.html' %}
+{% include 'includes/components/vuejs/video_content.html' %}
+{% include 'includes/components/vuejs/audio_content.html' %}
+{% include 'includes/components/vuejs/image_content.html' %}
 <script src="{% static 'marked/lib/marked.js' %}"></script>
+<script src="{% static 'vue/dist/vue.min.js' %}"></script>
+<script src="{% static 'js/contents.js' %}"></script>
 <script>
+    let title = `{{ sheet.title }}`
+    let contents = []
+    let text = ""
+    let text_marked = ""
+
     {% for content in sheet.content_set.all  %}
-        {% if content.markdowncontent %}
-            let text{{ content.markdowncontent.id }} = `{{ content.markdowncontent.text|safe }}`
-            let text{{ content.markdowncontent.id }}_marked = marked(text{{ content.markdowncontent.id }})
-            document.getElementById('id_{{ content.markdowncontent.id }}').innerHTML = text{{ content.markdowncontent.id }}_marked
+        {% if content.videocontent %}
+            contents.push(new VideoContent(title, `{{ content.videocontent.video.url }}`))
+        {% elif content.audiocontent %}
+            contents.push(new AudioContent(title, `{{ content.audiocontent.audio.url }}`))
+        {% elif content.imagecontent %}
+            contents.push(new ImageContent(title, `{{ content.imagecontent.image.url }}`))
+        {% elif content.markdowncontent %}
+            text = `{{ content.markdowncontent.text|safe }}`
+            text_marked = marked(text)
+            document.getElementById('id_{{ content.id }}').innerHTML = text_marked
+            contents.push(new MarkdownContent(text))
         {% endif %}
     {% endfor %}
+
+
+    //-----------
+
+    // Définition des classes
+
+    let vue = new Vue({
+        el: "#sheet",
+        data:{
+                title: title,
+                contents: contents,
+                editMode: true
+        },
+        methods:{
+            toggleMode: () => {
+                console.log(this.editMode)
+                this.editMode = !this.editMode
+            }
+        }
+    })
+
+    Vue.component('markdown-content',{
+        template: "#markdown-content",
+        props: [],
+        data: () => {
+
+        },
+        methods:{
+
+        }
+    })
+
+    Vue.component('video-content',{
+        template: "#video-content",
+        props: [],
+        data: () => {
+
+        },
+        methods:{
+
+        }
+    })
+
+    Vue.component('audio-content',{
+        template: "#audio-content",
+        props: [],
+        data: () => {
+
+        },
+        methods:{
+
+        }
+    })
+
+    Vue.component('image-content',{
+        template: "#image-content",
+        props: [],
+        data: () => {
+
+        },
+        methods:{
+
+        }
+    })
+
 </script>
