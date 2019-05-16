@@ -38,7 +38,7 @@
             </div>
 
             {% for folder in  folders %}
-                <div class="col-md-2 ">
+                <div class="col-lg-2 col-md-3">
                     {% include 'includes/components/tiny/folder.html' with folder=folder %}
                 </div>
             {% endfor %}
@@ -49,7 +49,7 @@
                 <h1> Feuilles libres <small>({{ free_sheets.all.count|default:0}})</small> <a href="" class="float-right badge badge-success"><i class="fa fa-plus"></i> </a></h1>
             </div>
             {% for sheet in  free_sheets %}
-                <div class="col-md-2 mb-0">
+                <div class="col-lg-2 col-md-3">
                     {% include 'includes/components/tiny/sheet.html' %}
                 </div>
             {% endfor %}

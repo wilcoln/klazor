@@ -51,3 +51,25 @@ blockquote {
     white-space:nowrap;
     text-transform: capitalize;
 }
+
+/* Navbar styles */
+
+.navbar{
+    background: #125EF0;
+}
+.navbar input {
+    font-size: .8rem;
+    width: 200px !important;
+    color: white !important;
+    background: rgba(255,255,255, .2) url(/static/img/search-white.png) 95% 50% no-repeat  !important;
+    padding: 0rem .5rem;
+    border-width: 0px;
+}
+
+.navbar input::placeholder {
+    color: #ddd;
+}
+.navbar input:focus{
+    background: rgba(255,255,255, .8) url(/static/img/search-black.png) 95% 50% no-repeat  !important;
+    color: black !important;
+}
