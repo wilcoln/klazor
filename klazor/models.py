@@ -77,21 +77,6 @@ class Sheet(models.Model):
 
 
 class Item(Sheet):
-
-    # Choices for type
-    CM = 'CM'
-    MC = 'MC'
-    TD = 'TD'
-    TP = 'TP'
-    TYPE_CHOICES = (
-        (CM, 'Cours magistral'),
-        (MC, 'Element Mooc'),
-        (TD, 'Travaux dirigés'),
-        (TP, 'Travaux pratiques')
-    )
-
-    type = models.CharField(max_length=2, choices=TYPE_CHOICES, default=CM)
-
     # Choices for status
     UNSTARTED = 'UNSTARTED'
     RUNNING = 'RUNNING'

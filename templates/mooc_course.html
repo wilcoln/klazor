@@ -14,8 +14,8 @@
                     <h2 class="text-muted">Contenu du cours </h2><br>
                     {% for week in mooc_course.week_set.all  %}
                         <div class="row">
-                            <h3 class="col-md-3">Semaine {{ forloop.counter }}</h3>
-                            <h3 class="col-md-9">{{ week.title }}</h3>
+                            <h3 class="col-md-2">Semaine {{ forloop.counter }} :</h3>
+                            <h3 class="col-md-10">{{ week.title }}</h3>
                         </div>
                         <ul class="row">
                             {% for item in week.item_set.all %}
