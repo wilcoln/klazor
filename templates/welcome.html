@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1> Cours disponibles <small>({{ mooc_courses.all.count|add:school_courses.all.count}})</small> <a href="" class="float-right badge badge-primary"> <i class="fa fa-plus"></i></a></h1>
+                <h1> Cours disponibles <small>({{ mooc_courses.all.count|add:school_courses.all.count}})</small></h1>
 
             </div>
             <div class="col-md-6">
@@ -43,7 +43,7 @@
         <hr>
         <div class="row">
             <div class="col-12">
-                <h1> Feuilles libres <small>({{ free_sheets.all.count|default:0}})</small> <a href="" class="float-right badge badge-primary"><i class="fa fa-plus"></i> </a></h1>
+                <h1> Feuilles libres <small>({{ free_sheets.all.count|default:0}})</small> <a href="" class="float-right badge badge-success"><i class="fa fa-plus"></i> </a></h1>
             </div>
             {% for sheet in  free_sheets %}
                 <div class="col-md-2 mb-0">
