@@ -1,8 +1,9 @@
 <a href="{% url 'folder' folder.id %}">
     <div class="tiny card folder mb-3">
         <i class="fa fa-folder"></i>
-        <div class="card-body">{{ folder.name }}<br>
-            <small class="text-muted ">{{ folder.sheet_set.all.count}} sheets</small>
+        <div class="card-body">
+            <div class="folder-name">{{ folder.name }} </div>
+            <small class="text-muted ">{{ folder.sheet_set.all.count |add:folder.folder_set.all.count}} items</small>
         </div>
     </div>
 </a>

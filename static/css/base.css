@@ -36,3 +36,18 @@ blockquote {
   margin: 1.5em 10px;
   padding: 0.5em 10px;
 }
+
+.tiny .folder-name, .tiny .sheet-title{
+    text-overflow: ellipsis;
+    width: 97px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-transform: capitalize;
+}
+.tiny .course-title{
+    text-overflow: ellipsis;
+    width: 270px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-transform: capitalize;
+}

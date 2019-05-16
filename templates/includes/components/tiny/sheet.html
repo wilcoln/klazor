@@ -1,7 +1,8 @@
 <a href="{% url 'sheet' sheet.id %}">
     <div class="tiny card sheet mb-3">
         <i class="fa fa-leaf"></i>
-        <div class="card-body">{{ sheet.title }}<br>
+        <div class="card-body">
+            <div class="sheet-title">{{ sheet.title }}</div>
             <small class="text-muted ">{{ sheet.content_set.all.count }} contents</small>
         </div>
     </div>

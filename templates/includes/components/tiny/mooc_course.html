@@ -1,7 +1,10 @@
 <a href="{% url 'mooc-course' mooc_course.id %}">
     <div class="tiny card mooc-course mb-3">
         <i class="fa fa-file-movie-o"></i>
-        <div class="card-body">{{ mooc_course.title }}<br>
+        <div class="card-body">
+            <div class="course-name">
+                {{ mooc_course.title }}
+            </div>
             <small class="text-muted ">{{ mooc_course.week_set.all.count }} semaines</small>
         </div>
     </div>

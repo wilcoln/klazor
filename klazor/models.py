@@ -204,6 +204,7 @@ class ImageContent(Content):
 class Folder(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
     sheet_set = models.ManyToManyField(Sheet, blank=True)
+    parent = models.ForeignKey('Folder', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

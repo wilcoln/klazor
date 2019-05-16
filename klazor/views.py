@@ -7,9 +7,9 @@ from django.shortcuts import HttpResponse
 def welcome(request):
     mooc_courses = MoocCourse.objects.all()
     school_courses = SchoolCourse.objects.all()
-    folders = Folder.objects.all()
+    folders = Folder.objects.filter(parent_id=1, id__gt=1) # We remove the root folder
     # TODO Change this silly query
-    folder_free_sheets = Sheet.objects.filter(folder__sheet_set__folder__isnull=True)  # sheets libre de tout dossier
+    folder_free_sheets = Sheet.objects.filter(folder__sheet_set__folder__isnull=True) | Sheet.objects.filter(folder__sheet_set__folder__id=1)  # sheets libre de tout dossier
     free_sheets = [sheet for sheet in folder_free_sheets if not hasattr(sheet, 'item')]  # sheets libre de tout dossier ET non Item
     return render(request, 'welcome.html', {
         'mooc_courses': mooc_courses,
@@ -40,6 +40,8 @@ def view_school_course_item(request, id):
 
 
 def view_folder(request, id):
+    if id==1:
+        return welcome(request)
     folder = Folder.objects.get(pk=id)
     return render(request, 'folder.html', {'folder': folder})
 
