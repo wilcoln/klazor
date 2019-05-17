@@ -58,11 +58,12 @@ blockquote {
     background: #125EF0;
 }
 .navbar input {
-    font-size: .8rem;
+    font-size: .85rem;
     width: 200px !important;
     color: white !important;
     background: rgba(255,255,255, .2) url(/static/img/search-white.png) 95% 50% no-repeat  !important;
-    padding: 0rem .5rem;
+    padding: .5rem .5rem;
+    border-radius: 3px;
     border-width: 0px;
 }
 
@@ -72,4 +73,7 @@ blockquote {
 .navbar input:focus{
     background: rgba(255,255,255, .8) url(/static/img/search-black.png) 95% 50% no-repeat  !important;
     color: black !important;
+}
+.navbar input:focus::placeholder {
+    color: white;
 }
