@@ -1,11 +1,9 @@
 {% verbatim %}
 <template id="sheet-title">
-    <div class="row">
-        <h1 v-if="editable && editMode" class="col-10 offset-1 text-center" ><input v-model="title" type="text"></h1>
-        <h1 v-else class="col-10 offset-1 text-center" v-text="title" v-on:click="toggleMode"></h1>
-
-        <div class="col-1" v-if="editable && editMode"><i class="fa fa-trash"></i>
-        </div>
+    <div v-if="editable && mEditMode" class="row">
+        <h1  class="col-11 text-center" ><input v-on:keyup.ctrl.enter="toggleMode" v-model="mTitle" type="text"></h1>
+        <div class="col-1" v-if="editable && mEditMode"><i class="fa fa-trash"></i></div>
     </div>
+     <h1 v-else class="text-center" v-text="mTitle" v-on:click="toggleMode"></h1>
 </template>
 {% endverbatim %}

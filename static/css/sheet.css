@@ -43,3 +43,18 @@
     height: 25px;
     background-color: lightgrey;
 }
+
+h1 > input{
+    display: inline-block;
+    width: 100%;
+    padding: .2rem;
+}
+textarea{
+    width: 100%;
+    min-height: 5rem;
+    padding: .4rem;
+}
+.col-1 .fa.fa-trash{
+    font-size: 1.1rem;
+    color: #dc3545;
+}

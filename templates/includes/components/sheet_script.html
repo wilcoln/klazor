@@ -15,9 +15,29 @@
         props: ['title', 'editable'],
         data: function () {
             return {
-                editMode: false,
-                title: this.title,
-                editable: this.editable,
+                mEditMode: false,
+                mTitle: this.title,
+            }
+        },
+        methods: {
+             toggleMode: function () {
+                 if(this.editable)
+                    this.mEditMode = !this.mEditMode
+            }
+        },
+    })
+    Vue.component('markdown-content', {
+        template: "#markdown-content",
+        props: ['content', 'editable'],
+        data: function () {
+            return {
+                editMode: true,
+                text: this.content.text,
+            }
+        },
+        computed: {
+            html: function () {
+                return marked(this.text)
             }
         },
         methods: {
@@ -27,25 +47,13 @@
             }
         },
     })
-    Vue.component('markdown-content', {
-        template: "#markdown-content",
-        props: ['content', 'editable'],
-        data: function () {
-            return {
-                editMode: false,
-                text: this.content.text,
-                html: marked(this.content.text)
-            }
-        },
-        methods: {},
-    })
 
     Vue.component('video-content', {
         template: "#video-content",
         props: ['content', 'editable'],
         data: function () {
             return {
-                editMode: false,
+                editMode: true,
                 title: this.content.title,
                 video: this.content.video
             }
@@ -58,7 +66,7 @@
         props: ['content', 'editable'],
         data: function () {
             return {
-                editMode: false,
+                editMode: true,
                 title: this.content.title,
                 audio: this.content.audio
             }
@@ -71,7 +79,7 @@
         props: ['content'],
         data: function () {
             return {
-                editMode: false,
+                editMode: true,
                 title: this.content.title,
                 image: this.content.image
             }
@@ -84,7 +92,7 @@
         data: {
             title: "",
             contents: [],
-            editMode: false,
+            editMode: true,
         },
         methods: {
             toggleMode: function () {
