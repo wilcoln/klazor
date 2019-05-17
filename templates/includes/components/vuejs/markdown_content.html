@@ -4,12 +4,12 @@
        <div class="col-11">
             <textarea v-on:keyup.ctrl.enter="toggleMode" v-model="text" rows="2"
         onfocusin='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
-        oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'></textarea>
+        oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
+            placeholder="Write something..."></textarea>
             <!-- oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
      makes the text area automatically resize itself to fit its content -->
        </div>
-        <div class="col-1" v-if="editable && editMode"><i class="fa fa-trash"></i></div>
-
+        <div class="col-1" v-if="editable && editMode"><i v-on:click="$emit('delete', content.id)" class="fa fa-trash"></i></div>
     </div>
 
 

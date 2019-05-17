@@ -2,7 +2,6 @@
 <template id="sheet-title">
     <div v-if="editable && mEditMode" class="row">
         <h1  class="col-11 text-center" ><input v-on:keyup.ctrl.enter="toggleMode" v-model="mTitle" type="text"></h1>
-        <div class="col-1" v-if="editable && mEditMode"><i class="fa fa-trash"></i></div>
     </div>
      <h1 v-else class="text-center" v-text="mTitle" v-on:click="toggleMode"></h1>
 </template>

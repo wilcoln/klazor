@@ -6,15 +6,15 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <div v-for="content in contents">
+                    <div v-for="content in contents" v-bind:key="content.id">
                         <video-content v-if="content instanceof VideoContent"
-                                       v-bind:editable="editMode" v-bind:content="content"></video-content>
+                                       v-bind:editable="editMode" v-bind:content="content" v-on:delete="deleteContent($event)"></video-content>
                         <audio-content v-else-if="content instanceof AudioContent"
-                                       v-bind:editable="editMode" v-bind:content="content"></audio-content>
+                                       v-bind:editable="editMode" v-bind:content="content" v-on:delete="deleteContent($event)"></audio-content>
                         <image-content v-else-if="content instanceof ImageContent"
-                                       v-bind:editable="editMode" v-bind:content="content"></image-content>
+                                       v-bind:editable="editMode" v-bind:content="content" v-on:delete="deleteContent($event)"></image-content>
                         <markdown-content v-else-if="content instanceof MarkdownContent"
-                                          v-bind:editable="editMode" v-bind:content="content">
+                                          v-bind:editable="editMode" v-bind:content="content" v-on:delete="deleteContent($event)">
                         </markdown-content>
                         <hr>
                     </div>

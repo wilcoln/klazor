@@ -1,30 +1,33 @@
-class Content {
+    class Content {
+        constructor(id){
+            this.id = id
+        }
     }
     class VideoContent extends  Content{
-        constructor(title, video){
-            super()
+        constructor(id, title, video){
+            super(id)
             this.title = title
             this.video = video
         }
     }
     class AudioContent extends  Content{
-        constructor(title, audio){
-            super()
+        constructor(id, title, audio){
+            super(id)
             this.title = title
             this.audio = audio
         }
     }
     class ImageContent extends Content{
-            constructor(title, image){
-                super()
+            constructor(id, title, image){
+                super(id)
                 this.title = title
                 this.image = image
             }
 
     }
     class MarkdownContent extends Content{
-            constructor(text){
-                super()
+            constructor(id, text){
+                super(id)
                 this.text = text
             }
     }

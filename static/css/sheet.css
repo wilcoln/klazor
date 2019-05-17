@@ -17,11 +17,16 @@
     font-size: 1.1rem;
     color: grey;
 }
-.sheet.toolbar .btn-group div{
+.sheet.toolbar .btn-group button{
+    all: unset;
     margin-bottom: 1rem;
+    background-color: transparent;
+    border:none;
 }
-.sheet.toolbar .btn-group div:hover *{
+.sheet.toolbar .btn-group button:hover{
     transform: scale(1.1);
+}
+.sheet.toolbar .btn-group button:hover i{
     color: #007bff;
 }
 .sheet.toolbar .btn-group i + i{
