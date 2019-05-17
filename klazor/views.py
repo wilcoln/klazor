@@ -8,7 +8,6 @@ def welcome(request):
     mooc_courses = MoocCourse.objects.all()
     school_courses = SchoolCourse.objects.all()
     folders = Folder.objects.filter(parent_id=1, id__gt=1) # We remove the root folder
-    # TODO Change this silly query
     folder_free_sheets = Sheet.objects.filter(folder__sheet_set__folder__isnull=True) | Sheet.objects.filter(folder__sheet_set__folder__id=1)  # sheets libre de tout dossier
     free_sheets = [sheet for sheet in folder_free_sheets if not hasattr(sheet, 'item')]  # sheets libre de tout dossier ET non Item
     return render(request, 'welcome.html', {

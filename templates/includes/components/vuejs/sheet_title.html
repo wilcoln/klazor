@@ -1,0 +1,18 @@
+{% verbatim %}
+<template id="sheet-title">
+    <div v-if="editable">
+        <div class="row">
+            <h1 class="col-11 text-center" v-if="editMode"><label for="title">Title : </label> <input v-model="title"
+                                                                                                      type="text"
+                                                                                                      id="title"></h1>
+            <h1 v-else class="col-11 text-center">{{ title }}</h1>
+            <div class="col-1"><i class="d-inline-block fa fa-edit" class="fa"
+                                  v-bind:class="{ 'fa-eye': editMode, 'fa-edit':!editMode}" v-on:click="toggleMode"></i>
+            </div>
+        </div>
+    </div>
+    <div v-else>
+        <h1 class="text-center">fgyfgyg{{ title }}</h1>
+    </div>
+</template>
+{% endverbatim %}

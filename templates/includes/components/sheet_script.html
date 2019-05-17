@@ -2,107 +2,112 @@
 <script src="{% static 'marked/lib/marked.js' %}"></script>
 <script src="{% static 'vue/dist/vue.min.js' %}"></script>
 <script src="{% static 'js/contents.js' %}"></script>
+{% include 'includes/components/vuejs/templates.html' %}
 <script>
     // Enabling devtools
 
 
     Vue.config.devtools = true
 
-    let title = `{{ sheet.title }}`
-    let contents = []
-    let text = ""
-    let text_marked = ""
 
-    {% for content in sheet.content_set.all  %}
-        {% if content.videocontent %}
-            contents.push(new VideoContent(title, `{{ content.videocontent.video.url }}`))
-        {% elif content.audiocontent %}
-            contents.push(new AudioContent(title, `{{ content.audiocontent.audio.url }}`))
-        {% elif content.imagecontent %}
-            contents.push(new ImageContent(title, `{{ content.imagecontent.image.url }}`))
-        {% elif content.markdowncontent %}
-            text = `{{ content.markdowncontent.text|safe }}`
-            text_marked = marked(text)
-            document.getElementById('id_{{ content.id }}').innerHTML = text_marked
-            contents.push(new MarkdownContent(text))
-        {% endif %}
-    {% endfor %}
+    Vue.component('sheet-title', {
+        template: "#sheet-title",
+        props: ['title', 'editable'],
+        data: function () {
+            return {
+                editMode: false,
+                title: this.title,
+                editable: this.editable,
+            }
+        },
+        methods: {
+             toggleMode: function () {
+                this.editMode = !this.editMode
+            }
+        },
+    })
+    Vue.component('markdown-content', {
+        template: "#markdown-content",
+        props: ['content', 'editable'],
+        data: function () {
+            return {
+                editMode: false,
+                text: this.content.text,
+                html: marked(this.content.text)
+            }
+        },
+        methods: {},
+    })
 
+    Vue.component('video-content', {
+        template: "#video-content",
+        props: ['content', 'editable'],
+        data: function () {
+            return {
+                editMode: false,
+                title: this.content.title,
+                video: this.content.video
+            }
+        },
+        methods: {}
+    })
 
-    //-----------
+    Vue.component('audio-content', {
+        template: "#audio-content",
+        props: ['content', 'editable'],
+        data: function () {
+            return {
+                editMode: false,
+                title: this.content.title,
+                audio: this.content.audio
+            }
+        },
+        methods: {}
+    })
 
-    // Définition des classes
+    Vue.component('image-content', {
+        template: "#image-content",
+        props: ['content'],
+        data: function () {
+            return {
+                editMode: false,
+                title: this.content.title,
+                image: this.content.image
+            }
+        },
+        methods: {}
+    })
 
     let vue = new Vue({
         el: "#sheet",
-        data:{
-                title: title,
-                contents: contents,
-                editMode: true,
+        data: {
+            title: "",
+            contents: [],
+            editMode: false,
         },
-        methods:{
-            toggleMode: function ()  {
+        methods: {
+            toggleMode: function () {
                 this.editMode = !this.editMode
             }
+        },
+        beforeMount() {
+            this.title = `{{ sheet.title }}`
+            let contents = []
+            let text = ""
+            let text_marked = ""
+
+            {% for content in sheet.content_set.all  %}
+                {% if content.videocontent %}
+                    this.contents.push(new VideoContent(`{{ content.videocontent.title }}`, `{{ content.videocontent.video.url }}`))
+                {% elif content.audiocontent %}
+                    this.contents.push(new AudioContent(`{{ content.audiocontent.title }}`, `{{ content.audiocontent.audio.url }}`))
+                {% elif content.imagecontent %}
+                    this.contents.push(new ImageContent(`{{ content.imagecontent.title }}`, `{{ content.imagecontent.image.url }}`))
+                {% elif content.markdowncontent %}
+                    text = `{{ content.markdowncontent.text|safe }}`
+                    this.contents.push(new MarkdownContent(text))
+                {% endif %}
+            {% endfor %}
         }
     })
-
-    Vue.component('markdown-content',{
-        template: "#markdown-content",
-        props: ['content'],
-        data: () => {
-            return {
-                text: content.text
-            }
-        },
-        methods:{
-
-        },
-        computed:{
-            html: () => this.text
-        }
-    })
-
-    Vue.component('video-content',{
-        template: "#video-content",
-        props: ['content'],
-        data: () => {
-            return {
-                title: content.title,
-                video: content.video
-            }
-        },
-        methods:{
-
-        }
-    })
-
-    Vue.component('audio-content',{
-        template: "#audio-content",
-        props: ['content'],
-        data: () => {
-            return {
-                title: content.title,
-                audio: content.audio
-            }
-        },
-        methods:{
-
-        }
-    })
-
-    Vue.component('image-content',{
-        template: "#image-content",
-        props: ['content'],
-        data: () => {
-            return {
-                title: content.title,
-                image: content.image
-            }
-        },
-        methods:{
-
-        }
-    })
-
 </script>
