@@ -27,3 +27,19 @@
 .sheet.toolbar .btn-group i + i{
     font-size: 1.5rem;
 }
+.sheet.toolbar .mode{
+    display: inline-block;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    height: 100%;
+}
+.sheet.toolbar .mode i{
+    font-size: 1.8rem;
+    color: #007bff;
+}
+.sheet.toolbar .separator{
+    display: inline-block;
+    width: 1px;
+    height: 25px;
+    background-color: lightgrey;
+}
