@@ -1,4 +1,5 @@
 <div id="sheet">
+    {% comment %}{% include 'includes/components/vuejs/templates.html' %}{% endcomment %}
     {% include 'includes/components/menus/sheet.html' %}
     <div class="container sheet-component">
         <div v-if="editMode">
@@ -7,42 +8,12 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    {% for content in sheet.content_set.all %}
-                        {% if content.videocontent %}
-                            <div class="d-flex justify-content-center">
-                                <figure class="figure">
-                                    <video width="100%" controls>
-                                        <source src="{{ content.videocontent.video.url }}" type="video/mp4">
-                                    </video>
-                                    <figcaption
-                                            class="figure-caption text-center">{{ content.videocontent.title }}</figcaption>
-                                </figure>
-                            </div>
-                        {% elif content.audiocontent %}
-                            <div class="d-flex justify-content-center">
-                                <figure class="figure">
-                                    <audio controls>
-                                        <source src="{{ content.audiocontent.audio.url }}" type="audio/mp4">
-                                    </audio>
-                                    <figcaption
-                                            class="figure-caption text-center">{{ content.audiocontent.title }}</figcaption>
-                                </figure>
-                            </div>
-                        {% elif content.imagecontent %}
-                            <div class="d-flex justify-content-center">
-                                <figure class="figure">
-                                    <img src="{{ content.imagecontent.image.url }}" width="100%"
-                                         alt="{{ content.imagecontent.image.title }}">
-                                    <figcaption
-                                            class="figure-caption text-center">{{ content.imagecontent.title }}</figcaption>
-                                </figure>
-                            </div>
-                        {% elif content.markdowncontent %}
-                            {# TODO use marked framework and replace this! #}
-                            <div id="id_{{ content.markdowncontent.id }}"></div>
-                        {% endif %}
-                        <hr>
-                    {% endfor %}
+                    <div v-for="content in contents">
+                        <div v-if="content instanceof VideoContent"> Contenu Video</div>
+                        <div v-else-if="content instanceof AudioContent"> Contenu Audio</div>
+                        <div v-else-if="content instanceof ImageContent"> Contenu Image</div>
+                        <div v-else-if="content instanceof MarkdownContent"> Contenu Markdown</div>
+                    </div>
                 </div>
             </div>
         </div>

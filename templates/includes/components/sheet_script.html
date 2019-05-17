@@ -1,12 +1,13 @@
 {% load static %}
-{% include 'includes/components/vuejs/markdown_content.html' %}
-{% include 'includes/components/vuejs/video_content.html' %}
-{% include 'includes/components/vuejs/audio_content.html' %}
-{% include 'includes/components/vuejs/image_content.html' %}
 <script src="{% static 'marked/lib/marked.js' %}"></script>
 <script src="{% static 'vue/dist/vue.min.js' %}"></script>
 <script src="{% static 'js/contents.js' %}"></script>
 <script>
+    // Enabling devtools
+
+
+    Vue.config.devtools = true
+
     let title = `{{ sheet.title }}`
     let contents = []
     let text = ""
@@ -37,11 +38,10 @@
         data:{
                 title: title,
                 contents: contents,
-                editMode: true
+                editMode: true,
         },
         methods:{
-            toggleMode: () => {
-                console.log(this.editMode)
+            toggleMode: function ()  {
                 this.editMode = !this.editMode
             }
         }
@@ -49,20 +49,28 @@
 
     Vue.component('markdown-content',{
         template: "#markdown-content",
-        props: [],
+        props: ['content'],
         data: () => {
-
+            return {
+                text: content.text
+            }
         },
         methods:{
 
+        },
+        computed:{
+            html: () => this.text
         }
     })
 
     Vue.component('video-content',{
         template: "#video-content",
-        props: [],
+        props: ['content'],
         data: () => {
-
+            return {
+                title: content.title,
+                video: content.video
+            }
         },
         methods:{
 
@@ -71,9 +79,12 @@
 
     Vue.component('audio-content',{
         template: "#audio-content",
-        props: [],
+        props: ['content'],
         data: () => {
-
+            return {
+                title: content.title,
+                audio: content.audio
+            }
         },
         methods:{
 
@@ -82,9 +93,12 @@
 
     Vue.component('image-content',{
         template: "#image-content",
-        props: [],
+        props: ['content'],
         data: () => {
-
+            return {
+                title: content.title,
+                image: content.image
+            }
         },
         methods:{
 
