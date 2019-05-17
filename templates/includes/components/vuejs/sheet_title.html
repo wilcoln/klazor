@@ -1,14 +1,10 @@
 {% verbatim %}
 <template id="sheet-title">
     <div class="row">
-        <h1 class="col-10 offset-1 text-center" v-if="editMode && editable"><label for="title">Title : </label> <input v-model="title"
-                                                                                                  type="text"
-                                                                                                  id="title"></h1>
-        <h1 v-else class="col-10 offset-1 text-center" v-text="title"></h1>
+        <h1 v-if="editable && editMode" class="col-10 offset-1 text-center" ><input v-model="title" type="text"></h1>
+        <h1 v-else class="col-10 offset-1 text-center" v-text="title" v-on:click="toggleMode"></h1>
 
-        <div class="col-1" v-if="editable"><i class="d-inline-block fa fa-edit" class="fa"
-                                              v-bind:class="{ 'fa-eye': editMode, 'fa-edit':!editMode}"
-                                              v-on:click="toggleMode"></i>
+        <div class="col-1" v-if="editable && editMode"><i class="fa fa-trash"></i>
         </div>
     </div>
 </template>

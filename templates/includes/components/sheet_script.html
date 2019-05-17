@@ -22,7 +22,8 @@
         },
         methods: {
              toggleMode: function () {
-                this.editMode = !this.editMode
+                 if(this.editable)
+                    this.editMode = !this.editMode
             }
         },
     })
