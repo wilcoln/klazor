@@ -79,5 +79,5 @@ blockquote {
     color: black !important;
 }
 .navbar input:focus::placeholder {
-    color: white;
+    color: grey;
 }
