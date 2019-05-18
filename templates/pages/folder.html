@@ -16,12 +16,12 @@
             </a>
             {% for folder in  folder.folder_set.all %}
                 <div class="col-md-3 col-lg-2">
-                    {% include 'includes/components/tiny/folder.html'  with folder=folder %}
+                    {% include 'includes/components/tiny/folder_tiny.html'  with folder=folder %}
                 </div>
             {% endfor %}
             {% for sheet in  folder.sheet_set.all %}
                 <div class="col-md-3 col-lg-2">
-                    {% include 'includes/components/tiny/sheet.html'  with sheet=sheet %}
+                    {% include 'includes/components/tiny/sheet_tiny.html'  with sheet=sheet %}
                 </div>
             {% endfor %}
         </div>

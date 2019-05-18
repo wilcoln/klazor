@@ -42,7 +42,12 @@ class MarkdownContent extends Content {
         if(text)
             this.editMode = false
         this.text = text
+    }
+}
 
-
+class Sheet{
+    constructor(title, contents){
+        this.title = title
+        this.contents = contents
     }
 }

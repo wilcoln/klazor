@@ -15,7 +15,7 @@
                 <div class="row">
                     {% for mooc_course in  mooc_courses %}
                         <div class="col-md-12">
-                            {% include 'includes/components/tiny/mooc_course.html' with mooc_course=mooc_course %}
+                            {% include 'includes/components/tiny/mooc_course_tiny.html' with mooc_course=mooc_course %}
                         </div>
                     {% endfor %}
                 </div>
@@ -25,7 +25,7 @@
                 <div class="row">
                     {% for school_course in  school_courses %}
                         <div class="col-md-12">
-                            {% include 'includes/components/tiny/school_course.html' with school_course=school_course %}
+                            {% include 'includes/components/tiny/school_course_tiny.html' with school_course=school_course %}
                         </div>
                     {% endfor %}
                 </div>
@@ -39,7 +39,7 @@
 
             {% for folder in  folders %}
                 <div class="col-lg-2 col-md-3">
-                    {% include 'includes/components/tiny/folder.html' with folder=folder %}
+                    {% include 'includes/components/tiny/folder_tiny.html' with folder=folder %}
                 </div>
             {% endfor %}
         </div>
@@ -50,7 +50,7 @@
             </div>
             {% for sheet in  free_sheets %}
                 <div class="col-lg-2 col-md-3">
-                    {% include 'includes/components/tiny/sheet.html' %}
+                    {% include 'includes/components/tiny/sheet_tiny.html' %}
                 </div>
             {% endfor %}
         </div>

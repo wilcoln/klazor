@@ -8,7 +8,7 @@
     <div class="base-container">
     <div class="row">
         <div class="col-md-3">
-            {% include 'includes/components/navs/school_course.html' with school_course=school_course_item.schoolcourse_set.first %}
+            {% include 'includes/components/navs/school_course_nav.html' with school_course=school_course_item.schoolcourse_set.first %}
         </div>
         <div class="col-md-9">
              {% include 'includes/components/item.html' with item=school_course_item %}
