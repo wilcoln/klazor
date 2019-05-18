@@ -1,19 +1,22 @@
 {% verbatim %}
 <template id="audio-content">
-   <div class="row" v-if="editable && editMode">
-       <div class="col-11">
-           <figure>
-               <audio controls>
-                <source v-bind:src="audio" type="audio/mp3">
-            </audio>
-           <input v-bind:id="'input-' + content.id" type="file" v-on:change="updateAudio">
-            <figcaption
-                    class="figure-caption text-center">
-                <input v-on:keyup.ctrl.enter="toggleMode" v-model="title" type="text">
-            </figcaption>
-           </figure>
-       </div>
-       <div class="col-1" v-if="editable && editMode"><i v-on:click="$emit('delete', content.id)" class="fa fa-trash"></i></div>
+    <div class="row" v-if="editable && editMode">
+        <div class="col-11">
+            <figure class="figure">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <input class="ml-2" v-bind:id="'input-' + content.id" type="file" v-on:change="updateAudio">
+                    <audio controls>
+                        <source v-bind:src="audio" type="audio/mp3">
+                    </audio>
+                </div>
+                <figcaption
+                        class="figure-caption text-center">
+                    <input v-on:keyup.ctrl.enter="toggleMode" v-model="title" type="text">
+                </figcaption>
+            </figure>
+        </div>
+        <div class="col-1" v-if="editable && editMode"><i v-on:click="$emit('delete', content.id)"
+                                                          class="fa fa-trash"></i></div>
     </div>
     <div v-else v-on:click="toggleMode" class="text-center">
         <figure class="figure">

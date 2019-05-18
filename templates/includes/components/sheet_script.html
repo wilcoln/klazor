@@ -73,6 +73,15 @@
             toggleMode: function () {
                 if (this.editable)
                     this.editMode = !this.editMode
+            },
+            updateVideo: function () {
+                let inputId = 'input-'+this.content.id
+                let input = document.getElementById(inputId)
+                if (input.files && input.files[0]){
+                    let reader = new FileReader()
+                    reader.onload = (e)  => { this.video = e.target.result;}
+                    reader.readAsDataURL(input.files[0])
+                }
             }
         },
     })
@@ -169,7 +178,7 @@
         computed: {
             lastInsertedId() {
                 let lastIndex = this.contents.length - 1
-                return this.contents[lastIndex].id
+                return lastIndex > -1 ? this.contents[lastIndex].id : 0
             }
         },
         beforeMount() {
