@@ -52,6 +52,10 @@ blockquote {
     text-transform: capitalize;
 }
 
+.tiny{
+    background-color: #fdfdfd;
+}
+
 /* Navbar styles */
 
 .navbar{

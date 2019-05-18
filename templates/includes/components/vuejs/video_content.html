@@ -1,6 +1,7 @@
 {% verbatim %}
 <template id="video-content">
-    <div class="d-flex justify-content-center">
+
+    <div v-on:click="toggleMode" class="d-flex justify-content-center">
         <figure class="figure">
             <video width="100%" controls>
                 <source v-bind:src="video" type="video/mp4">

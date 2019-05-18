@@ -54,6 +54,12 @@ h1 > input{
     width: 100%;
     padding: .2rem;
 }
+figure{
+    width: 100%;
+}
+figure input{
+     display: inline-block;
+}
 textarea{
     width: 100%;
     min-height: 5rem;

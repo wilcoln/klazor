@@ -1,6 +1,20 @@
 {% verbatim %}
 <template id="image-content">
-    <div class="d-flex justify-content-center">
+     <div class="row" v-if="editable && editMode">
+       <div class="col-11">
+            <figure class="figure">
+                <img v-bind:src="image" width="100%"
+                 v-bind:alt="title">
+                <input v-bind:id="'input-' + content.id" type="file" v-on:change="updateImage">
+            <figcaption
+                    class="figure-caption text-center">
+                <input v-on:keyup.ctrl.enter="toggleMode" v-model="title" type="text">
+            </figcaption>
+        </figure>
+       </div>
+        <div class="col-1" v-if="editable && editMode"><i v-on:click="$emit('delete', content.id)" class="fa fa-trash"></i></div>
+    </div>
+    <div v-else v-on:click="toggleMode" class="d-flex justify-content-center">
         <figure class="figure">
             <img v-bind:src="image" width="100%"
                  v-bind:alt="title">

@@ -1,6 +1,6 @@
 {% verbatim %}
 <template id="audio-content">
-    <div class="d-flex justify-content-center">
+    <div v-on:click="toggleMode" class="d-flex justify-content-center">
         <figure class="figure">
             <audio controls>
                 <source v-bind:src="audio" type="audio/mp4">

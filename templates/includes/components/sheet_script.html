@@ -5,7 +5,18 @@
 {% include 'includes/components/vuejs/templates.html' %}
 <script>
     // Enabling devtools
+    function getBase64Image(img) {
+        var canvas = document.createElement("canvas")
+        canvas.width = img.width
+        canvas.height = img.height
 
+        var ctx = canvas.getContext("2d")
+        ctx.drawImage(img, 0, 0)
+
+        var dataURL = canvas.toDataURL("image/png")
+
+        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "")
+    }
 
     Vue.config.devtools = true
 
@@ -20,8 +31,8 @@
             }
         },
         methods: {
-             toggleMode: function () {
-                 if(this.editable)
+            toggleMode: function () {
+                if (this.editable)
                     this.mEditMode = !this.mEditMode
             }
         },
@@ -41,8 +52,8 @@
             }
         },
         methods: {
-             toggleMode: function () {
-                 if(this.editable)
+            toggleMode: function () {
+                if (this.editable)
                     this.editMode = !this.editMode
             }
         },
@@ -58,7 +69,12 @@
                 video: this.content.video
             }
         },
-        methods: {}
+        methods: {
+            toggleMode: function () {
+                if (this.editable)
+                    this.editMode = !this.editMode
+            }
+        },
     })
 
     Vue.component('audio-content', {
@@ -71,20 +87,39 @@
                 audio: this.content.audio
             }
         },
-        methods: {}
+        methods: {
+            toggleMode: function () {
+                if (this.editable)
+                    this.editMode = !this.editMode
+            }
+        },
     })
 
     Vue.component('image-content', {
         template: "#image-content",
-        props: ['content'],
+        props: ['content', 'editable'],
         data: function () {
             return {
                 editMode: true,
                 title: this.content.title,
-                image: this.content.image
+                image: this.content.image,
             }
         },
-        methods: {}
+        methods: {
+            toggleMode: function () {
+                if (this.editable)
+                    this.editMode = !this.editMode
+            },
+            updateImage: function () {
+                let inputId = 'input-'+this.content.id
+                let input = document.getElementById(inputId)
+                if (input.files && input.files[0]){
+                    let reader = new FileReader()
+                    reader.onload = (e)  => { this.image = e.target.result;}
+                    reader.readAsDataURL(input.files[0])
+                }
+            }
+        },
     })
 
     let vue = new Vue({
@@ -98,28 +133,33 @@
             toggleMode() {
                 this.editMode = !this.editMode
             },
-            deleteContent(id){
+            deleteContent(id) {
                 this.contents = this.contents.filter((content) => {
-                    console.log("Deleting the content of id =  " + content.id )
+                    console.log("Deleting the content of id =  " + content.id)
                     return content.id !== id
                 })
             },
             addVideoContent() {
 
             },
-            addAudioContent(){
+            addAudioContent() {
 
             },
-            addImageContent(){
-
+            addImageContent() {
+                let imageContent = new ImageContent(this.lastInsertedId + 1, '')
+                this.contents.push(imageContent)
             },
-            addMarkdownContent(){
-                let lastIndex = this.contents.length - 1
-                let lastInsertedId = this.contents[lastIndex].id
-                let markdownContent = new MarkdownContent(lastInsertedId + 1,'')
+            addMarkdownContent() {
+                let markdownContent = new MarkdownContent(this.lastInsertedId + 1, '')
                 this.contents.push(markdownContent)
             }
 
+        },
+        computed: {
+            lastInsertedId() {
+                let lastIndex = this.contents.length - 1
+                return this.contents[lastIndex].id
+            }
         },
         beforeMount() {
             this.title = `{{ sheet.title }}`
@@ -130,16 +170,16 @@
 
             {% for content in sheet.content_set.all  %}
                 counter = {{ forloop.counter }}
-                {% if content.videocontent %}
-                    this.contents.push(new VideoContent(counter,`{{ content.videocontent.title }}`, `{{ content.videocontent.video.url }}`))
-                {% elif content.audiocontent %}
-                    this.contents.push(new AudioContent(counter,`{{ content.audiocontent.title }}`, `{{ content.audiocontent.audio.url }}`))
-                {% elif content.imagecontent %}
-                    this.contents.push(new ImageContent(counter,`{{ content.imagecontent.title }}`, `{{ content.imagecontent.image.url }}`))
-                {% elif content.markdowncontent %}
-                    text = `{{ content.markdowncontent.text|safe }}`
-                    this.contents.push(new MarkdownContent(counter,text))
-                {% endif %}
+                    {% if content.videocontent %}
+                        this.contents.push(new VideoContent(counter, `{{ content.videocontent.title }}`, `{{ content.videocontent.video.url }}`))
+                    {% elif content.audiocontent %}
+                        this.contents.push(new AudioContent(counter, `{{ content.audiocontent.title }}`, `{{ content.audiocontent.audio.url }}`))
+                    {% elif content.imagecontent %}
+                        this.contents.push(new ImageContent(counter, `{{ content.imagecontent.title }}`, `{{ content.imagecontent.image.url }}`))
+                    {% elif content.markdowncontent %}
+                        text = `{{ content.markdowncontent.text|safe }}`
+                        this.contents.push(new MarkdownContent(counter, text))
+                    {% endif %}
             {% endfor %}
         }
     })
