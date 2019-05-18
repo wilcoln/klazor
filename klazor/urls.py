@@ -28,6 +28,7 @@ urlpatterns = [
     path('mooc_course_item/<int:id>/', view_mooc_course_item, name='mooc-course-item'),
     path('school_course_item/<int:id>/', view_school_course_item, name='school-course-item'),
     path('folder/<int:id>/', view_folder, name='folder'),
-    path('sheet/<int:id>/', view_sheet, name='sheet')
+    path('sheet/<int:id>/', view_sheet, name='sheet'),
+    path('sheet/new/', new_sheet, name='new-sheet')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

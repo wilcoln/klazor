@@ -12,7 +12,7 @@ def welcome(request):
         'mooc_courses': mooc_courses,
         'school_courses': school_courses,
         'folders': folders,
-        'free_sheets': free_sheets
+        'free_sheets': free_sheets,
     })
 
 
@@ -46,3 +46,9 @@ def view_folder(request, id):
 def view_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)
     return render(request, 'pages/sheet.html', {'sheet': sheet})
+
+
+def new_sheet(request):
+    new_sheet = Sheet()
+    new_sheet.title = "Nouveau titre"
+    return render(request, 'pages/sheet.html', {'sheet': new_sheet})
