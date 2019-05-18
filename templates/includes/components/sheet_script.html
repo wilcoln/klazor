@@ -26,14 +26,14 @@
         props: ['title', 'editable'],
         data: function () {
             return {
-                mEditMode: true,
+                editMode: true,
                 mTitle: this.title,
             }
         },
         methods: {
             toggleMode: function () {
                 if (this.editable)
-                    this.mEditMode = !this.mEditMode
+                    this.editMode = !this.editMode
             }
         },
     })
@@ -172,6 +172,9 @@
             addMarkdownContent() {
                 let markdownContent = new MarkdownContent(this.lastInsertedId + 1, '')
                 this.contents.push(markdownContent)
+            },
+            clearSheet(){
+                    this.contents = []
             }
 
         },

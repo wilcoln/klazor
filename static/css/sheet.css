@@ -10,14 +10,14 @@
     right: 1rem;
     top: .5rem;
 }
-.sheet.toolbar .btn-group i.fa.fa-plus{
-    transform: translateY(3px) translateX(6px);
+.sheet.toolbar .btn-group i.fa.fa-plus, .btn-clear i.fa.fa-warning{
+    transform: translateY(9px) translateX(9px);
 }
 .sheet.toolbar .btn-group i{
     font-size: 1.1rem;
     color: grey;
 }
-.sheet.toolbar .btn-group button{
+.sheet.toolbar .btn-group button, .btn-clear{
     all: unset;
     margin-bottom: 1rem;
     background-color: transparent;
@@ -29,7 +29,7 @@
 .sheet.toolbar .btn-group button:hover i{
     color: #007bff;
 }
-.sheet.toolbar .btn-group i + i{
+.sheet.toolbar .btn-group i + i, .btn-clear i + i{
     font-size: 1.5rem;
 }
 .sheet.toolbar .mode{
@@ -48,7 +48,14 @@
     height: 25px;
     background-color: lightgrey;
 }
-
+.sheet.toolbar .btn-clear{
+    position: absolute;
+    right: 0px;
+    color: grey;
+}
+.sheet.toolbar .btn-clear:hover{
+    color: #dc3545;
+}
 h1 > input{
     display: inline-block;
     width: 100%;

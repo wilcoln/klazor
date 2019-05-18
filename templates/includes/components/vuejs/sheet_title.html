@@ -1,7 +1,7 @@
 {% verbatim %}
 <template id="sheet-title">
-    <div v-if="editable && mEditMode" class="row">
-        <h1  class="col-11 text-center" ><input v-on:keyup.ctrl.enter="toggleMode" v-model="mTitle" type="text"></h1>
+    <div v-if="editable && editMode" class="row">
+        <h1  class="col-11 text-center" ><input v-on:keyup.ctrl.enter="toggleMode" v-model="mTitle" type="text" placeholder="Sheet title..."></h1>
     </div>
      <h1 v-else class="text-center" v-text="mTitle" v-on:click="toggleMode"></h1>
 </template>
