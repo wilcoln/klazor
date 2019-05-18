@@ -3,7 +3,7 @@
     <div class="row" v-if="editable && content.editMode">
        <div class="col-11">
             <textarea v-on:keyup.ctrl.enter="toggleMode" v-model="text" rows="2"
-        onfocusin='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
+        onload='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
         oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
             placeholder="Write something..."></textarea>
             <!-- oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'

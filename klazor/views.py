@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from klazor.models import *
 
-from django.shortcuts import HttpResponse
-
 
 def welcome(request):
     mooc_courses = MoocCourse.objects.all()

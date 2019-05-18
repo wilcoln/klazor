@@ -1,9 +1,17 @@
 {% load static %}
 <script src="{% static 'marked/lib/marked.js' %}"></script>
 <script src="{% static 'vue/dist/vue.min.js' %}"></script>
+<script src="{% static 'highlight.js/lib/highlight.pack.js' %}"></script>
 <script src="{% static 'js/sheet.js' %}"></script>
 {% include 'includes/components/vuejs/templates.html' %}
 <script>
+
+    marked.setOptions({
+        highlight: function (code) {
+            return hljs.highlightAuto(code).value;
+        }
+    });
+
 
     function getBase64Image(img) {
         var canvas = document.createElement("canvas")
@@ -75,11 +83,13 @@
                     this.content.editMode = !this.content.editMode
             },
             updateVideo: function () {
-                let inputId = 'input-'+this.content.id
+                let inputId = 'input-' + this.content.id
                 let input = document.getElementById(inputId)
-                if (input.files && input.files[0]){
+                if (input.files && input.files[0]) {
                     let reader = new FileReader()
-                    reader.onload = (e)  => {this.video = e.target.result}
+                    reader.onload = (e) => {
+                        this.video = e.target.result
+                    }
                     reader.readAsDataURL(input.files[0])
                 }
             }
@@ -101,11 +111,13 @@
                     this.content.editMode = !this.content.editMode
             },
             updateAudio: function () {
-                let inputId = 'input-'+this.content.id
+                let inputId = 'input-' + this.content.id
                 let input = document.getElementById(inputId)
-                if (input.files && input.files[0]){
+                if (input.files && input.files[0]) {
                     let reader = new FileReader()
-                    reader.onload = (e)  => { this.audio = e.target.result;}
+                    reader.onload = (e) => {
+                        this.audio = e.target.result;
+                    }
                     reader.readAsDataURL(input.files[0])
                 }
             }
@@ -127,11 +139,13 @@
                     this.content.editMode = !this.content.editMode
             },
             updateImage: function () {
-                let inputId = 'input-'+this.content.id
+                let inputId = 'input-' + this.content.id
                 let input = document.getElementById(inputId)
-                if (input.files && input.files[0]){
+                if (input.files && input.files[0]) {
                     let reader = new FileReader()
-                    reader.onload = (e)  => { this.image = e.target.result;}
+                    reader.onload = (e) => {
+                        this.image = e.target.result;
+                    }
                     reader.readAsDataURL(input.files[0])
                 }
             }
@@ -148,7 +162,7 @@
         methods: {
             toggleMode() {
                 this.editMode = !this.editMode
-                if(!this.editMode)
+                if (!this.editMode)
                     this.saveSheet()
             },
             deleteContent(id) {
@@ -173,10 +187,10 @@
                 let markdownContent = new MarkdownContent(this.lastInsertedId + 1, '')
                 this.contents.push(markdownContent)
             },
-            clearSheet(){
-                    this.contents = []
+            clearSheet() {
+                this.contents = []
             },
-            saveSheet(){
+            saveSheet() {
                 // TODO this function should submit the json object
                 let sheet = new Sheet(this.title, this.contents)
                 localStorage.setItem('sheet', JSON.stringify(sheet))
