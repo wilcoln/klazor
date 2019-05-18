@@ -1,6 +1,6 @@
 {% verbatim %}
 <template id="image-content">
-     <div class="row" v-if="editable && editMode">
+     <div class="row" v-if="editable && content.editMode">
        <div class="col-11">
             <figure class="figure">
                 <img v-bind:src="image" width="100%"
@@ -12,7 +12,7 @@
             </figcaption>
         </figure>
        </div>
-        <div class="col-1" v-if="editable && editMode"><i v-on:click="$emit('delete', content.id)" class="fa fa-trash"></i></div>
+        <div class="col-1" v-if="editable && content.editMode"><i v-on:click="$emit('delete', content.id)" class="fa fa-trash"></i></div>
     </div>
     <div v-else v-on:click="toggleMode" class="d-flex justify-content-center">
         <figure class="figure">
