@@ -29,7 +29,7 @@
     font-size: 1.1rem;
     color: grey;
 }
-.sheet.toolbar .btn-group button, .btn-clear{
+.sheet.toolbar .btn-group button, .btn-clear, .btn-save{
     all: unset;
     margin-bottom: 1rem;
     background-color: transparent;
@@ -41,7 +41,7 @@
 .sheet.toolbar .btn-group button:hover i{
     color: #007bff;
 }
-.sheet.toolbar .btn-group i + i, .btn-clear i + i{
+.sheet.toolbar .btn-group i + i, .btn-clear i + i, .btn-save i{
     font-size: 1.5rem;
 }
 .sheet.toolbar .mode{
@@ -68,8 +68,16 @@
 }
 .sheet.toolbar .btn-clear{
     position: absolute;
+    right: 80px;
+    color: grey;
+}
+.sheet.toolbar .btn-save{
+    position: absolute;
     right: 0px;
     color: grey;
+}
+.sheet.toolbar .btn-save:hover{
+    color: #007bff;
 }
 .sheet.toolbar .btn-clear:hover{
     color: #dc3545;
@@ -190,4 +198,22 @@ tr:hover {
 /**sheet component font size*/
 .sheet-component .row{
     font-size: 105%;
+}
+
+.alert.alert-dismissible{
+    position: absolute;
+    top: 0px;
+    width: 100vw;
+    height: 1.2rem;
+    border-radius: 0px;
+    text-align: center;
+    padding-top: .4rem;
+    padding-bottom: .2rem;
+    margin-bottom: 0px;
+    line-height: 0px;
+    font-size: .8rem;
+}
+.alert.alert-dismissible .close{
+    position: relative;
+    top: -22px !important;
 }

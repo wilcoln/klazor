@@ -1,8 +1,8 @@
 {% verbatim %}
 <template id="sheet-title">
     <div v-if="editable && editMode" class="row">
-        <h1  class="col-11 text-center sheet-title" ><input v-on:keyup.ctrl.enter="toggleMode" v-model="mTitle" type="text" placeholder="Sheet title..."></h1>
+        <h1  class="col-11 text-center sheet-title" ><input v-on:keyup.ctrl.enter="toggleMode" v-on:change="$emit('update', title)"  v-model="title" type="text" placeholder="Sheet title..."></h1>
     </div>
-     <h1 v-else class="text-center sheet-title" v-text="mTitle" v-on:click="toggleMode"></h1>
+     <h1 v-else class="text-center sheet-title" v-text="title" v-on:click="toggleMode"></h1>
 </template>
 {% endverbatim %}

@@ -6,12 +6,12 @@
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <input class="ml-2" v-bind:id="'input-' + content.id" type="file" v-on:change="updateAudio">
                     <audio controls>
-                        <source v-bind:src="audio" type="audio/mp3">
+                        <source v-bind:src="content.audio" type="audio/mp3">
                     </audio>
                 </div>
                 <figcaption
                         class="figure-caption text-center">
-                    <input v-on:keyup.ctrl.enter="toggleMode" v-model="title" type="text">
+                    <input v-on:keyup.ctrl.enter="toggleMode" v-model="content.title" type="text">
                 </figcaption>
             </figure>
         </div>
@@ -21,10 +21,10 @@
     <div v-else v-on:click="toggleMode" class="text-center">
         <figure class="figure">
             <audio controls>
-                <source v-bind:src="audio" type="audio/mp3">
+                <source v-bind:src="content.audio" type="audio/mp3">
             </audio>
             <figcaption
-                    class="figure-caption">{{ title }}
+                    class="figure-caption">{{ content.title }}
             </figcaption>
         </figure>
     </div>

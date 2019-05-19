@@ -14,14 +14,14 @@
     <title>{% block title %} Document {% endblock %}</title>
 </head>
 <body>
-    {% include 'includes/navbar.html' %}
+{% include 'includes/navbar.html' %}
 
-    {% block content %}{% endblock %}
+{% block content %}{% endblock %}
 
-    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'popper.js/dist/popper.js' %}"></script>
-    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'popper.js/dist/popper.js' %}"></script>
+<script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
 
-    {% block script %}{% endblock %}
+{% block script %}{% endblock %}
 </body>
 </html>

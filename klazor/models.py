@@ -137,7 +137,7 @@ class Week(models.Model):
 
 
 class Content(models.Model):
-    sheet = models.ForeignKey(Sheet, models.DO_NOTHING)
+    sheet = models.ForeignKey(Sheet, models.CASCADE)
 
     class Meta:
         db_table = 'content'

@@ -1,25 +1,35 @@
 <div id="sheet">
+    <div v-if="saved" class="alert alert-success alert-dismissible fade" role="alert">
+        Sauvegarde réussie !
+        <button type="button" v-on:click="saved=false" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     {% include 'includes/components/menus/sheet_menu.html' %}
     <div class="container sheet-component">
-            {% verbatim %}
-            <sheet-title v-bind:title="title" v-bind:editable="editMode"></sheet-title>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <div v-for="content in contents" v-bind:key="content.id">
-                        <video-content v-if="content instanceof VideoContent"
-                                       v-bind:editable="editMode" v-bind:content="content" v-on:delete="deleteContent($event)"></video-content>
-                        <audio-content v-else-if="content instanceof AudioContent"
-                                       v-bind:editable="editMode" v-bind:content="content" v-on:delete="deleteContent($event)"></audio-content>
-                        <image-content v-else-if="content instanceof ImageContent"
-                                       v-bind:editable="editMode" v-bind:content="content" v-on:delete="deleteContent($event)"></image-content>
-                        <markdown-content v-else-if="content instanceof MarkdownContent"
-                                          v-bind:editable="editMode" v-bind:content="content" v-on:delete="deleteContent($event)">
-                        </markdown-content>
-                        <hr>
-                    </div>
+        {% verbatim %}
+        <sheet-title v-bind:title="title" v-bind:editable="editMode" v-on:update="updateTitle($event)"></sheet-title>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div v-for="content in contents" v-bind:key="content.id">
+                    <video-content v-if="content instanceof VideoContent"
+                                   v-bind:editable="editMode" v-bind:content="content"
+                                   v-on:delete="deleteContent($event)"></video-content>
+                    <audio-content v-else-if="content instanceof AudioContent"
+                                   v-bind:editable="editMode" v-bind:content="content"
+                                   v-on:delete="deleteContent($event)"></audio-content>
+                    <image-content v-else-if="content instanceof ImageContent"
+                                   v-bind:editable="editMode" v-bind:content="content"
+                                   v-on:delete="deleteContent($event)"></image-content>
+                    <markdown-content v-else-if="content instanceof MarkdownContent"
+                                      v-bind:editable="editMode" v-bind:content="content"
+                                      v-on:delete="deleteContent($event)">
+                    </markdown-content>
+                    <hr>
                 </div>
             </div>
-            {% endverbatim %}
+        </div>
+        {% endverbatim %}
     </div>
 </div>

@@ -29,6 +29,11 @@ urlpatterns = [
     path('school_course_item/<int:id>/', view_school_course_item, name='school-course-item'),
     path('folder/<int:id>/', view_folder, name='folder'),
     path('sheet/<int:id>/', view_sheet, name='sheet'),
-    path('sheet/new/', new_sheet, name='new-sheet')
+    path('sheet/new/', new_sheet, name='new-sheet'),
+    path('sheet/save/<int:id>/', save_sheet, name='save_sheet'),
+    path('sheet/delete/<int:id>/', delete_sheet, name='delete_sheet'),
+    path('folder/delete/<int:id>/', delete_folder, name='delete_folder'),
+    path('mooc_course/delete/<int:id>/', delete_mooc_course, name='delete_mooc_course'),
+    path('school_course/delete/<int:id>/', delete_school_course, name='delete_school_course')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

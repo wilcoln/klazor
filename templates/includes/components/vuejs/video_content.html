@@ -4,12 +4,12 @@
         <div class="col-11">
             <figure class="figure">
                 <video width="100%" controls>
-                    <source v-bind:src="video" type="video/mp4">
+                    <source v-bind:src="content.video" type="video/mp4">
                 </video>
                 <input v-bind:id="'input-' + content.id" type="file" v-on:change="updateVideo">
                 <figcaption
                         class="figure-caption text-center">
-                    <input v-on:keyup.ctrl.enter="toggleMode" v-model="title" type="text">
+                    <input v-on:keyup.ctrl.enter="toggleMode" v-model="content.title" type="text">
                 </figcaption>
             </figure>
         </div>
@@ -19,10 +19,10 @@
     <div v-else v-on:click="toggleMode" class="d-flex justify-content-center">
         <figure class="figure">
             <video width="100%" controls>
-                <source v-bind:src="video" type="video/mp4">
+                <source v-bind:src="content.video" type="video/mp4">
             </video>
             <figcaption
-                    class="figure-caption text-center">{{title }}
+                    class="figure-caption text-center">{{ content.title }}
             </figcaption>
         </figure>
     </div>

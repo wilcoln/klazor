@@ -3,12 +3,12 @@
      <div class="row" v-if="editable && content.editMode">
        <div class="col-11">
             <figure class="figure">
-                <img v-bind:src="image" width="100%"
-                 v-bind:alt="title">
+                <img v-bind:src="content.image" width="100%"
+                 v-bind:alt="content.title">
                 <input v-bind:id="'input-' + content.id" type="file" v-on:change="updateImage">
             <figcaption
                     class="figure-caption text-center">
-                <input v-on:keyup.ctrl.enter="toggleMode" v-model="title" type="text">
+                <input v-on:keyup.ctrl.enter="toggleMode" v-model="content.title" type="text">
             </figcaption>
         </figure>
        </div>
@@ -16,10 +16,10 @@
     </div>
     <div v-else v-on:click="toggleMode" class="d-flex justify-content-center">
         <figure class="figure">
-            <img v-bind:src="image" width="100%"
-                 v-bind:alt="title">
+            <img v-bind:src="content.image" width="100%"
+                 v-bind:alt="content.title">
             <figcaption
-                    class="figure-caption text-center">{{title }}
+                    class="figure-caption text-center">{{content.title }}
             </figcaption>
         </figure>
     </div>

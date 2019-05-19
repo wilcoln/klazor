@@ -27,14 +27,6 @@ a:hover h3{
     color: #007bff;
 }
 
-.tiny.card i.fa{
-    position:absolute;
-    top: .5rem;
-    right: .5rem;
-    font-size: 2rem;
-    color: rgba(18,94,240, .2);
-}
-
 .base-container{
     width: 80%;
     margin:auto;
@@ -44,25 +36,6 @@ blockquote {
   border-left: 10px solid #ccc;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
-}
-
-.tiny .folder-name, .tiny .sheet-title{
-    text-overflow: ellipsis;
-    width: 97px;
-    overflow:hidden;
-    white-space:nowrap;
-    text-transform: capitalize;
-}
-.tiny .course-title{
-    text-overflow: ellipsis;
-    width: 270px;
-    overflow:hidden;
-    white-space:nowrap;
-    text-transform: capitalize;
-}
-
-.tiny{
-    background-color: #fdfdfd;
 }
 
 /* Navbar styles */

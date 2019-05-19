@@ -3,6 +3,8 @@
 <script src="{% static 'vue/dist/vue.min.js' %}"></script>
 <script src="{% static 'highlight.js/lib/highlight.pack.js' %}"></script>
 <script src="{% static 'js/sheet.js' %}"></script>
+<script src="{% static 'axios/dist/axios.min.js' %}"></script>
+<script src="{% static 'js-cookie/src/js.cookie.js' %}"></script>
 {% include 'includes/components/vuejs/templates.html' %}
 <script>
 
@@ -29,15 +31,12 @@
     /* TODO Remove this line in production mode */
     // Enabling devtools
     Vue.config.devtools = true
-
-
     Vue.component('sheet-title', {
         template: "#sheet-title",
         props: ['title', 'editable'],
         data: function () {
             return {
                 editMode: false,
-                mTitle: this.title,
             }
         },
         methods: {
@@ -50,14 +49,9 @@
     Vue.component('markdown-content', {
         template: "#markdown-content",
         props: ['content', 'editable'],
-        data: function () {
-            return {
-                text: this.content.text,
-            }
-        },
         computed: {
             html: function () {
-                return marked(this.text)
+                return marked(this.content.text)
             }
         },
         methods: {
@@ -71,12 +65,6 @@
     Vue.component('video-content', {
         template: "#video-content",
         props: ['content', 'editable'],
-        data: function () {
-            return {
-                title: this.content.title,
-                video: this.content.video
-            }
-        },
         methods: {
             toggleMode: function () {
                 if (this.editable)
@@ -88,7 +76,7 @@
                 if (input.files && input.files[0]) {
                     let reader = new FileReader()
                     reader.onload = (e) => {
-                        this.video = e.target.result
+                        this.content.video = e.target.result
                     }
                     reader.readAsDataURL(input.files[0])
                 }
@@ -99,12 +87,6 @@
     Vue.component('audio-content', {
         template: "#audio-content",
         props: ['content', 'editable'],
-        data: function () {
-            return {
-                title: this.content.title,
-                audio: this.content.audio
-            }
-        },
         methods: {
             toggleMode: function () {
                 if (this.editable)
@@ -116,7 +98,7 @@
                 if (input.files && input.files[0]) {
                     let reader = new FileReader()
                     reader.onload = (e) => {
-                        this.audio = e.target.result;
+                        this.content.audio = e.target.result;
                     }
                     reader.readAsDataURL(input.files[0])
                 }
@@ -127,12 +109,6 @@
     Vue.component('image-content', {
         template: "#image-content",
         props: ['content', 'editable'],
-        data: function () {
-            return {
-                title: this.content.title,
-                image: this.content.image,
-            }
-        },
         methods: {
             toggleMode: function () {
                 if (this.editable)
@@ -144,7 +120,7 @@
                 if (input.files && input.files[0]) {
                     let reader = new FileReader()
                     reader.onload = (e) => {
-                        this.image = e.target.result;
+                        this.content.image = e.target.result;
                     }
                     reader.readAsDataURL(input.files[0])
                 }
@@ -152,18 +128,20 @@
         },
     })
 
-    let vue = new Vue({
+    let sheet = new Vue({
         el: "#sheet",
-        data: {
-            title: "",
+        data: { // Represents the sheet as described by the Sheet class
+            title: `{{ sheet.title }}`, // sheets title
             contents: [],
             editMode: false,
+            saved: false
         },
         methods: {
             toggleMode() {
                 this.editMode = !this.editMode
-                if (!this.editMode)
-                    this.saveSheet()
+            },
+            updateTitle(title){
+              this.title = title
             },
             deleteContent(id) {
                 this.contents = this.contents.filter((content) => {
@@ -192,10 +170,28 @@
             },
             saveSheet() {
                 // TODO this function should submit the json object
+                console.log("saving...")
                 let sheet = new Sheet(this.title, this.contents)
-                localStorage.setItem('sheet', JSON.stringify(sheet))
+                let stringJsonSheet = JSON.stringify(sheet)
+                let csrftoken = Cookies.get('csrftoken');
+                sheet = this; // capture the vue instance to use in the callback
+                axios({
+                    method: 'post',
+                    url: '/sheet/save/' + {{ sheet.id }} + '/',
+                    data: {
+                        'sheet': stringJsonSheet
+                    },
+                    headers: {
+                        "X-CSRFToken": csrftoken,
+                        "content-type": "application/json"
+                    }
+                }).then((response)  => {
+                    sheet.saved = true
+                    console.log(response)
+                }).catch((error) => {
+                    console.log(error)
+                });
             }
-
         },
         computed: {
             lastInsertedId() {
@@ -204,7 +200,6 @@
             }
         },
         beforeMount() {
-            this.title = `{{ sheet.title }}`
             let text = ""
             let counter = 0
 

@@ -1,5 +1,9 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 {% block title %} {{ folder.name }} {% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/tiny.css' %}">
+{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -26,4 +30,9 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js-cookie/src/js.cookie.js' %}"></script>
+    <script src="{% static 'axios/dist/axios.min.js' %}"></script>
+    <script src="{% static 'js/tiny.js' %}"></script>
 {% endblock %}
