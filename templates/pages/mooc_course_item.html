@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block style %}
+    <link rel="stylesheet" href="{% static 'css/course.css' %}">
     <link rel="stylesheet" href="{% static 'css/sheet.css' %}">
 {% endblock %}
 {% block title %} {{ mooc_course_item.title }} {% endblock %}

@@ -1,5 +1,7 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 {% block title %} {{ mooc_course.title }} {% endblock %}
+{% block style %} <link rel="stylesheet" href="{% static 'css/course.css' %}"> {% endblock %}
 {% block content %}
     <div class="base-container">
     <div class="row">
