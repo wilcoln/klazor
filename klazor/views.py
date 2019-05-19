@@ -68,57 +68,55 @@ def save_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)  # The saved sheet, and is instance of Sheet
     # retrieve all old contents
     old_contents = sheet.content_set.all()
+    # Delete all old contents
+    for old_content in old_contents:
+        old_content.delete()
 
     # create new content and associate
     sheet.title = sheet_dict['title'] # sauvegarde le titre
     if sheet_dict['contents']:
         for content_dict in sheet_dict['contents']:
-            content = Content()
             if 'video' in content_dict:
-                content = VideoContent()
-                content.sheet = sheet
-                content.title = content_dict['title']
+                video_content = VideoContent()
+                video_content.sheet = sheet
+                video_content.title = content_dict['title']
                 if "/media" in content_dict['video']:
-                    content.video = content_dict['video']
+                    video_content.video = content_dict['video']
                 else:
                     format, videostr = content_dict['video'].split(';base64,')
                     ext = format.split('/')[-1]
                     filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
-                    content.video = ContentFile(base64.b64decode(videostr), name=filename)
-
+                    video_content.video = ContentFile(base64.b64decode(videostr), name=filename)
+                video_content.save()
             elif 'image' in content_dict:
-                content = ImageContent()
-                content.sheet = sheet
-                content.title = content_dict['title']
+                image_content = ImageContent()
+                image_content.sheet = sheet
+                image_content.title = content_dict['title']
                 if "/media" in content_dict['image']:
-                    content.image = content_dict['image']
+                    image_content.image = content_dict['image']
                 else:
                     format, imagestr = content_dict['image'].split(';base64,')
                     ext = format.split('/')[-1]
                     filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
-                    content.image = ContentFile(base64.b64decode(imagestr), name=filename)
-
+                    image_content.image = ContentFile(base64.b64decode(imagestr), name=filename)
+                image_content.save()
             elif 'audio' in content_dict:
-                content = AudioContent()
-                content.sheet = sheet
-                content.title = content_dict['title']
+                audio_content = AudioContent()
+                audio_content.sheet = sheet
+                audio_content.title = content_dict['title']
                 if "/media" in content_dict['audio']:
-                    content.audio = content_dict['audio']
+                    audio_content.audio = content_dict['audio']
                 else:
                     format, audiostr = content_dict['audio'].split(';base64,')
                     ext = format.split('/')[-1]
                     filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
-                    content.audio = ContentFile(base64.b64decode(audiostr), name=filename)
-
+                    audio_content.audio = ContentFile(base64.b64decode(audiostr), name=filename)
+                audio_content.save()
             elif 'text' in content_dict:
-                content = MarkdownContent()
-                content.sheet = sheet
-                content.text = content_dict['text']
-            content.save()
-
-    # Delete all old contents
-    for content in old_contents:
-        content.delete()
+                markdown_content = MarkdownContent()
+                markdown_content.sheet = sheet
+                markdown_content.text = content_dict['text']
+                markdown_content.save()
     sheet.save()
 
     return HttpResponse(str(sheet))
