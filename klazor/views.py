@@ -146,3 +146,11 @@ def delete_school_course(request, id):
     school_course = SchoolCourse.objects.get(pk=id)
     school_course.delete()
     return redirect('welcome')
+
+
+def new_folder(request):
+    folder = Folder()
+    folder.parent_id = 1
+    folder.name = "Nouveau dossier " + str(Folder.objects.latest('id').id + 1)
+    folder.save()
+    return redirect('welcome')
