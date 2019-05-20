@@ -164,7 +164,7 @@
             },
             deleteContent(id) {
                 this.contents = this.contents.filter((content) => {
-                    console.log("Deleting the content of id =  " + content.id)
+                    console.log("Deleting the content of id =  " + id)
                     return content.id !== id
                 })
             },
@@ -228,11 +228,11 @@
             {% for content in sheet.content_set.all  %}
                 counter = {{ forloop.counter }}
                     {% if content.videocontent %}
-                        this.contents.push(new VideoContent(counter, `{{ content.videocontent.title }}`, `{{ content.videocontent.video.url }}`))
+                        this.contents.push(new VideoContent(counter, `{{ content.videocontent.title }}`, `{{ content.videocontent.base64_str }}`))
                     {% elif content.audiocontent %}
-                        this.contents.push(new AudioContent(counter, `{{ content.audiocontent.title }}`, `{{ content.audiocontent.audio.url }}`))
+                        this.contents.push(new AudioContent(counter, `{{ content.audiocontent.title }}`, `{{ content.audiocontent.base64_str }}`))
                     {% elif content.imagecontent %}
-                        this.contents.push(new ImageContent(counter, `{{ content.imagecontent.title }}`, `{{ content.imagecontent.image.url }}`))
+                        this.contents.push(new ImageContent(counter, `{{ content.imagecontent.title }}`, `{{ content.imagecontent.base64_str }}`))
                     {% elif content.markdowncontent %}
                         text = `{{ content.markdowncontent.text|safe }}`
                         this.contents.push(new MarkdownContent(counter, text))

@@ -81,40 +81,28 @@ def save_sheet(request, id):
                 video_content = VideoContent()
                 video_content.sheet = sheet
                 video_content.title = content_dict['title']
-                if "/media" in content_dict['video']:
-                    video_content.video = content_dict['video']
-                else:
-                    format, videostr = content_dict['video'].split(';base64,')
-                    ext = format.split('/')[-1]
-                    filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
-                    video_content.video = ContentFile(base64.b64decode(videostr), name=filename)
+                format, videostr = content_dict['video'].split(';base64,')
+                ext = format.split('/')[-1]
+                filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
+                video_content.video = ContentFile(base64.b64decode(videostr), name=filename)
                 video_content.save()
             elif 'image' in content_dict:
                 image_content = ImageContent()
                 image_content.sheet = sheet
                 image_content.title = content_dict['title']
-                # return HttpResponse(str(content_dict['image']))
-                if "/media" in content_dict['image']:
-                    image_file = open(BASE_DIR + content_dict['image'])
-                    image_content.image = image_file
-                else:
-                    format, imagestr = content_dict['image'].split(';base64,')
-                    ext = format.split('/')[-1]
-                    filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
-                    image_content.image = ContentFile(base64.b64decode(imagestr), name=filename)
+                format, imagestr = content_dict['image'].split(';base64,')
+                ext = format.split('/')[-1]
+                filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
+                image_content.image = ContentFile(base64.b64decode(imagestr), name=filename)
                 image_content.save()
             elif 'audio' in content_dict:
                 audio_content = AudioContent()
                 audio_content.sheet = sheet
                 audio_content.title = content_dict['title']
-                if "/media" in content_dict['audio']:
-                    audio_file = open(BASE_DIR+content_dict['audio'])
-                    audio_content.audio = audio_file
-                else:
-                    format, audiostr = content_dict['audio'].split(';base64,')
-                    ext = format.split('/')[-1]
-                    filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
-                    audio_content.audio = ContentFile(base64.b64decode(audiostr), name=filename)
+                format, audiostr = content_dict['audio'].split(';base64,')
+                ext = format.split('/')[-1]
+                filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
+                audio_content.audio = ContentFile(base64.b64decode(audiostr), name=filename)
                 audio_content.save()
             elif 'text' in content_dict:
                 markdown_content = MarkdownContent()

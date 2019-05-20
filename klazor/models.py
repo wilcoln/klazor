@@ -6,7 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
+import base64
 
 class Category(models.Model):
     title = models.CharField(max_length=20, blank=True, null=True)
@@ -158,6 +158,10 @@ class VideoContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
     video = models.FileField(upload_to='videos')
 
+    def base64_str(self):
+        ext = self.video.name.split('.')[-1]
+        return 'data:video/' + ext + ';base64,' + str(base64.b64encode(self.video.read()))[2:-3]
+
     def __str__(self):
         return self.title
 
@@ -169,6 +173,10 @@ class AudioContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
     audio = models.FileField(upload_to='audios')
 
+    def base64_str(self):
+        ext = self.audio.name.split('.')[-1]
+        return 'data:audio/' + ext + ';base64,' + str(base64.b64encode(self.audio.read()))[2:-3]
+
     def __str__(self):
         return self.title
 
@@ -179,6 +187,10 @@ class AudioContent(Content):
 class ImageContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
     image = models.FileField(upload_to='images')
+
+    def base64_str(self):
+        ext = self.image.name.split('.')[-1]
+        return 'data:image/' + ext + ';base64,' + str(base64.b64encode(self.image.read()))[2:-3]
 
     def __str__(self):
         return self.title
