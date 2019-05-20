@@ -187,6 +187,7 @@
                     }
                 }).then((response)  => {
                     sheet.saved = true
+                    setTimeout(() => {sheet.saved = false}, 2500)
                     console.log(response)
                 }).catch((error) => {
                     console.log(error)

@@ -1,12 +1,12 @@
+import os
 import json
-
+from django.core.files.base import ContentFile
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from klazor.models import *
-from django.http import HttpResponse
-from django.http import JsonResponse
 import base64
-from django.core.files.base import ContentFile
+from klazor.settings import MEDIA_ROOT
 from klazor.settings import BASE_DIR
 
 
@@ -93,6 +93,7 @@ def save_sheet(request, id):
                 image_content = ImageContent()
                 image_content.sheet = sheet
                 image_content.title = content_dict['title']
+                # return HttpResponse(str(content_dict['image']))
                 if "/media" in content_dict['image']:
                     image_file = open(BASE_DIR + content_dict['image'])
                     image_content.image = image_file
