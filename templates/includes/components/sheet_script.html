@@ -8,6 +8,25 @@
 {% include 'includes/components/vuejs/templates.html' %}
 <script>
 
+    // Enable tab in textarea
+    $(document).delegate('textarea', 'keydown', function (e) {
+        var keyCode = e.keyCode || e.which;
+
+        if (keyCode == 9) {
+            e.preventDefault();
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
+
+            // set textarea value to: text before caret + tab + text after caret
+            $(this).val($(this).val().substring(0, start)
+                + "\t"
+                + $(this).val().substring(end));
+
+            // put caret at right position again
+            this.selectionStart =
+                this.selectionEnd = start + 1;
+        }
+    });
     marked.setOptions({
         highlight: function (code) {
             return hljs.highlightAuto(code).value;
@@ -140,8 +159,8 @@
             toggleMode() {
                 this.editMode = !this.editMode
             },
-            updateTitle(title){
-              this.title = title
+            updateTitle(title) {
+                this.title = title
             },
             deleteContent(id) {
                 this.contents = this.contents.filter((content) => {
@@ -177,7 +196,7 @@
                 sheet = this; // capture the vue instance to use in the callback
                 axios({
                     method: 'post',
-                    url: '/sheet/save/' + {{ sheet.id }} + '/',
+                    url: '/sheet/save/' + {{ sheet.id }} +'/',
                     data: {
                         'sheet': stringJsonSheet
                     },
@@ -185,9 +204,11 @@
                         "X-CSRFToken": csrftoken,
                         "content-type": "application/json"
                     }
-                }).then((response)  => {
+                }).then((response) => {
                     sheet.saved = true
-                    setTimeout(() => {sheet.saved = false}, 2500)
+                    setTimeout(() => {
+                        sheet.saved = false
+                    }, 2500)
                     console.log(response)
                 }).catch((error) => {
                     console.log(error)
