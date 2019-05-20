@@ -98,7 +98,7 @@ textarea{
     min-height: 5rem;
     padding: .4rem;
     font-family: 'Source Code Pro', monospace;
-    font-size: 105%;
+    font-size: 100%;
 }
 p{
     text-align: justify;

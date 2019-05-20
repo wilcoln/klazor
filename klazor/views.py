@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 import base64
 from django.core.files.base import ContentFile
+from klazor.settings import BASE_DIR
 
 
 def welcome(request):
@@ -93,7 +94,8 @@ def save_sheet(request, id):
                 image_content.sheet = sheet
                 image_content.title = content_dict['title']
                 if "/media" in content_dict['image']:
-                    image_content.image = content_dict['image']
+                    image_file = open(BASE_DIR + content_dict['image'])
+                    image_content.image = image_file
                 else:
                     format, imagestr = content_dict['image'].split(';base64,')
                     ext = format.split('/')[-1]
@@ -105,7 +107,8 @@ def save_sheet(request, id):
                 audio_content.sheet = sheet
                 audio_content.title = content_dict['title']
                 if "/media" in content_dict['audio']:
-                    audio_content.audio = content_dict['audio']
+                    audio_file = open(BASE_DIR+content_dict['audio'])
+                    audio_content.audio = audio_file
                 else:
                     format, audiostr = content_dict['audio'].split(';base64,')
                     ext = format.split('/')[-1]
