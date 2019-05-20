@@ -160,7 +160,7 @@ class VideoContent(Content):
 
     def base64_str(self):
         ext = self.video.name.split('.')[-1]
-        return 'data:video/' + ext + ';base64,' + str(base64.b64encode(self.video.read()))[2:-3]
+        return 'data:video/' + ext + ';base64,' + str(base64.b64encode(self.video.read()))[2:-1]
 
     def __str__(self):
         return self.title
@@ -175,7 +175,7 @@ class AudioContent(Content):
 
     def base64_str(self):
         ext = self.audio.name.split('.')[-1]
-        return 'data:audio/' + ext + ';base64,' + str(base64.b64encode(self.audio.read()))[2:-3]
+        return 'data:audio/' + ext + ';base64,' + str(base64.b64encode(self.audio.read()))[2:-1]
 
     def __str__(self):
         return self.title
@@ -190,7 +190,7 @@ class ImageContent(Content):
 
     def base64_str(self):
         ext = self.image.name.split('.')[-1]
-        return 'data:image/' + ext + ';base64,' + str(base64.b64encode(self.image.read()))[2:-3]
+        return 'data:image/' + ext + ';base64,' + str(base64.b64encode(self.image.read()))[2:-1]
 
     def __str__(self):
         return self.title

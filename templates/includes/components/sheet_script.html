@@ -192,6 +192,7 @@
                 console.log("saving...")
                 let sheet = new Sheet(this.title, this.contents)
                 let stringJsonSheet = JSON.stringify(sheet)
+                console.log(stringJsonSheet)
                 let csrftoken = Cookies.get('csrftoken');
                 sheet = this; // capture the vue instance to use in the callback
                 axios({

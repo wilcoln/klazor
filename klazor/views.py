@@ -64,7 +64,7 @@ def new_sheet(request):
 
 
 def save_sheet(request, id):
-    data = json.loads(request.body.decode('utf-8'))
+    data = json.loads(request.body)
     sheet_dict = json.loads(data['sheet'])  # Contains modified data and is a dictionary
     sheet = Sheet.objects.get(pk=id)  # The saved sheet, and is instance of Sheet
     # retrieve all old contents
