@@ -82,6 +82,7 @@ def save_content(request, id):
         filename = str(content_dict['filename'])
         video_content = VideoContent()
         video_content.sheet = sheet
+        video_content.sequence = content_dict['sequence']
         video_content.title = content_dict['title']
         video_content.video.save(filename, storage.open('videos/'+filename))
         video_content.save()
@@ -89,6 +90,7 @@ def save_content(request, id):
         filename = str(content_dict['filename'])
         image_content = ImageContent()
         image_content.sheet = sheet
+        image_content.sequence = content_dict['sequence']
         image_content.title = content_dict['title']
         image_content.image.save(filename, storage.open('images/'+filename))
         image_content.save()
@@ -96,12 +98,14 @@ def save_content(request, id):
         filename = str(content_dict['filename'])
         audio_content = AudioContent()
         audio_content.sheet = sheet
+        audio_content.sequence = content_dict['sequence']
         audio_content.title = content_dict['title']
         audio_content.audio.save(filename, storage.open('audios/'+filename))
         audio_content.save()
     elif 'text' in content_dict:
         markdown_content = MarkdownContent()
         markdown_content.sheet = sheet
+        markdown_content.sequence = content_dict['sequence']
         markdown_content.text = content_dict['text']
         markdown_content.save()
 

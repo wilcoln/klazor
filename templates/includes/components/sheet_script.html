@@ -219,6 +219,7 @@
                         console.log(" saving content ...")
                         // Le serveur renvoie le chemin du fichier fraichement sauvegardé
                         lightContent.filename = success.data === 'no_new_name' ? content.filename : success.data
+                        lightContent.sequence = sheet.contents.indexOf(content) + 1
                         lightContentJson = JSON.stringify(lightContent)
                         axios({
                             method: 'post',

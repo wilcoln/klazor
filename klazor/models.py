@@ -137,11 +137,12 @@ class Week(models.Model):
 
 
 class Content(models.Model):
-    # position = models.IntegerField(blank=False, null=False)
+    sequence = models.IntegerField(blank=False, null=False)
     sheet = models.ForeignKey(Sheet, models.CASCADE)
 
     class Meta:
         db_table = 'content'
+        ordering = ['sequence', ]
 
 
 class MarkdownContent(Content):
