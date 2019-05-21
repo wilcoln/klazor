@@ -71,11 +71,6 @@ def save_content(request, id):
     data = json.loads(request.body)
     content_dict = json.loads(data['content'])  # Contains modified data and is a dictionary
     sheet = Sheet.objects.get(pk=id)  # The saved sheet, and is instance of Sheet
-    # retrieve all old contents
-    old_contents = sheet.content_set.all()
-    # Delete all old contents
-    for old_content in old_contents:
-        old_content.delete()
 
     storage = FileSystemStorage()
     if 'video' in content_dict:
@@ -121,6 +116,11 @@ def delete_sheet(request, id):
 def save_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)
     sheet.title = request.POST['title']
+    # retrieve all old contents
+    old_contents = sheet.content_set.all()
+    # Delete all old contents
+    for old_content in old_contents:
+        old_content.delete()
     sheet.save()
     return HttpResponse("success")
 
