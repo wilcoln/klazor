@@ -34,7 +34,8 @@ urlpatterns = [
     path('sheet/delete/<int:id>/', delete_sheet, name='delete_sheet'),
     path('folder/delete/<int:id>/', delete_folder, name='delete_folder'),
     path('folder/new/', new_folder, name='new-folder'),
-    path('mooc_course/delete/<int:id>/', delete_mooc_course, name='delete_mooc_course'),
-    path('school_course/delete/<int:id>/', delete_school_course, name='delete_school_course')
+    path('mooc_course/delete/<int:id>/', delete_mooc_course, name='delete-mooc-course'),
+    path('school_course/delete/<int:id>/', delete_school_course, name='delete-school-course'),
+    path('upload/', upload, name='upload')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

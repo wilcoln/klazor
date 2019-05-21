@@ -33,20 +33,6 @@
         }
     });
 
-
-    function getBase64Image(img) {
-        var canvas = document.createElement("canvas")
-        canvas.width = img.width
-        canvas.height = img.height
-
-        var ctx = canvas.getContext("2d")
-        ctx.drawImage(img, 0, 0)
-
-        var dataURL = canvas.toDataURL("image/png")
-
-        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "")
-    }
-
     /* TODO Remove this line in production mode */
     // Enabling devtools
     Vue.config.devtools = true
@@ -133,6 +119,7 @@
                 if (this.editable)
                     this.content.editMode = !this.content.editMode
             },
+            //Preview before upload
             updateImage: function () {
                 let inputId = 'input-' + this.content.id
                 let input = document.getElementById(inputId)
@@ -188,12 +175,43 @@
                 this.contents = []
             },
             saveSheet() {
+
+                let csrftoken = Cookies.get('csrftoken');
+                // Upload files
+                let formData = null
+                let file = null
+                for (let content of this.contents) {
+                    if (content instanceof VideoContent) {
+                            file = content.video
+                    } else if (content instanceof AudioContent) {
+                            file = content.audio
+                    } else if (content instanceof ImageContent) {
+                            file = content.image
+                        console.log("au moins toi")
+                    }
+
+                    formData = new FormData();
+                    formData.append('file', file);
+                    axios.post('/upload/',
+                        formData,
+                        {
+                            headers: {
+                                'X-CSRFToken': csrftoken,
+                                'content-Type': 'multipart/form-data'
+                            }
+                        }
+                    ).then((success) => {
+                        console.log(success)
+                    })
+                        .catch((error) => {
+                            console.log(error)
+                        });
+                }
                 // TODO this function should submit the json object
-                console.log("saving...")
+                {% comment %}console.log("saving...")
                 let sheet = new Sheet(this.title, this.contents)
                 let stringJsonSheet = JSON.stringify(sheet)
                 console.log(stringJsonSheet)
-                let csrftoken = Cookies.get('csrftoken');
                 sheet = this; // capture the vue instance to use in the callback
                 axios({
                     method: 'post',
@@ -213,7 +231,7 @@
                     console.log(response)
                 }).catch((error) => {
                     console.log(error)
-                });
+                });{% endcomment %}
             }
         },
         computed: {
@@ -229,11 +247,11 @@
             {% for content in sheet.content_set.all  %}
                 counter = {{ forloop.counter }}
                     {% if content.videocontent %}
-                        this.contents.push(new VideoContent(counter, `{{ content.videocontent.title }}`, `{{ content.videocontent.base64_str }}`))
+                        this.contents.push(new VideoContent(counter, `{{ content.videocontent.title }}`, `{{ content.videocontent.video.url }}`))
                     {% elif content.audiocontent %}
-                        this.contents.push(new AudioContent(counter, `{{ content.audiocontent.title }}`, `{{ content.audiocontent.base64_str }}`))
+                        this.contents.push(new AudioContent(counter, `{{ content.audiocontent.title }}`, `{{ content.audiocontent.audio.url}}`))
                     {% elif content.imagecontent %}
-                        this.contents.push(new ImageContent(counter, `{{ content.imagecontent.title }}`, `{{ content.imagecontent.base64_str }}`))
+                        this.contents.push(new ImageContent(counter, `{{ content.imagecontent.title }}`, `{{ content.imagecontent.image.url }}`))
                     {% elif content.markdowncontent %}
                         text = `{{ content.markdowncontent.text|safe }}`
                         this.contents.push(new MarkdownContent(counter, text))

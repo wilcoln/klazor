@@ -1,6 +1,7 @@
 import os
 import json
 from django.core.files.base import ContentFile
+from django.core.files.storage import Storage, FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -14,8 +15,10 @@ def welcome(request):
     mooc_courses = MoocCourse.objects.all()
     school_courses = SchoolCourse.objects.all()
     folders = Folder.objects.filter(parent_id=1, id__gt=1)  # We remove the root folder
-    folder_free_sheets = Sheet.objects.filter(folder__sheet_set__folder__isnull=True) | Sheet.objects.filter(folder__sheet_set__folder__id=1)  # sheets libre de tout dossier
-    free_sheets = [sheet for sheet in folder_free_sheets if not hasattr(sheet, 'item')]  # sheets libre de tout dossier ET non Item
+    folder_free_sheets = Sheet.objects.filter(folder__sheet_set__folder__isnull=True) | Sheet.objects.filter(
+        folder__sheet_set__folder__id=1)  # sheets libre de tout dossier
+    free_sheets = [sheet for sheet in folder_free_sheets if
+                   not hasattr(sheet, 'item')]  # sheets libre de tout dossier ET non Item
     return render(request, 'pages/welcome.html', {
         'mooc_courses': mooc_courses,
         'school_courses': school_courses,
@@ -74,7 +77,7 @@ def save_sheet(request, id):
         old_content.delete()
 
     # create new content and associate
-    sheet.title = sheet_dict['title'] # sauvegarde le titre
+    sheet.title = sheet_dict['title']  # sauvegarde le titre
     if sheet_dict['contents']:
         for content_dict in sheet_dict['contents']:
             if 'video' in content_dict:
@@ -144,3 +147,19 @@ def new_folder(request):
     folder.name = "Nouveau dossier " + str(Folder.objects.latest('id').id + 1)
     folder.save()
     return redirect('welcome')
+
+
+def upload(request):
+    data = request.POST['file']
+    format, file_str = data.split(';base64,')
+    ext = format.split('/')[-1]
+    storage = FileSystemStorage()
+    path = ""
+    if "image" in format:
+        path = "images/image." + ext
+    elif "audio" in format:
+        path = "audios/audio." + ext
+    elif "video" in format:
+        path = "videos/video." + ext
+    storage.save(path, ContentFile(base64.b64decode(file_str)))
+    return HttpResponse("success")
