@@ -5,6 +5,7 @@ from django.core.files.storage import Storage, FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.core.files import File
 from klazor.models import *
 import base64
 from klazor.settings import MEDIA_ROOT
@@ -66,9 +67,9 @@ def new_sheet(request):
     return render(request, 'pages/sheet.html', {'sheet': new_sheet, 'edit_mode': True})
 
 
-def save_sheet(request, id):
+def save_content(request, id):
     data = json.loads(request.body)
-    sheet_dict = json.loads(data['sheet'])  # Contains modified data and is a dictionary
+    content_dict = json.loads(data['content'])  # Contains modified data and is a dictionary
     sheet = Sheet.objects.get(pk=id)  # The saved sheet, and is instance of Sheet
     # retrieve all old contents
     old_contents = sheet.content_set.all()
@@ -76,51 +77,48 @@ def save_sheet(request, id):
     for old_content in old_contents:
         old_content.delete()
 
-    # create new content and associate
-    sheet.title = sheet_dict['title']  # sauvegarde le titre
-    if sheet_dict['contents']:
-        for content_dict in sheet_dict['contents']:
-            if 'video' in content_dict:
-                video_content = VideoContent()
-                video_content.sheet = sheet
-                video_content.title = content_dict['title']
-                format, videostr = content_dict['video'].split(';base64,')
-                ext = format.split('/')[-1]
-                filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
-                video_content.video = ContentFile(base64.b64decode(videostr), name=filename)
-                video_content.save()
-            elif 'image' in content_dict:
-                image_content = ImageContent()
-                image_content.sheet = sheet
-                image_content.title = content_dict['title']
-                format, imagestr = content_dict['image'].split(';base64,')
-                ext = format.split('/')[-1]
-                filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
-                image_content.image = ContentFile(base64.b64decode(imagestr), name=filename)
-                image_content.save()
-            elif 'audio' in content_dict:
-                audio_content = AudioContent()
-                audio_content.sheet = sheet
-                audio_content.title = content_dict['title']
-                format, audiostr = content_dict['audio'].split(';base64,')
-                ext = format.split('/')[-1]
-                filename = content_dict['title'].lower().replace(' ', '_') + '.' + ext
-                audio_content.audio = ContentFile(base64.b64decode(audiostr), name=filename)
-                audio_content.save()
-            elif 'text' in content_dict:
-                markdown_content = MarkdownContent()
-                markdown_content.sheet = sheet
-                markdown_content.text = content_dict['text']
-                markdown_content.save()
-    sheet.save()
+    storage = FileSystemStorage()
+    if 'video' in content_dict:
+        filename = str(content_dict['filename'])
+        video_content = VideoContent()
+        video_content.sheet = sheet
+        video_content.title = content_dict['title']
+        video_content.video.save(filename, storage.open('videos/'+filename))
+        video_content.save()
+    elif 'image' in content_dict:
+        filename = str(content_dict['filename'])
+        image_content = ImageContent()
+        image_content.sheet = sheet
+        image_content.title = content_dict['title']
+        image_content.image.save(filename, storage.open('images/'+filename))
+        image_content.save()
+    elif 'audio' in content_dict:
+        filename = str(content_dict['filename'])
+        audio_content = AudioContent()
+        audio_content.sheet = sheet
+        audio_content.title = content_dict['title']
+        audio_content.audio.save(filename, storage.open('audios/'+filename))
+        audio_content.save()
+    elif 'text' in content_dict:
+        markdown_content = MarkdownContent()
+        markdown_content.sheet = sheet
+        markdown_content.text = content_dict['text']
+        markdown_content.save()
 
-    return HttpResponse(str(sheet))
+    return HttpResponse(str(content_dict))
 
 
 def delete_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)
     sheet.delete()
     return redirect('welcome')
+
+
+def save_sheet(request, id):
+    sheet = Sheet.objects.get(pk=id)
+    sheet.title = request.POST['title']
+    sheet.save()
+    return HttpResponse("success")
 
 
 def delete_folder(request, id):
@@ -151,15 +149,20 @@ def new_folder(request):
 
 def upload(request):
     data = request.POST['file']
-    format, file_str = data.split(';base64,')
-    ext = format.split('/')[-1]
-    storage = FileSystemStorage()
-    path = ""
-    if "image" in format:
-        path = "images/image." + ext
-    elif "audio" in format:
-        path = "audios/audio." + ext
-    elif "video" in format:
-        path = "videos/video." + ext
-    storage.save(path, ContentFile(base64.b64decode(file_str)))
-    return HttpResponse("success")
+    if ';base64,' in data:
+        filename = request.POST['title'].lower().replace(' ', '_')
+        format, file_str = data.split(';base64,')
+        ext = format.split('/')[-1]
+        storage = FileSystemStorage()
+        path = ''
+        filename = filename + '.' + ext
+        if 'image' in format:
+            path = 'images/' + filename
+        elif 'audio' in format:
+            path = 'audios/' + filename
+        elif 'video' in format:
+            path = 'videos/' + filename
+        if not storage.exists(path):
+            storage.save(path, ContentFile(base64.b64decode(file_str)))
+        return HttpResponse(filename)
+    return HttpResponse('no_new_name')

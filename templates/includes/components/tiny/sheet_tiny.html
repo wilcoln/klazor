@@ -5,7 +5,7 @@
             <div class="sheet-title">{{ sheet.title }}</div>
         </a>
         <small class="text-muted ">{{ sheet.content_set.all.count }} contents</small>
-        <form action="{% url 'delete_sheet' sheet.id %}" method="post">
+        <form action="{% url 'delete-sheet' sheet.id %}" method="post">
             {%  csrf_token %}
             <button role="submit" class="fa fa-trash"></button>
         </form>
