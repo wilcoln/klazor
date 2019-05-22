@@ -7,7 +7,7 @@
             </div>
         </a>
         <small class="text-muted ">{{ mooc_course.week_set.all.count }} semaines</small>
-        <form action="{% url 'delete_mooc_course' mooc_course.id %}" method="post">
+        <form action="{% url 'delete-mooc-course' mooc_course.id %}" method="post">
             {%  csrf_token %}
             <button role="submit" class="fa fa-trash"></button>
         </form>
