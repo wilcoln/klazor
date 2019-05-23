@@ -82,7 +82,7 @@
 .sheet.toolbar .btn-clear:hover{
     color: #dc3545;
 }
-h1 > input{
+.sheet-component h1 > input{
     display: inline-block;
     width: 100%;
     padding: .2rem;

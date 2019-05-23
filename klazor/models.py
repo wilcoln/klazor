@@ -87,14 +87,14 @@ class Item(Sheet):
         (COMPLETED, 'Completed'),
     )
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default=UNSTARTED)
-    next = models.IntegerField(blank=True, null=True)
-    prev = models.IntegerField(blank=True, null=True)
+    sequence = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
         db_table = 'item'
+        ordering = ['sequence', ]
 
 
 class MoocCourse(Course):
