@@ -40,3 +40,19 @@
 .tiny{
     background-color: #fdfdfd;
 }
+.mooc-course-container{
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+.school-course-container{
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+.sheet-container{
+    max-height: 20vh;
+    overflow-y: scroll;
+}
+.folder-container{
+    max-height: 20vh;
+    overflow-y: scroll;
+}
