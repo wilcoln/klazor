@@ -17,7 +17,7 @@
                         {% for item in school_course.item_set.all %}
                             <a href="{% url 'school-course-item' item.id %}">
                                 <div class="row">
-                                    <h3 class="col-md-12">{{ forloop.counter }}. {{ item.title }}</h3>
+                                    <h3 class="col-md-12">{{ forloop.counter }}. {{ item.title }} {% if item.completed %} <i class="fa fa-check-circle text-success"></i> {% endif %} </h3>
                                 </div>
                             </a>
                         {% endfor %}
