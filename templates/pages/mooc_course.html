@@ -21,7 +21,7 @@
                         </div>
                         <ul class="row">
                             {% for item in week.item_set.all %}
-                                <li class="col-md-9 offset-3"><a href="{% url 'mooc-course-item' item.id %}">{{ item.title }}</a></li>
+                                <li class="col-md-9 offset-3"><a href="{% url 'mooc-course-item' item.id %}">{{ item.title }} {% if item.completed %} <i class="fa fa-check-circle text-success"></i> {% endif %}</a></li>
                             {% endfor %}
                         </ul>
                     {% endfor %}

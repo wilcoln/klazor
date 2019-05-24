@@ -77,16 +77,7 @@ class Sheet(models.Model):
 
 
 class Item(Sheet):
-    # Choices for status
-    UNSTARTED = 'UNSTARTED'
-    RUNNING = 'RUNNING'
-    COMPLETED = 'COMPLETED'
-    STATUS_CHOICES = (
-        (UNSTARTED, 'Not started'),
-        (RUNNING, 'On going'),
-        (COMPLETED, 'Completed'),
-    )
-    status = models.CharField(max_length=9, choices=STATUS_CHOICES, default=UNSTARTED)
+    completed = models.BooleanField(default=False)
     sequence = models.IntegerField(blank=True, null=True)
 
     def __str__(self):

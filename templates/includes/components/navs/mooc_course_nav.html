@@ -6,7 +6,7 @@
               <a href="#_{{ week.id }}" class="w-100 list-group-item list-group-item-secondary rounded-0" data-toggle="collapse" data-parent="#CourseMenu"> Semaine {{ forloop.counter }}: {{ week.title|truncatechars:30}} <i class="fa fa-caret-down float-right"></i></a>
               <div class="collapse" id="_{{ week.id }}">
               {% for item in week.item_set.all %}
-                  <a href="{% url 'mooc-course-item' item.id %}" class="list-group-item rounded-0">{{ item.title }}</a>
+                  <a href="{% url 'mooc-course-item' item.id %}" class="list-group-item rounded-0">{{ item.title }} {% if item.completed %} <i class="float-right fa fa-check-circle text-success"></i> {% endif %}</a>
               {% endfor %}
               </div>
           {% endfor %}

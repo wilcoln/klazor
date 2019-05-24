@@ -170,3 +170,11 @@ def upload(request):
             storage.save(path, ContentFile(base64.b64decode(file_str)))
         return HttpResponse(filename)
     return HttpResponse('no_new_name')
+
+
+def toggle_course_item_status(request, id):
+    item = Item.objects.get(pk=id)
+    item.completed = not item.completed
+    item.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+

@@ -13,6 +13,10 @@
         </div>
         <div class="col-md-9">
              {% include 'includes/components/item.html' with item=school_course_item %}
+            <form action="{% url 'check-item' school_course_item.id %}" method="post">
+                {% csrf_token %}
+                 <button class="float-right my-3 btn {% if school_course_item.completed %} {{ ' btn-secondary ' }} {% else %} {{ ' btn-info ' }}{% endif %}" >{% if not school_course_item.completed %} <i class="fa fa-check text-success"></i>  {{ 'Mark as completed' }} {% else %} <i class="fa fa-undo"></i> {{ ' Unmark as completed ' }}{% endif %}</button>
+             </form>
         </div>
         </div>
     </div>
