@@ -1,15 +1,11 @@
-import os
-import json
 from django.core.files.base import ContentFile
-from django.core.files.storage import Storage, FileSystemStorage
-from django.http import HttpResponse
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.core.files import File
 from klazor.models import *
 import base64
-from klazor.settings import MEDIA_ROOT
-from klazor.settings import BASE_DIR
+import json
 
 
 def welcome(request):
@@ -43,9 +39,29 @@ def view_mooc_course_item(request, id):
     return render(request, 'pages/mooc_course_item.html', {'mooc_course_item': mooc_course_item})
 
 
+# Manages mooc course item nav
+def mooc_course_item_reach(request, week_id, item_sequence):
+    week = Week.objects.get(pk=week_id)
+    try:
+        mooc_course_item = week.item_set.all()[item_sequence-1]
+        return render(request, 'pages/mooc_course_item.html', {'mooc_course_item': mooc_course_item})
+    except IndexError:
+        return render(request, 'pages/mooc_course.html', {'mooc_course':  week.mooc_course})
+
+
 def view_school_course_item(request, id):
     school_course_item = Item.objects.get(pk=id)
     return render(request, 'pages/school_course_item.html', {'school_course_item': school_course_item})
+
+
+# Manages school course item nav
+def school_course_item_reach(request, school_course_id, item_sequence):
+    school_course = SchoolCourse.objects.get(pk=school_course_id)
+    try:
+        school_course_item = school_course.item_set.all()[item_sequence-1]
+        return render(request, 'pages/school_course_item.html', {'school_course_item': school_course_item})
+    except IndexError:
+        return render(request, 'pages/school_course.html', {'school_course': school_course})
 
 
 def view_folder(request, id):

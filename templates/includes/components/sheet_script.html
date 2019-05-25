@@ -306,3 +306,11 @@
         }
     })
 </script>
+<script>
+    let videoPlayers = document.getElementsByTagName('video');
+    for (let videoPlayer of videoPlayers){
+         videoPlayer.addEventListener('seeking', function () {
+            console.log('seeking', videoPlayer.currentTime)
+        });
+    }
+</script>
