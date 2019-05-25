@@ -1,5 +1,6 @@
 .idea/
 node_modules/
+env/
 media/
 __pycache__/
 backup.sql
