@@ -204,19 +204,6 @@ tr:hover {
 }
 
 .alert.alert-dismissible{
-    position: absolute;
-    top: 0px;
-    width: 100vw;
-    height: 1.2rem;
-    border-radius: 0px;
     text-align: center;
-    padding-top: .4rem;
-    padding-bottom: .2rem;
-    margin-bottom: 0px;
-    line-height: 0px;
-    font-size: .8rem;
-}
-.alert.alert-dismissible .close{
-    position: relative;
-    top: -22px !important;
+    border-radius: 0px;
 }
