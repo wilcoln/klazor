@@ -6,7 +6,7 @@ class Content {
 }
 
 class VideoContent extends Content {
-    constructor(id, title, video) {
+    constructor(id, title, video, displayWidth) {
         super(id)
         if (video) {
             this.editMode = false
@@ -14,6 +14,7 @@ class VideoContent extends Content {
         }
         this.title = title
         this.video = video
+        this.displayWidth = displayWidth
     }
 }
 
@@ -30,7 +31,7 @@ class AudioContent extends Content {
 }
 
 class ImageContent extends Content {
-    constructor(id, title, image) {
+    constructor(id, title, image, displayWidth) {
         super(id)
         if (image){
             this.editMode = false
@@ -38,6 +39,7 @@ class ImageContent extends Content {
         }
         this.title = title
         this.image = image
+        this.displayWidth = displayWidth
     }
 
 }

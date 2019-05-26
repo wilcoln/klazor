@@ -2,23 +2,26 @@
 <template id="video-content">
     <div class="row" v-if="editable && content.editMode">
         <div class="col-11">
-            <figure class="figure">
-                <video width="100%" controls>
+            <figure class="figure text-center">
+                <video v-bind:width="content.displayWidth*100 + '%'" controls>
                     <source v-bind:src="content.video" type="video/mp4">
                 </video>
-                <input v-bind:id="'input-' + content.id" type="file" v-on:change="updateVideo">
+                <div class="mb-2 justify-content-around w-100">
+                    <input v-bind:id="'input-' + content.id" type="file" v-on:change="updateVideo">
+                    <label v-bind:for="'display-width-input' + content.id">Width : </label><input v-bind:id="'display-width-input' + content.id" type="number" v-model="content.displayWidth">
+                </div>
                 <figcaption
                         class="figure-caption text-center">
-                    <input v-on:keyup.ctrl.enter="toggleMode" v-model="content.title" type="text">
+                    <label>Title : </label> <input v-on:keyup.ctrl.enter="toggleMode" v-model="content.title" type="text">
                 </figcaption>
             </figure>
         </div>
         <div class="col-1" v-if="editable && content.editMode"><i v-on:click="$emit('delete', content.id)"
-                                                          class="fa fa-trash"></i></div>
+                                                                  class="fa fa-trash"></i></div>
     </div>
     <div v-else v-on:dblclick="toggleMode" class="d-flex justify-content-center">
-        <figure class="figure">
-            <video width="100%" controls>
+        <figure class="figure text-center">
+            <video v-bind:width="content.displayWidth*100 + '%'" controls>
                 <source v-bind:src="content.video" type="video/mp4">
             </video>
             <figcaption
