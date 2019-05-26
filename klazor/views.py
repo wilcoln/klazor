@@ -98,6 +98,7 @@ def save_content(request, id):
         video_content.display_width = content_dict['displayWidth']
         video_content.video.save(filename, storage.open('videos/'+filename))
         video_content.save()
+        storage.delete('videos/' + filename)
     elif 'image' in content_dict:
         filename = str(content_dict['filename'])
         image_content = ImageContent()
@@ -107,6 +108,7 @@ def save_content(request, id):
         image_content.display_width = content_dict['displayWidth']
         image_content.image.save(filename, storage.open('images/'+filename))
         image_content.save()
+        storage.delete('images/' + filename)
     elif 'audio' in content_dict:
         filename = str(content_dict['filename'])
         audio_content = AudioContent()
@@ -115,6 +117,7 @@ def save_content(request, id):
         audio_content.title = content_dict['title']
         audio_content.audio.save(filename, storage.open('audios/'+filename))
         audio_content.save()
+        storage.delete('audios/' + filename)
     elif 'text' in content_dict:
         markdown_content = MarkdownContent()
         markdown_content.sheet = sheet
