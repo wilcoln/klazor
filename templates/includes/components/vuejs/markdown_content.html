@@ -2,7 +2,7 @@
 <template id="markdown-content">
     <div class="row" v-if="editable && content.editMode">
        <div class="col-11">
-            <textarea v-on:keyup.ctrl.enter="toggleMode" v-model="content.text" rows="2"
+            <textarea v-on:keyup.ctrl.enter="toggleMode" v-model="content.text" rows="1"
         onfocus='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
         oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
             placeholder="Write something..."></textarea>
@@ -13,6 +13,6 @@
     </div>
 
 
-    <div v-else v-on:click="toggleMode" v-html="html"></div>
+    <div class="markdown-display" v-else v-on:click="toggleMode" v-html="html"></div>
 </template>
 {% endverbatim %}
