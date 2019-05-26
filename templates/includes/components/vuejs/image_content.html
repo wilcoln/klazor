@@ -14,7 +14,7 @@
        </div>
         <div class="col-1" v-if="editable && content.editMode"><i v-on:click="$emit('delete', content.id)" class="fa fa-trash"></i></div>
     </div>
-    <div v-else v-on:click="toggleMode" class="d-flex justify-content-center">
+    <div v-else v-on:dblclick="toggleMode" class="d-flex justify-content-center">
         <figure class="figure">
             <img v-bind:src="content.image" width="100%"
                  v-bind:alt="content.title">
