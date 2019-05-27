@@ -207,7 +207,7 @@
                         lightContent.id = content.id
                         if (content instanceof VideoContent) {
                             lightContent.title = content.title
-                            lightContent.displayWidth = content.displayWidth
+                            lightContent.scale = content.scale
                             lightContent.video = null
                             file = content.video
                         } else if (content instanceof AudioContent) {
@@ -216,7 +216,7 @@
                             file = content.audio
                         } else if (content instanceof ImageContent) {
                             lightContent.title = content.title
-                            lightContent.displayWidth = content.displayWidth
+                            lightContent.scale = content.scale
                             lightContent.image = null
                             file = content.image
                         } else if (content instanceof MarkdownContent) {
@@ -295,11 +295,11 @@
             {% for content in sheet.content_set.all  %}
                 counter = {{ forloop.counter }}
                     {% if content.videocontent %}
-                        this.contents.push(new VideoContent(counter, `{{ content.videocontent.title }}`, `{{ content.videocontent.video.url }}`, {{ content.videocontent.display_width }}))
+                        this.contents.push(new VideoContent(counter, `{{ content.videocontent.title }}`, `{{ content.videocontent.video.url }}`, {{ content.videocontent.scale }}))
                     {% elif content.audiocontent %}
                         this.contents.push(new AudioContent(counter, `{{ content.audiocontent.title }}`, `{{ content.audiocontent.audio.url}}`))
                     {% elif content.imagecontent %}
-                        this.contents.push(new ImageContent(counter, `{{ content.imagecontent.title }}`, `{{ content.imagecontent.image.url }}`, {{ content.imagecontent.display_width }}))
+                        this.contents.push(new ImageContent(counter, `{{ content.imagecontent.title }}`, `{{ content.imagecontent.image.url }}`, {{ content.imagecontent.scale }}))
                     {% elif content.markdowncontent %}
                         text = `{{ content.markdowncontent.text|safe }}`
                         this.contents.push(new MarkdownContent(counter, text))

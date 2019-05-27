@@ -149,7 +149,7 @@ class MarkdownContent(Content):
 class VideoContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
     video = models.FileField(upload_to='videos')
-    display_width = models.FloatField(default=1)
+    scale = models.FloatField(default=1)
 
     def __str__(self):
         return self.title
@@ -172,7 +172,7 @@ class AudioContent(Content):
 class ImageContent(Content):
     title = models.CharField(max_length=50, blank=True, null=True)
     image = models.FileField(upload_to='images')
-    display_width = models.FloatField(default=1)
+    scale = models.FloatField(default=1)
 
     def __str__(self):
         return self.title
