@@ -1,6 +1,6 @@
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
 from klazor.models import *
@@ -131,7 +131,7 @@ def save_content(request, id):
 def delete_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)
     sheet.delete()
-    return redirect('welcome')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def save_sheet(request, id):
@@ -149,7 +149,7 @@ def save_sheet(request, id):
 def delete_folder(request, id):
     folder = Folder.objects.get(pk=id)
     folder.delete()
-    return redirect('welcome')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def delete_mooc_course(request, id):
@@ -166,10 +166,20 @@ def delete_school_course(request, id):
 
 def new_folder(request):
     folder = Folder()
-    folder.parent_id = 1
-    folder.name = "Nouveau dossier " + str(Folder.objects.latest('id').id + 1)
+    folder.parent_id = request.POST['parent-id']
+    folder.name = request.POST['folder-name']
     folder.save()
-    return redirect('welcome')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def new_folder_sheet(request, id):
+    new_sheet = Sheet()
+    new_sheet.title = "Nouveau titre"
+    new_sheet.save()
+    folder = Folder.objects.get(pk=id)
+    new_sheet.folder_set.add(folder)
+    new_sheet.save()
+    return redirect('sheet', new_sheet.id)
 
 
 def upload(request):

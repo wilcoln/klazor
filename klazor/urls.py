@@ -32,6 +32,7 @@ urlpatterns = [
     path('folder/<int:id>/', view_folder, name='folder'),
     path('sheet/<int:id>/', view_sheet, name='sheet'),
     path('sheet/new/', new_sheet, name='new-sheet'),
+    path('folder/<int:id>/sheet/new/', new_folder_sheet, name='new-folder-sheet'),
     path('sheet/<int:id>/save/', save_sheet, name='save-sheet'),
     path('sheet/<int:id>/content/save/', save_content, name='save-content'),
     path('sheet/delete/<int:id>/', delete_sheet, name='delete-sheet'),

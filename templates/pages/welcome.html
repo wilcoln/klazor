@@ -40,10 +40,11 @@
         </div>
         <hr>
         <div class="folder-container  row">
+            {% include 'includes/components/modals/create_folder.html' with parent_id=1 %}
             <div class="col-12">
                 <h1> Dossiers
                     <small>({{ folders.all.count|default:0 }})</small>
-                    <a href="{% url 'new-folder' %}" class="float-right badge badge-primary"> <i class="fa fa-plus"></i></a></h1>
+                    <button type="button" class="btn float-right badge badge-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus"></i></button></h1>
             </div>
 
             {% for folder in  folders %}
