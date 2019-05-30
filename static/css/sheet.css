@@ -16,6 +16,9 @@
 .sheet-component .sheet-title{
     color: black;
 }
+.sheet-component h1, .sheet-component h2, .sheet-component h3{
+    color: black;
+}
 .sheet-component pre{
     background: #f5f5f5 !important;
     padding: .4rem .5rem;

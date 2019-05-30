@@ -24,7 +24,8 @@
                                    v-on:delete="deleteContent($event)"></image-content>
                     <markdown-content v-else-if="content instanceof MarkdownContent"
                                       v-bind:editable="editMode" v-bind:content="content"
-                                      v-on:delete="deleteContent($event)">
+                                      v-on:delete="deleteContent($event)"
+                                        v-on:save="saveSheet">
                     </markdown-content>
                 </div>
             </div>
