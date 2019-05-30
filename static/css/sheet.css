@@ -210,3 +210,9 @@ tr:hover {
 .scale-input{
     width: 50px;
 }
+.alert{
+    display: none;
+}
+.edit-menu{
+    display: none;
+}

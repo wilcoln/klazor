@@ -158,7 +158,7 @@
                 })
             },
             addVideoContent() {
-                let videoContent = new VideoContent(this.lastInsertedId + 1, '')
+                let videoContent = new VideoContent(this.lastInsertedId + 1, '', '',1)
                 this.contents.push(videoContent)
             },
             addAudioContent() {
@@ -166,7 +166,7 @@
                 this.contents.push(audioContent)
             },
             addImageContent() {
-                let imageContent = new ImageContent(this.lastInsertedId + 1, '')
+                let imageContent = new ImageContent(this.lastInsertedId + 1, '', '',1)
                 this.contents.push(imageContent)
             },
             addMarkdownContent() {

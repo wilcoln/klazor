@@ -5,7 +5,7 @@
         <span class="slider round"></span>
     </label>
     <div class="mode"><i class="fa" v-bind:class="{ 'fa-eye': !editMode, 'fa-edit':editMode}" ></i></div>
-    <div v-if="editMode" class="d-flex justify-content-around">
+    <div class="edit-menu justify-content-around" v-bind:style="{display: editMode ? 'flex':'none' }">
         <div class="separator"></div>
         <div class="btn-group" role="group">
             <button v-on:click="addVideoContent"><i class="fa fa-plus"></i> <i class="fa fa-file-movie-o"></i></button>
