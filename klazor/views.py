@@ -80,7 +80,7 @@ def new_sheet(request):
     new_sheet = Sheet()
     new_sheet.title = "Nouveau titre"
     new_sheet.save()
-    return render(request, 'pages/sheet.html', {'sheet': new_sheet, 'edit_mode': True})
+    return redirect('sheet', new_sheet.id)
 
 
 def save_content(request, id):

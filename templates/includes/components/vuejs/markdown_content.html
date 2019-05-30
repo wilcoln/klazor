@@ -2,7 +2,7 @@
 <template id="markdown-content">
     <div class="row" v-if="editable && content.editMode">
        <div class="col-11">
-            <textarea v-on:keyup.ctrl.enter="toggleMode"  @keydown.ctrl.83.prevent="$emit('save')" v-model="content.text" rows="1"
+            <textarea v-on:keyup.ctrl.enter="toggleMode"  @keydown.ctrl.83.prevent="$emit('save')" v-model="content.text"
         onfocus='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
         oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
             placeholder="Write something..."></textarea>
