@@ -5,11 +5,11 @@
 {% endblock %}
 {% block title %} {{ folder.name }} {% endblock %}
 {% block content %}
+    {% include 'includes/components/modals/create_folder.html' with parent_id=folder.id %}
     <div class="base-container">
         <div class="row">
             <div class="col-md-3">
                 {% include 'includes/components/navs/folder_editor_nav.html' with folder=folder %}
-                <a href="{%  url 'new-folder-sheet' folder.id %}" class="float-right badge badge-success m-3"> <i class="fa fa-plus"></i></a>
             </div>
             <div class="col-md-9">
                 {% include 'includes/components/sheet.html' with sheet=folder.sheet_set.first %}

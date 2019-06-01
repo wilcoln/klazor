@@ -1,11 +1,33 @@
-      <!-- menu -->
-      <div id="folderNav">
-      <h1 class="text-center"><a href="{% url 'folder' folder.parent.id %}" class="text-center">
-                    ../  <i class="fa fa-arrow-left"></i>
-       </a></h1>
-        <div class="list-group">
-          {% for sheet in folder.sheet_set.all %}
-              <a href="{% url 'folder-editor' folder.id sheet.id %}" class="list-group-item rounded-0">{{ sheet.title }} </a>
-          {% endfor %}
-        </div>
-      </div>
+<!-- menu -->
+<div id="folderNav" class="bg-light p-2">
+    <div>
+        <a href="{% url 'folder' folder.parent.id %}" class="text-center">
+            <strong>../</strong><i class="text-primary fa fa-arrow-left"></i>
+        </a>
+    </div>
+    <br>
+    <div>
+        <a href="{% url 'folder' folder.id %}">
+            <i class="fa fa-folder-open"></i> <strong>{{ folder.name | truncatechars:40 }}</strong>
+        </a>
+        <a href="{% url 'new-folder-sheet' folder.id %}" class="float-right badge badge-success"> <i
+                class="fa fa-plus"></i></a>
+        <button type="button" class="btn float-right badge badge-primary mx-2" data-toggle="modal"
+                data-target="#exampleModalCenter"><i class="fa fa-plus"></i></button>
+    </div>
+    <div class="folder-content pl-2">
+        {% for sheet in folder.sheet_set.all %}
+            <div>
+                <a href="{% url 'folder-editor' folder.id sheet.id %}"><i
+                        class="text-success fa fa-leaf"></i> {{ sheet.title | truncatechars:40 }}</a>
+            </div>
+        {% endfor %}
+        {% for child_folder in folder.folder_set.all %}
+            <div>
+                <a href="{% url 'folder' child_folder.id %}">
+                    <i class="text-primary fa fa-folder"></i> {{ child_folder.name | truncatechars:40 }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
