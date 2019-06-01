@@ -30,6 +30,7 @@ urlpatterns = [
     path('school_course_item/<int:id>/', view_school_course_item, name='school-course-item'),
     path('school_course/<int:school_course_id>/reach_item/<int:item_sequence>/', school_course_item_reach, name='school-course-item-reach'),
     path('folder/<int:id>/', view_folder, name='folder'),
+    path('folder/editor/<int:id>/sheet/<int:sheet_id>', view_folder_editor, name='folder-editor'),
     path('sheet/<int:id>/', view_sheet, name='sheet'),
     path('sheet/new/', new_sheet, name='new-sheet'),
     path('folder/<int:id>/sheet/new/', new_folder_sheet, name='new-folder-sheet'),

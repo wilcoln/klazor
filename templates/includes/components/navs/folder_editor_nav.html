@@ -1,0 +1,11 @@
+      <!-- menu -->
+      <div id="folderNav">
+      <h1 class="text-center"><a href="{% url 'folder' folder.parent.id %}" class="text-center">
+                    ../  <i class="fa fa-arrow-left"></i>
+       </a></h1>
+        <div class="list-group">
+          {% for sheet in folder.sheet_set.all %}
+              <a href="{% url 'folder-editor' folder.id sheet.id %}" class="list-group-item rounded-0">{{ sheet.title }} </a>
+          {% endfor %}
+        </div>
+      </div>

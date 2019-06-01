@@ -13,6 +13,9 @@
                     <a href="{% url 'folder' folder.parent.id %}" class="float-left">
                     ../  <i class="fa fa-arrow-left"></i>
                     </a>
+                    {% if folder.sheet_set.all.count %}
+                        <a href="{% url 'folder-editor' folder.id  folder.sheet_set.first.id %}" class="float-right badge " class="ml-2"> <i class="fa fa-bars"></i></a>
+                    {% endif %}
                     <a href="{%  url 'new-folder-sheet' folder.id %}" class="float-right badge badge-success"> <i class="fa fa-plus"></i></a>
                     <button type="button" class="btn float-right badge badge-primary mx-2" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus"></i></button>
                 </h1>

@@ -71,6 +71,13 @@ def view_folder(request, id):
     return render(request, 'pages/folder.html', {'folder': folder})
 
 
+def view_folder_editor(request, id, sheet_id):
+
+    folder = Folder.objects.get(pk=id)
+    active_sheet = Sheet.objects.get(pk=sheet_id)
+    return render(request, 'pages/folder_editor.html', {'folder': folder, 'sheet': active_sheet})
+
+
 def view_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)
     return render(request, 'pages/sheet.html', {'sheet': sheet, 'edit_mode': False})
@@ -179,7 +186,7 @@ def new_folder_sheet(request, id):
     folder = Folder.objects.get(pk=id)
     new_sheet.folder_set.add(folder)
     new_sheet.save()
-    return redirect('sheet', new_sheet.id)
+    return view_folder_editor(request, folder.id, new_sheet.id)
 
 
 def upload(request):
