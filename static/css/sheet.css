@@ -16,8 +16,14 @@
 .sheet-component .sheet-title{
     color: black;
 }
-.sheet-component h1, .sheet-component h2, .sheet-component h3{
+.sheet-component h1{
     color: black;
+}
+.sheet-component h2{
+    color: #252525;
+}
+.sheet-component h3{
+    color: #505050;
 }
 .sheet-component pre{
     background: #f5f5f5 !important;

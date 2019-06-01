@@ -138,7 +138,7 @@
     let sheet = new Vue({
         el: "#sheet",
         data: { // Represents the sheet as described by the Sheet class
-            title: `{{ sheet.title }}`, // sheets title
+            title: `{{ sheet.title|safe}}`, // sheets title
             contents: [],
             editMode: false,
             saved: false,

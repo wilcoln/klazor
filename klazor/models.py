@@ -67,7 +67,7 @@ class Course(models.Model):
 
 
 class Sheet(models.Model):
-    title = models.CharField(max_length=50, blank=True, null=True)
+    title = models.CharField(max_length=120, blank=True, null=True)
 
     def __str__(self):
         return self.title

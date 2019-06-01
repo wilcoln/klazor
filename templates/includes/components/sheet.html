@@ -8,7 +8,7 @@
     {% include 'includes/components/menus/sheet_menu.html' %}
     <div class="container sheet-component">
         {% verbatim %}
-        <sheet-title v-bind:title="title" v-bind:editable="editMode" v-on:update="updateTitle($event)"></sheet-title>
+        <sheet-title v-bind:title="title" v-bind:editable="editMode" v-on:update="updateTitle($event)" v-on:save="saveSheet"></sheet-title>
         <hr>
         <div class="row">
             <div class="col-md-12">
