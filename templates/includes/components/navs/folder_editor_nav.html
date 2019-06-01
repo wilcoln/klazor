@@ -5,7 +5,6 @@
             <strong>../</strong><i class="text-primary fa fa-arrow-left"></i>
         </a>
     </div>
-    <br>
     <div>
         <a href="{% url 'folder' folder.id %}">
             <i class="fa fa-folder-open"></i> <strong>{{ folder.name | truncatechars:40 }}</strong>
@@ -16,10 +15,10 @@
                 data-target="#exampleModalCenter"><i class="fa fa-plus"></i></button>
     </div>
     <div class="folder-content pl-2">
-        {% for sheet in folder.sheet_set.all %}
-            <div>
-                <a href="{% url 'folder-editor' folder.id sheet.id %}"><i
-                        class="text-success fa fa-leaf"></i> {{ sheet.title | truncatechars:40 }}</a>
+        {% for child_sheet in folder.sheet_set.all %}
+            <div {% if child_sheet.id == sheet.id %}{{ 'class="highlight-item"' }}{% endif %}>
+                <a href="{% url 'folder-editor' folder.id child_sheet.id %}"><i
+                        class="text-success fa fa-leaf"></i> {{ child_sheet.title | truncatechars:40 }}</a>
             </div>
         {% endfor %}
         {% for child_folder in folder.folder_set.all %}
