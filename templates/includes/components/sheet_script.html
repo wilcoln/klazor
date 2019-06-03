@@ -145,6 +145,19 @@
             savedContents: 0
         },
         methods: {
+            moveContent(id, shift){
+                let content = this.contents.filter((content) => {
+                    return content.id === id
+                })[0]
+                let contentIndex = this.contents.indexOf(content)
+                let otherContentIndex = contentIndex + shift
+                if (otherContentIndex > -1 && otherContentIndex < this.contents.length){
+                    let tmp = this.contents[contentIndex].id
+                    this.contents[contentIndex].id = this.contents[otherContentIndex].id
+                    this.contents[otherContentIndex].id = tmp
+                }
+                [this.contents[contentIndex], this.contents[otherContentIndex]] = [this.contents[otherContentIndex], this.contents[contentIndex]]
+            },
             toggleMode() {
                 this.editMode = !this.editMode
             },

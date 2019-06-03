@@ -1,4 +1,3 @@
-{% verbatim %}
 <template id="video-content">
     <div class="row" v-if="editable && content.editMode">
         <div class="col-11">
@@ -16,8 +15,7 @@
                 </figcaption>
             </figure>
         </div>
-        <div class="col-1" v-if="editable && content.editMode"><i v-on:click="$emit('delete', content.id)"
-                                                                  class="fa fa-trash"></i></div>
+        {% include 'includes/components/menus/content_edit_menu.html' %}
     </div>
     <div v-else v-on:dblclick="toggleMode" class="d-flex justify-content-center">
         <figure class="figure text-center">
@@ -25,9 +23,8 @@
                 <source v-bind:src="content.video" type="video/mp4">
             </video>
             <figcaption
-                    class="figure-caption text-center">{{ content.title }}
+                    class="figure-caption text-center" v-text="content.title">
             </figcaption>
         </figure>
     </div>
 </template>
-{% endverbatim %}

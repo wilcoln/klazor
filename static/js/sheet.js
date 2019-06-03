@@ -2,6 +2,7 @@ class Content {
     constructor(id) {
         this.id = id
         this.editMode = true
+        this.selected = true
     }
 }
 
