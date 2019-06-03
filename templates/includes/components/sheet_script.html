@@ -152,11 +152,12 @@
                 let contentIndex = this.contents.indexOf(content)
                 let otherContentIndex = contentIndex + shift
                 if (otherContentIndex > -1 && otherContentIndex < this.contents.length){
+                    [this.contents[contentIndex], this.contents[otherContentIndex]] = [this.contents[otherContentIndex], this.contents[contentIndex]]
+                    //swap id to trigger vue reactivity
                     let tmp = this.contents[contentIndex].id
                     this.contents[contentIndex].id = this.contents[otherContentIndex].id
                     this.contents[otherContentIndex].id = tmp
                 }
-                [this.contents[contentIndex], this.contents[otherContentIndex]] = [this.contents[otherContentIndex], this.contents[contentIndex]]
             },
             toggleMode() {
                 this.editMode = !this.editMode
