@@ -47,6 +47,7 @@ blockquote {
 
 .navbar{
     background: #125EF0;
+    box-shadow: 0 1rem 1rem rgba(0,0,0, .1);
 }
 .navbar input {
     font-size: .85rem;
