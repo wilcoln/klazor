@@ -3,36 +3,18 @@
 <script src="{% static 'vue/dist/vue.min.js' %}"></script>
 <script src="{% static 'highlight.js/lib/highlight.pack.js' %}"></script>
 <script src="{% static 'mathjax/MathJax.js' %}"></script>
+<script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+<script src="{% static 'codemirror/mode/markdown/markdown.js' %}"></script>
 <script src="{% static 'js/sheet.js' %}"></script>
 <script src="{% static 'axios/dist/axios.min.js' %}"></script>
 <script src="{% static 'js-cookie/src/js.cookie.js' %}"></script>
 {% include 'includes/components/vuejs/templates.html' %}
 <script>
-
-    // Enable tab in textarea
-    $(document).delegate('textarea', 'keydown', function (e) {
-        var keyCode = e.keyCode || e.which;
-
-        if (keyCode == 9) {
-            e.preventDefault();
-            var start = this.selectionStart;
-            var end = this.selectionEnd;
-
-            // set textarea value to: text before caret + tab + text after caret
-            $(this).val($(this).val().substring(0, start)
-                + "\t"
-                + $(this).val().substring(end));
-
-            // put caret at right position again
-            this.selectionStart =
-                this.selectionEnd = start + 1;
-        }
-    });
     marked.setOptions({
         highlight: function (code) {
-            return hljs.highlightAuto(code).value;
+            return hljs.highlightAuto(code).value
         }
-    });
+    })
 
     /* TODO Remove this line in production mode */
     // Enabling devtools
@@ -55,6 +37,11 @@
     Vue.component('markdown-content', {
         template: "#markdown-content",
         props: ['content', 'editable'],
+        data: function () {
+            return {
+                codeMirror: null
+            }
+        },
         computed: {
             html: function () {
                 return marked(this.content.text)
@@ -65,7 +52,7 @@
                 if (this.editable)
                     this.content.editMode = !this.content.editMode
             }
-        },
+        }
     })
 
     Vue.component('video-content', {
@@ -104,7 +91,7 @@
                 if (input.files && input.files[0]) {
                     let reader = new FileReader()
                     reader.onload = (e) => {
-                        this.content.audio = e.target.result;
+                        this.content.audio = e.target.result
                     }
                     reader.readAsDataURL(input.files[0])
                 }
@@ -127,7 +114,7 @@
                 if (input.files && input.files[0]) {
                     let reader = new FileReader()
                     reader.onload = (e) => {
-                        this.content.image = e.target.result;
+                        this.content.image = e.target.result
                     }
                     reader.readAsDataURL(input.files[0])
                 }
@@ -158,7 +145,7 @@
                 })
             },
             addVideoContent() {
-                let videoContent = new VideoContent(this.lastInsertedId + 1, '', '',1)
+                let videoContent = new VideoContent(this.lastInsertedId + 1, '', '', 1)
                 this.contents.push(videoContent)
             },
             addAudioContent() {
@@ -166,20 +153,20 @@
                 this.contents.push(audioContent)
             },
             addImageContent() {
-                let imageContent = new ImageContent(this.lastInsertedId + 1, '', '',1)
+                let imageContent = new ImageContent(this.lastInsertedId + 1, '', '', 1)
                 this.contents.push(imageContent)
             },
             addMarkdownContent() {
                 let markdownContent = new MarkdownContent(this.lastInsertedId + 1, '')
                 this.contents.push(markdownContent)
             },
-            moveContent(id, shift){
+            moveContent(id, shift) {
                 let content = this.contents.filter((content) => {
                     return content.id === id
                 })[0]
                 let contentIndex = this.contents.indexOf(content)
                 let otherContentIndex = contentIndex + shift
-                if (otherContentIndex > -1 && otherContentIndex < this.contents.length){
+                if (otherContentIndex > -1 && otherContentIndex < this.contents.length) {
                     [this.contents[contentIndex], this.contents[otherContentIndex]] = [this.contents[otherContentIndex], this.contents[contentIndex]]
                     //swap id to trigger vue reactivity
                     let tmp = this.contents[contentIndex].id
@@ -191,9 +178,9 @@
                 this.contents = []
             },
             saveSheet() {
-                let csrftoken = Cookies.get('csrftoken');
-                let sheet = this; // capture the vue instance to use in the callback
-                let formData = new FormData();
+                let csrftoken = Cookies.get('csrftoken')
+                let sheet = this // capture the vue instance to use in the callback
+                let formData = new FormData()
                 formData.append('title', this.title)
                 axios.post('/sheet/' + {{ sheet.id }} +'/save/',
                     formData,
@@ -237,8 +224,8 @@
                             lightContent.text = content.text
                         }
 
-                        formData = new FormData();
-                        formData.append('file', file);
+                        formData = new FormData()
+                        formData.append('file', file)
                         formData.append('title', lightContent.title)
                         axios.post('/upload/',
                             formData,
@@ -272,16 +259,16 @@
                                 console.log(response)
                             }).catch((error) => {
                                 console.log(error)
-                            });
+                            })
 
                         })
                             .catch((error) => {
                                 console.log(error)
-                            });
+                            })
                     }
                 }).catch((error) => {
                     console.log(error)
-                });
+                })
             }
         },
         computed: {
@@ -321,12 +308,4 @@
             {% endfor %}
         }
     })
-</script>
-<script>
-    let videoPlayers = document.getElementsByTagName('video');
-    for (let videoPlayer of videoPlayers){
-         videoPlayer.addEventListener('seeking', function () {
-            console.log('seeking', videoPlayer.currentTime)
-        });
-    }
 </script>

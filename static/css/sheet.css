@@ -225,3 +225,6 @@ tr:hover {
 .edit-menu{
     display: none;
 }
+.CodeMirror{
+    height:unset !important;
+}
