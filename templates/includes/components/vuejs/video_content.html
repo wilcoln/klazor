@@ -1,5 +1,5 @@
 <template id="video-content">
-    <div class="row" v-if="editable && content.editMode">
+    <div class="row content-editable" v-if="editable && content.editMode">
         <div class="col-11">
             <figure class="figure text-center">
                 <video v-bind:width="content.scale*100 + '%'" controls>

@@ -232,3 +232,11 @@ tr:hover {
 input{
     border: 1px solid #ccc;
 }
+.content-editable{
+    margin-bottom: .5rem;
+    border: 1px solid transparent;
+    padding: .5rem;
+}
+.content-editable:hover{
+    border-color: rgba(0,125, 255, .5);
+}
