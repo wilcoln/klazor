@@ -1,16 +1,12 @@
 <template id="markdown-content">
-    <div class="row" v-if="editable && content.editMode">
-       <div class="col-11">
-            <textarea @keydown.ctrl.enter="toggleMode"  @keydown.ctrl.83.prevent="$emit('save')" v-model="content.text"
-        onfocus='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
-        oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
-            placeholder="Write something..."></textarea>
-            <!-- oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
-     makes the text area automatically resize itself to fit its content -->
-       </div>
-       {% include 'includes/components/menus/content_edit_menu.html' %}
+    <div>
+        <div class="row" v-show="editable && content.editMode">
+            <div class="col-11">
+                <textarea v-text="content.text"></textarea>
+            </div>
+            {% include 'includes/components/menus/content_edit_menu.html' %}
+        </div>
+        <div class="markdown-display" v-show="!editable || !content.editMode" v-on:dblclick="toggleMode"
+             v-html="html"></div>
     </div>
-
-
-    <div class="markdown-display" v-else v-on:dblclick="toggleMode" v-html="html"></div>
 </template>

@@ -102,7 +102,7 @@ def save_content(request, id):
         video_content.sheet = sheet
         video_content.sequence = content_dict['sequence']
         video_content.title = content_dict['title']
-        video_content.display_width = content_dict['scale']
+        video_content.scale = content_dict['scale']
         video_content.video.save(filename, storage.open('videos/'+filename))
         video_content.save()
         storage.delete('videos/' + filename)
@@ -112,7 +112,7 @@ def save_content(request, id):
         image_content.sheet = sheet
         image_content.sequence = content_dict['sequence']
         image_content.title = content_dict['title']
-        image_content.display_width = content_dict['scale']
+        image_content.scale = content_dict['scale']
         image_content.image.save(filename, storage.open('images/'+filename))
         image_content.save()
         storage.delete('images/' + filename)

@@ -49,10 +49,35 @@
         },
         methods: {
             toggleMode: function () {
-                if (this.editable)
+                if (this.editable){
                     this.content.editMode = !this.content.editMode
+                    if(this.content.editMode){
+                        this.codeMirror.value = this.content.text
+
+                    }
+                }
+            },
+            mountCodeMirror: function () {
+                let markdownComponent = this
+                this.codeMirror = CodeMirror.fromTextArea(this.$el.getElementsByTagName('textarea')[0], {
+                    extraKeys: {
+                        "Ctrl-S": markdownComponent.editorCtrlS,
+                        "Ctrl-Enter": markdownComponent.editorCtrlEnter
+                    }
+                })
+            },
+            editorCtrlS: function () {
+                this.codeMirror.save()
+                this.$emit('save')
+            },
+            editorCtrlEnter: function () {
+                this.content.text = this.codeMirror.getValue('\n')
+                this.toggleMode()
             }
-        }
+        },
+        mounted: function () {
+            this.mountCodeMirror()
+        },
     })
 
     Vue.component('video-content', {
