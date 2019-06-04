@@ -116,7 +116,7 @@ p{
     text-align: justify;
 }
 .col-1 .fa.fa-trash{
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     color: #dc3545;
 }
 
@@ -235,8 +235,12 @@ input{
 .content-editable{
     margin-bottom: .5rem;
     border: 1px solid transparent;
+    border-right-width: 5px;
     padding: .5rem;
 }
 .content-editable:hover{
     border-color: rgba(0,125, 255, .5);
+}
+.content-edit-menu i{
+    font-size: 1.6rem;
 }
