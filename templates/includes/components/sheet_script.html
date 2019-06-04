@@ -51,10 +51,6 @@
             toggleMode: function () {
                 if (this.editable){
                     this.content.editMode = !this.content.editMode
-                    if(this.content.editMode){
-                        this.codeMirror.value = this.content.text
-
-                    }
                 }
             },
             mountCodeMirror: function () {
@@ -67,7 +63,7 @@
                 })
             },
             editorCtrlS: function () {
-                this.codeMirror.save()
+                this.content.text = this.codeMirror.getValue('\n')
                 this.$emit('save')
             },
             editorCtrlEnter: function () {
