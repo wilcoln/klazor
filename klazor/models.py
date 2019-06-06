@@ -31,7 +31,7 @@ class Instructor(models.Model):
 
 class Item(models.Model):
     title = models.CharField(max_length=120, blank=True, null=True)
-    folder = models.ForeignKey('Folder', default=1, on_delete=models.CASCADE)
+    folder = models.ForeignKey('Folder', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -182,7 +182,7 @@ class ImageContent(Content):
 
 class Folder(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
-    parent = models.ForeignKey('Folder', on_delete=models.CASCADE)
+    parent = models.ForeignKey('Folder', models.CASCADE)
 
     def __str__(self):
         return self.name

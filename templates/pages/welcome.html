@@ -58,7 +58,7 @@
             <div class="col-12">
                 <h1> Feuilles libres
                     <small>({{ free_sheets|length|default:0 }})</small>
-                    <a href="{% url 'new-sheet' %}" class="float-right badge badge-success"><i class="fa fa-plus"></i>
+                    <a href="{% url 'new-folder-sheet' 1 %}" class="float-right badge badge-success"><i class="fa fa-plus"></i>
                     </a></h1>
             </div>
             {% for sheet in  free_sheets %}
