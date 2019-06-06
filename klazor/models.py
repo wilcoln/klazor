@@ -40,6 +40,13 @@ class Item(models.Model):
         db_table = 'item'
 
 
+class FileItem(Item):
+    file = models.FileField(upload_to='files')
+
+    class Meta:
+        db_table = 'file'
+
+
 class CourseResource(models.Model):
     title = models.CharField(max_length=60, blank=True, null=True)
 
@@ -51,7 +58,7 @@ class CourseResource(models.Model):
 
 
 class FileCourseResource(CourseResource):
-    file = models.FileField(upload_to='resources/files', )
+    file = models.FileField(upload_to='resources/files')
 
     class Meta:
         db_table = 'file_course_resource'

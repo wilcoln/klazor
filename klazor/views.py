@@ -66,8 +66,11 @@ def school_course_item_reach(request, school_course_id, item_sequence):
 def view_folder(request, id):
     if id == 1:
         return welcome(request)
+    sheets = Sheet.objects.filter(folder=id)
+    file_items = FileItem.objects.filter(folder=id)
+    sub_folders = Folder.objects.filter(parent=id)
     folder = Folder.objects.get(pk=id)
-    return render(request, 'pages/folder.html', {'folder': folder})
+    return render(request, 'pages/folder.html', {'folder': folder, 'sheets': sheets, 'file_items':file_items, 'sub_folders': sub_folders})
 
 
 def view_folder_editor(request, id, sheet_id):
@@ -175,6 +178,22 @@ def new_folder(request):
     folder.parent_id = request.POST['parent-id']
     folder.name = request.POST['folder-name']
     folder.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def add_folder_file(request):
+    file_item = FileItem()
+    folder_id = request.POST['folder-id']
+    folder = Folder.objects.get(pk=folder_id)
+    file_item.folder = folder
+    file_item.file = request.FILES['file']
+    file_item.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def remove_folder_file(request, id):
+    file_item = FileItem.objects.filter(pk=id)
+    file_item.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
