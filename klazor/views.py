@@ -12,8 +12,7 @@ def welcome(request):
     mooc_courses = MoocCourse.objects.all()
     school_courses = SchoolCourse.objects.all()
     folders = Folder.objects.filter(parent_id=1, id__gt=1)  # We remove the root folder
-    folder_free_sheets = Sheet.objects.filter(folder__sheet_set__folder__isnull=True) | Sheet.objects.filter(
-        folder__sheet_set__folder__id=1)  # sheets libre de tout dossier
+    folder_free_sheets = Sheet.objects.filter(folder=1) # sheets libre de tout dossier
     free_sheets = [sheet for sheet in folder_free_sheets if
                    not hasattr(sheet, 'item')]  # sheets libre de tout dossier ET non Item
     return render(request, 'pages/welcome.html', {
@@ -35,7 +34,7 @@ def view_school_course(request, id):
 
 
 def view_mooc_course_item(request, id):
-    mooc_course_item = Item.objects.get(pk=id)
+    mooc_course_item = CourseItem.objects.get(pk=id)
     return render(request, 'pages/mooc_course_item.html', {'mooc_course_item': mooc_course_item})
 
 
@@ -50,7 +49,7 @@ def mooc_course_item_reach(request, week_id, item_sequence):
 
 
 def view_school_course_item(request, id):
-    school_course_item = Item.objects.get(pk=id)
+    school_course_item = CourseItem.objects.get(pk=id)
     return render(request, 'pages/school_course_item.html', {'school_course_item': school_course_item})
 
 
@@ -184,7 +183,7 @@ def new_folder_sheet(request, id):
     new_sheet.title = "Nouveau titre"
     new_sheet.save()
     folder = Folder.objects.get(pk=id)
-    new_sheet.folder_set.add(folder)
+    new_sheet.folder = folder
     new_sheet.save()
     return view_folder_editor(request, folder.id, new_sheet.id)
 
@@ -211,7 +210,7 @@ def upload(request):
 
 
 def toggle_course_item_status(request, id):
-    item = Item.objects.get(pk=id)
+    item = CourseItem.objects.get(pk=id)
     item.completed = not item.completed
     item.save()
     return redirect(request.META.get('HTTP_REFERER'))

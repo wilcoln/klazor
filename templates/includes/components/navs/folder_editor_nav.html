@@ -15,7 +15,7 @@
                 data-target="#exampleModalCenter"><i class="fa fa-plus"></i></button>
     </div>
     <div class="folder-content pl-2">
-        {% for child_sheet in folder.sheet_set.all %}
+        {% for child_sheet in folder.item_set.all %}
             <div {% if child_sheet.id == sheet.id %}{{ 'class="highlight-item"' }}{% endif %}>
                 <a href="{% url 'folder-editor' folder.id child_sheet.id %}"><i
                         class="text-success fa fa-leaf"></i> {{ child_sheet.title | truncatechars:40 }}</a>

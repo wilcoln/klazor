@@ -29,62 +29,61 @@ class Instructor(models.Model):
         db_table = 'instructor'
 
 
-class Resource(models.Model):
-    title = models.CharField(max_length=60, blank=True, null=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        db_table = 'resource'
-
-
-class FileResource(Resource):
-    file = models.FileField(upload_to='resources/files', )
-
-    class Meta:
-        db_table = 'file_resource'
-
-
-class LinkResource(Resource):
-    link = models.TextField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'link_resource'
-
-
-class Course(models.Model):
-    title = models.CharField(max_length=50, blank=True, null=True)
-    category_set = models.ManyToManyField(Category, blank=True)
-    instructor_set = models.ManyToManyField(Instructor, blank=True)
-    resource_set = models.ManyToManyField(Resource, blank=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        db_table = 'course'
-
-
-class Sheet(models.Model):
+class Item(models.Model):
     title = models.CharField(max_length=120, blank=True, null=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        db_table = 'sheet'
-
-
-class Item(Sheet):
-    completed = models.BooleanField(default=False)
-    sequence = models.IntegerField(blank=True, null=True)
+    folder = models.ForeignKey('Folder', default=1, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
     class Meta:
         db_table = 'item'
+
+
+class CourseResource(models.Model):
+    title = models.CharField(max_length=60, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'course_resource'
+
+
+class FileCourseResource(CourseResource):
+    file = models.FileField(upload_to='resources/files', )
+
+    class Meta:
+        db_table = 'file_course_resource'
+
+
+class LinkCourseResource(CourseResource):
+    link = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'link_course_resource'
+
+
+class Course(Item):
+    category_set = models.ManyToManyField(Category, blank=True)
+    instructor_set = models.ManyToManyField(Instructor, blank=True)
+    resource_set = models.ManyToManyField(CourseResource, blank=True)
+
+    class Meta:
+        db_table = 'course'
+
+
+class Sheet(Item):
+    class Meta:
+        db_table = 'sheet'
+
+
+class CourseItem(Sheet):
+    completed = models.BooleanField(default=False)
+    sequence = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'course_item'
         ordering = ['sequence', ]
 
 
@@ -109,7 +108,7 @@ class School(Instructor):
 class SchoolCourse(Course):
     year = models.SmallIntegerField(blank=True, null=True)
     semester = models.SmallIntegerField(blank=True, null=True)
-    item_set = models.ManyToManyField(Item)
+    item_set = models.ManyToManyField(CourseItem)
 
     class Meta:
         db_table = 'school_course'
@@ -118,7 +117,7 @@ class SchoolCourse(Course):
 class Week(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
     mooc_course = models.ForeignKey(MoocCourse, models.DO_NOTHING)
-    item_set = models.ManyToManyField(Item)
+    item_set = models.ManyToManyField(CourseItem)
 
     def __str__(self):
         return self.title
@@ -183,7 +182,6 @@ class ImageContent(Content):
 
 class Folder(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
-    sheet_set = models.ManyToManyField(Sheet, blank=True)
     parent = models.ForeignKey('Folder', on_delete=models.CASCADE)
 
     def __str__(self):
