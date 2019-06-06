@@ -10,14 +10,14 @@
     <div class="base-container">
         <div class="row">
             <div class="col-md-3">
-                {% include 'includes/components/navs/folder_editor_nav.html' with folder=folder %}
+                {% include 'includes/components/navs/folder_editor_nav.html' with folder=folder sheets=sheets file_items=file_items sheet_id=active_sheet.id %}
             </div>
             <div class="col-md-9">
-                {% include 'includes/components/sheet.html' with sheet=folder.sheet_set.first %}
+                {% include 'includes/components/sheet.html' with sheet=active_sheet %}
             </div>
         </div>
     </div>
 {% endblock %}
 {% block script %}
-    {% include 'includes/components/sheet_script.html' with item=mooc_course_item %}
+    {% include 'includes/components/sheet_script.html' with sheet=active_sheet %}
 {% endblock %}

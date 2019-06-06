@@ -14,10 +14,9 @@
                     <a href="{% url 'folder' folder.parent.id %}" class="float-left">
                         ../ <i class="fa fa-arrow-left"></i>
                     </a>
-                    {% if folder.item_set.all.count %}
-                        {% comment %}TODO: Correct this place {% endcomment %}
-                       {% comment %} <a href="{% url 'folder-editor' folder.id  folder.item_set.first.sheet.id %}"
-                           class="float-right badge " class="ml-2"> <i class="fa fa-bars"></i></a>{% endcomment %}
+                    {% if sheets.count %}
+                        <a href="{% url 'folder-editor' folder.id sheets.first.id %}"
+                           class="float-right badge " class="ml-2"> <i class="fa fa-bars"></i></a>
                     {% endif %}
                     <button type="button" class="btn float-right badge badge-secondary" data-toggle="modal"
                             data-target="#addFileModal"><i class="fa fa-plus"></i></button>
@@ -31,11 +30,11 @@
         <div class="folder-container  row">
             <div class="col-12">
                 <h1> Dossiers
-                    <small>({{ sub_folders.all.count|default:0 }})</small>
+                    <small>({{ folder.folder_set.all.count|default:0 }})</small>
                 </h1>
             </div>
 
-            {% for sub_folder in  sub_folders %}
+            {% for sub_folder in  folder.folder_set.all %}
                 <div class="col-lg-2 col-md-3">
                     {% include 'includes/components/tiny/folder_tiny.html' with folder=sub_folder %}
                 </div>

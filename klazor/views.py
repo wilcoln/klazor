@@ -68,16 +68,18 @@ def view_folder(request, id):
         return welcome(request)
     sheets = Sheet.objects.filter(folder=id)
     file_items = FileItem.objects.filter(folder=id)
-    sub_folders = Folder.objects.filter(parent=id)
     folder = Folder.objects.get(pk=id)
-    return render(request, 'pages/folder.html', {'folder': folder, 'sheets': sheets, 'file_items':file_items, 'sub_folders': sub_folders})
+    return render(request, 'pages/folder.html', {'folder': folder, 'sheets': sheets, 'file_items': file_items})
 
 
 def view_folder_editor(request, id, sheet_id):
-
-    folder = Folder.objects.get(pk=id)
+    if id == 1:
+        return welcome(request)
     active_sheet = Sheet.objects.get(pk=sheet_id)
-    return render(request, 'pages/folder_editor.html', {'folder': folder, 'sheet': active_sheet})
+    sheets = Sheet.objects.filter(folder=id)
+    folder = Folder.objects.get(pk=id)
+    file_items = FileItem.objects.filter(folder=id)
+    return render(request, 'pages/folder_editor.html', {'folder': folder, 'active_sheet': active_sheet, 'sheets': sheets, 'file_items': file_items})
 
 
 def view_sheet(request, id):
@@ -204,7 +206,7 @@ def new_folder_sheet(request, id):
     folder = Folder.objects.get(pk=id)
     new_sheet.folder = folder
     new_sheet.save()
-    return view_folder_editor(request, folder.id, new_sheet.id)
+    return redirect('folder-editor', folder.id, new_sheet.id)
 
 
 def upload(request):

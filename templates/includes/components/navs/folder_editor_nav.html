@@ -1,3 +1,5 @@
+{%  load filename %}
+{%  load iconify %}
 <!-- menu -->
 <div id="folderNav" class="p-2">
     <div>
@@ -15,18 +17,27 @@
                 data-target="#exampleModalCenter"><i class="fa fa-plus"></i></button>
     </div>
     <div class="folder-content pl-2">
-        {% for child_sheet in folder.item_set.all %}
-            <div {% if child_sheet.id == sheet.id %}{{ 'class="highlight-item"' }}{% endif %}>
+        {% for child_sheet in sheets.all %}
+            <div {% if child_sheet.id == sheet_id %}{{ 'class="highlight-item"' }}{% endif %}>
                 <a href="{% url 'folder-editor' folder.id child_sheet.id %}"><i
                         class="text-success fa fa-leaf"></i> {{ child_sheet.title | truncatechars:40 }}</a>
             </div>
         {% endfor %}
-        {% for child_folder in folder.folder_set.all %}
+        <br>
+        {% for file_item in file_items %}
             <div>
-                <a href="{% url 'folder' child_folder.id %}">
-                    <i class="text-primary fa fa-folder"></i> {{ child_folder.name | truncatechars:40 }}
+                <a href="{{ file_item.file.url }}">
+                    <i class="text-primary fa {{ file_item.file.name|iconify }}"></i> {{ file_item.file|filename }}
+                </a>
+            </div>
+        {% endfor %}
+        {% for sub_folder in folder.folder_set.all %}
+            <div>
+                <a href="{% url 'folder' sub_folder.id %}">
+                    <i class="text-primary fa fa-folder"></i> {{ sub_folder.name | truncatechars:40 }}
                 </a>
             </div>
         {% endfor %}
     </div>
+
 </div>

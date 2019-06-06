@@ -277,6 +277,13 @@
                             }).then((response) => {
                                 console.log("1 content saved !")
                                 sheet.savedContents++
+                                /**
+                                 * If we are in the folder editor we update title at change
+                                 */
+                                document.querySelector('.highlight-item').firstElementChild.firstElementChild.nextSibling.textContent = ' ' + sheet.title
+                                /**
+                                 * End case
+                                 */
                                 console.log(response)
                             }).catch((error) => {
                                 console.log(error)
