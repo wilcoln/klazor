@@ -239,7 +239,7 @@ input{
     padding: .5rem;
 }
 .content-editable:hover{
-    border-color: rgba(0,125, 255, .5);
+    border-color: rgba(0,125, 255, .4);
 }
 .content-edit-menu i{
     font-size: 1.6rem;
