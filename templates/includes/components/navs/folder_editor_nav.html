@@ -23,7 +23,7 @@
                         class="text-success fa fa-leaf"></i> {{ child_sheet.title | truncatechars:40 }}</a>
             </div>
         {% endfor %}
-        <br>
+        <hr style="height: 1px; width: 70%; margin: .5rem auto;">
         {% for file_item in file_items %}
             <div>
                 <a href="{{ file_item.file.url }}">
