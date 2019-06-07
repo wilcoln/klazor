@@ -5,15 +5,15 @@ Klazor is a binder...
 git clone git@github.com:wilcoln/klazor.git
 cd klazor
 npm install
-env/bin/pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Setup
 ```bash
-env/bin/python manage.py migrate
-env/bin/python manage.py createsuperuser
+python manage.py migrate
+python manage.py createsuperuser
 ```
 ### Run
 ```bash
-env/bin/python manage.py runserver
+python manage.py runserver
 ```
