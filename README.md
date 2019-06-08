@@ -15,7 +15,7 @@ You need to create a database and then specify it in the `settings.py` file as w
 After that you have to run the following:
 ```bash
 python manage.py migrate
-python manage.py loaddata fixture folders.json
+python manage.py loaddata folders.json
 python manage.py createsuperuser
 ```
 ### Run
