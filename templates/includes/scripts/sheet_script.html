@@ -50,12 +50,12 @@
         },
         methods: {
             toggleMode: function () {
-                if (this.editable){
+                if (this.editable) {
                     this.content.editMode = !this.content.editMode
-                    MathJax.Hub.Queue(["Typeset",MathJax.Hub, this.$el.querySelector('.markdown-display')]);
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.$el.querySelector('.markdown-display')]);
                 }
             },
-            flushText: function(){
+            flushText: function () {
                 this.content.text = this.codeMirror.getValue('\n')
             },
             editorCtrlS: function () {
@@ -221,6 +221,13 @@
                 ).then((response) => {
                     console.log(response)
                     console.log("sheet title saved !")
+                    /**
+                     * If we are in the folder editor we update title at change
+                     */
+                    document.querySelector('.highlight-item').firstElementChild.firstElementChild.nextSibling.textContent = ' ' + sheet.title
+                    /**
+                     * End case
+                     */
                     sheet.saved = true
                     setTimeout(() => {
                         sheet.saved = false
@@ -249,7 +256,8 @@
                             lightContent.image = null
                             file = content.image
                         } else if (content instanceof MarkdownContent) {
-                            lightContent.text = content.text
+                            // lightContent.text = content.text.replace(/\\/g, '\\\\')
+                            lightContent.text = lightContent.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
                         }
 
                         formData = new FormData()
@@ -284,13 +292,6 @@
                             }).then((response) => {
                                 console.log("1 content saved !")
                                 sheet.savedContents++
-                                /**
-                                 * If we are in the folder editor we update title at change
-                                 */
-                                document.querySelector('.highlight-item').firstElementChild.firstElementChild.nextSibling.textContent = ' ' + sheet.title
-                                /**
-                                 * End case
-                                 */
                                 console.log(response)
                             }).catch((error) => {
                                 console.log(error)
