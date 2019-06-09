@@ -52,7 +52,8 @@
             toggleMode: function () {
                 if (this.editable) {
                     this.content.editMode = !this.content.editMode
-                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.$el.querySelector('.markdown-display')]);
+                    if(!this.content.editMode)
+                        MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.$el.querySelector('.markdown-display')]);
                 }
             },
             flushText: function () {
@@ -256,7 +257,7 @@
                             lightContent.image = null
                             file = content.image
                         } else if (content instanceof MarkdownContent) {
-                            // lightContent.text = content.text.replace(/\\/g, '\\\\')
+                            lightContent.text = content.text.replace(/\\/g, '\\\\')
                             lightContent.text = lightContent.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
                         }
 
@@ -339,6 +340,7 @@
                         this.contents.push(new ImageContent(counter, `{{ content.imagecontent.title }}`, `{{ content.imagecontent.image.url }}`, {{ content.imagecontent.scale }}))
                     {% elif content.markdowncontent %}
                         text = `{{ content.markdowncontent.text|safe }}`
+                        text = text.replace(/\\\\/g, '\\\\') // escape backslash for mathjax compatibility
                         this.contents.push(new MarkdownContent(counter, text))
                     {% endif %}
             {% endfor %}
