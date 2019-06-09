@@ -225,7 +225,9 @@
                     /**
                      * If we are in the folder editor we update title at change
                      */
-                    document.querySelector('.highlight-item').firstElementChild.firstElementChild.nextSibling.textContent = ' ' + sheet.title
+                    let highLightElt = document.querySelector('.highlight-item')
+                    if (highLightElt)
+                        highLightElt.firstElementChild.firstElementChild.nextSibling.textContent = ' ' + sheet.title
                     /**
                      * End case
                      */

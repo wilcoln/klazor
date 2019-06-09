@@ -225,10 +225,18 @@ tr:hover {
 .edit-menu{
     display: none;
 }
+/**
+ * Code mirror editor custom style
+ */
 .CodeMirror{
     height: fit-content;
     border: 1px solid #ccc;
 }
+.CodeMirror-selected {
+    background-color: red !important;
+}
+/** End **/
+
 input{
     border: 1px solid #ccc;
 }
