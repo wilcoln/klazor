@@ -64,7 +64,7 @@ TEMPLATES = [
             ],
             'libraries': {
                 'filename': 'klazor.templatetags.filename',
-                'iconify':  'klazor.templatetags.iconify',
+                'iconclass':  'klazor.templatetags.iconclass',
 
             }
         },

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             {% include 'includes/components/modals/create_folder.html' with parent_id=folder.id %}
-            {% include 'includes/components/modals/add_folder_file.html' with folder_id=folder.id %}
+            {% include 'includes/components/modals/add_folder_files.html' with folder_id=folder.id %}
             <div class="col-12">
                 <h1 class="text-center text-uppercase mb-4"> {{ folder.name }}
                     <a href="{% url 'folder' folder.parent.id %}" class="float-left">
