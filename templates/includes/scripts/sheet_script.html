@@ -2,13 +2,11 @@
 <script src="{% static 'marked/lib/marked.js' %}"></script>
 <script src="{% static 'vue/dist/vue.min.js' %}"></script>
 <script src="{% static 'highlight.js/lib/highlight.pack.js' %}"></script>
-<script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
-<script src="{% static 'codemirror/addon/display/autorefresh.js' %}"></script>
-<script src="{% static 'codemirror/mode/markdown/markdown.js' %}"></script>
 <script src="{% static 'js/sheet.js' %}"></script>
 <script src="{% static 'axios/dist/axios.min.js' %}"></script>
 <script src="{% static 'js-cookie/src/js.cookie.js' %}"></script>
-{% include 'includes/scripts/mathjax.html' %}
+{% include 'includes/scripts/codemirror_script.html' %}
+{% include 'includes/scripts/mathjax_script.html' %}
 {% include 'includes/components/vuejs/templates.html' %}
 <script>
     marked.setOptions({
@@ -52,7 +50,7 @@
             toggleMode: function () {
                 if (this.editable) {
                     this.content.editMode = !this.content.editMode
-                    if(!this.content.editMode)
+                    if (!this.content.editMode)
                         MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.$el.querySelector('.markdown-display')]);
                 }
             },
@@ -75,6 +73,10 @@
                         "Ctrl-Enter": markdownComponent.editorCtrlEnter
                     },
                     autoRefresh: true,
+                    //lineNumbers: true,
+                    lineWrapping: true,
+                    foldGutter: true,
+                    //gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
                 })
                 this.codeMirror.on("blur", markdownComponent.flushText)
             }

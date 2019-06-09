@@ -231,6 +231,7 @@ tr:hover {
 .CodeMirror{
     height: fit-content;
     border: 1px solid #ccc;
+    background: #f5f5f5;
 }
 /** End **/
 
