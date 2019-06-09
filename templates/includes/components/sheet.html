@@ -1,4 +1,4 @@
-<div id="sheet">
+<div id="sheet" :class="{ 'editable': editMode}">
     <div class="alert alert-success alert-dismissible" v-bind:style="{ display: saved ? 'block':'none' }" role="alert">
         Sauvegarde réussie !
         <button type="button" v-on:click="saved=false" class="close" data-dismiss="alert" aria-label="Close">
@@ -6,7 +6,7 @@
         </button>
     </div>
     {% include 'includes/components/menus/sheet_menu.html' %}
-    <div class="container sheet-component" :class="{ 'editable': editMode }">
+    <div class="container sheet-component">
         {% verbatim %}
         <sheet-title v-bind:title="title" v-bind:editable="editMode" v-on:update="updateTitle($event)" v-on:save="saveSheet"></sheet-title>
         <hr>
