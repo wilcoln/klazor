@@ -6,7 +6,7 @@
         </button>
     </div>
     {% include 'includes/components/menus/sheet_menu.html' %}
-    <div class="container sheet-component">
+    <div class="container sheet-component" :class="{ 'editable': editMode }">
         {% verbatim %}
         <sheet-title v-bind:title="title" v-bind:editable="editMode" v-on:update="updateTitle($event)" v-on:save="saveSheet"></sheet-title>
         <hr>
