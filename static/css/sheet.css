@@ -232,9 +232,6 @@ tr:hover {
     height: fit-content;
     border: 1px solid #ccc;
 }
-.CodeMirror-selected {
-    background-color: red !important;
-}
 /** End **/
 
 input{
