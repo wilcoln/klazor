@@ -1,4 +1,4 @@
-// Navbr and skills animation
+// Navbr and toolbar animation
 onscroll = function () {
     let sheetToolbar = $(".sheet-toolbar");
     if (scrollY > 40) {

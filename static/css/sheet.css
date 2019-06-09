@@ -32,7 +32,7 @@
     position: sticky;
     top: .6rem;
     z-index: 1021;
-    background: white;
+    background: transparent;
     padding-top: .8rem;
     border-radius: 10px;
 
