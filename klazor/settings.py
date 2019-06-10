@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'klazor',
-    'rest_framework'
+    'rest_framework',
     'api'
 ]
 
