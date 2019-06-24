@@ -161,10 +161,13 @@
             contents: [],
             editMode: false,
             saved: false,
-            savedContents: 0
+            savedContents: 0,
+            autosave: false,
+            saveInterval: null
         },
         methods: {
             toggleMode() {
+                this.autosave = !this.autosave
                 this.editMode = !this.editMode
             },
             updateTitle(title) {
@@ -329,7 +332,14 @@
                     }, 2500)
                     sheet.savedContents = 0
                 }
-            }
+            },
+            autosave: function(val){
+                let sheet = this
+                if(val)
+                     sheet.saveInterval = setInterval(sheet.saveSheet, 5000)
+                else
+                    clearInterval(sheet.saveInterval)
+            },
         },
         beforeMount() {
             let text = ""
