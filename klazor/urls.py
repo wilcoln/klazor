@@ -18,6 +18,7 @@ from django.urls import path
 from klazor.views import *
 from django.conf import settings
 from django.conf.urls.static import static
+import libr.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,5 +46,8 @@ urlpatterns = [
     path('school_course/delete/<int:id>/', delete_school_course, name='delete-school-course'),
     path('upload/', upload, name='upload'),
     path('sheet/<int:id>/print', print_sheet, name='print-sheet'),
-    path('item/check/<int:id>/', toggle_course_item_status, name='check-item')
+    path('item/check/<int:id>/', toggle_course_item_status, name='check-item'),
+
+    # Libr urls
+    path('libr/', libr.views.index, name='libr')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

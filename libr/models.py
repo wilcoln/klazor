@@ -26,7 +26,7 @@ class Author(models.Model):
 
 class Book(FileItem):
     year = models.SmallIntegerField(blank=True, null=True)
-    isbn = models.CharField(max_length=13, blank=True, null=True)
+    isbn = models.CharField(max_length=13, blank=True, null=True, unique=True)
     publisher = models.ForeignKey(Publisher, models.CASCADE)
     topic_set = models.ManyToManyField(Topic)
     author_set = models.ManyToManyField(Author)
