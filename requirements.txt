@@ -1,7 +1,8 @@
 config-parser==0.0.1
-Django==2.2.2
+Django==2.2.1
 django-filter==2.1.0
 djangorestframework==3.9.4
+iso639==0.1.4
 Markdown==3.1.1
 mysql==0.0.2
 mysqlclient==1.4.2.post1

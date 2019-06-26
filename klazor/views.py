@@ -17,11 +17,13 @@ def welcome(request):
     folder_free_sheets = Sheet.objects.filter(folder=1) # sheets libre de tout dossier
     free_sheets = [sheet for sheet in folder_free_sheets if
                    not hasattr(sheet, 'item')]  # sheets libre de tout dossier ET non Item
+    file_items = FileItem.objects.filter(folder=1)
     return render(request, 'pages/welcome.html', {
         'mooc_courses': mooc_courses,
         'school_courses': school_courses,
         'folders': folders,
         'free_sheets': free_sheets,
+        'file_items': file_items
     })
 
 
@@ -257,7 +259,7 @@ def print_sheet(request, id):
     p.showPage()
     p.save()
 
-    # FileResponse sets the Content-Disposition header so that browsers
+    # FileItemResponse sets the Content-Disposition header so that browsers
     # present the option to save the file.
     return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
 

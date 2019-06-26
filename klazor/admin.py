@@ -3,9 +3,7 @@ from klazor.models import *
 
 admin.site.register(SchoolCourse)
 admin.site.register(MoocCourse)
-admin.site.register(Category)
-admin.site.register(LinkCourseResource)
-admin.site.register(FileCourseResource)
+admin.site.register(Topic)
 admin.site.register(FileItem)
 admin.site.register(CourseItem)
 admin.site.register(Week)

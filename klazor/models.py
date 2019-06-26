@@ -8,18 +8,19 @@
 from django.db import models
 
 
-class Category(models.Model):
-    title = models.CharField(max_length=20, blank=True, null=True)
-
+class Topic(models.Model):
+    title = models.CharField(max_length=64, blank=True, null=True)
+    subtopics = models.ManyToManyField('Topic', blank=True)
+    
     def __str__(self):
         return self.title
 
     class Meta:
-        db_table = 'category'
+        db_table = 'topic'
 
 
 class Instructor(models.Model):
-    title = models.CharField(max_length=20, blank=True, null=True)
+    title = models.CharField(max_length=64, blank=True, null=True)
     link = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -47,34 +48,10 @@ class FileItem(Item):
         db_table = 'file'
 
 
-class CourseResource(models.Model):
-    title = models.CharField(max_length=60, blank=True, null=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        db_table = 'course_resource'
-
-
-class FileCourseResource(CourseResource):
-    file = models.FileField(upload_to='resources/files')
-
-    class Meta:
-        db_table = 'file_course_resource'
-
-
-class LinkCourseResource(CourseResource):
-    link = models.TextField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'link_course_resource'
-
-
 class Course(Item):
-    category_set = models.ManyToManyField(Category, blank=True)
+    topic_set = models.ManyToManyField(Topic, blank=True)
     instructor_set = models.ManyToManyField(Instructor, blank=True)
-    resource_set = models.ManyToManyField(CourseResource, blank=True)
+    resource_set = models.ManyToManyField(FileItem, blank=True)
 
     class Meta:
         db_table = 'course'
