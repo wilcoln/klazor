@@ -110,26 +110,26 @@ class Week(models.Model):
         db_table = 'week'
 
 
-class Content(models.Model):
+class Cell(models.Model):
     sequence = models.IntegerField(blank=False, null=False)
     sheet = models.ForeignKey(Sheet, models.CASCADE)
 
     class Meta:
-        db_table = 'content'
+        db_table = 'cell'
         ordering = ['sequence', ]
 
 
-class MarkdownContent(Content):
+class MarkdownCell(Cell):
     text = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return (self.text[:75] + '...') if len(self.text) > 75 else self.text
 
     class Meta:
-        db_table = 'markdown_content'
+        db_table = 'markdown_cell'
 
 
-class VideoContent(Content):
+class VideoCell(Cell):
     title = models.CharField(max_length=50, blank=True, null=True)
     video = models.FileField(upload_to='videos')
     scale = models.FloatField(default=1)
@@ -138,10 +138,10 @@ class VideoContent(Content):
         return self.title
 
     class Meta:
-        db_table = 'video_content'
+        db_table = 'video_cell'
 
 
-class AudioContent(Content):
+class AudioCell(Cell):
     title = models.CharField(max_length=50, blank=True, null=True)
     audio = models.FileField(upload_to='audios')
 
@@ -149,10 +149,10 @@ class AudioContent(Content):
         return self.title
 
     class Meta:
-        db_table = 'audio_content'
+        db_table = 'audio_cell'
 
 
-class ImageContent(Content):
+class ImageCell(Cell):
     title = models.CharField(max_length=50, blank=True, null=True)
     image = models.FileField(upload_to='images')
     scale = models.FloatField(default=1)
@@ -161,7 +161,7 @@ class ImageContent(Content):
         return self.title
 
     class Meta:
-        db_table = 'image_content'
+        db_table = 'image_cell'
 
 
 class Folder(models.Model):

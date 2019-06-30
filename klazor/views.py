@@ -98,49 +98,49 @@ def new_sheet(request):
     return redirect('sheet', new_sheet.id)
 
 
-def save_content(request, id):
+def save_cell(request, id):
     data = json.loads(request.body)
-    content_dict = json.loads(data['content'])  # Contains modified data and is a dictionary
+    cell_dict = json.loads(data['cell'])  # Contains modified data and is a dictionary
     sheet = Sheet.objects.get(pk=id)  # The saved sheet, and is instance of Sheet
 
     storage = FileSystemStorage()
-    if 'video' in content_dict:
-        filename = str(content_dict['filename'])
-        video_content = VideoContent()
-        video_content.sheet = sheet
-        video_content.sequence = content_dict['sequence']
-        video_content.title = content_dict['title']
-        video_content.scale = content_dict['scale']
-        video_content.video.save(filename, storage.open('videos/'+filename))
-        video_content.save()
+    if 'video' in cell_dict:
+        filename = str(cell_dict['filename'])
+        video_cell = VideoCell()
+        video_cell.sheet = sheet
+        video_cell.sequence = cell_dict['sequence']
+        video_cell.title = cell_dict['title']
+        video_cell.scale = cell_dict['scale']
+        video_cell.video.save(filename, storage.open('videos/'+filename))
+        video_cell.save()
         storage.delete('videos/' + filename)
-    elif 'image' in content_dict:
-        filename = str(content_dict['filename'])
-        image_content = ImageContent()
-        image_content.sheet = sheet
-        image_content.sequence = content_dict['sequence']
-        image_content.title = content_dict['title']
-        image_content.scale = content_dict['scale']
-        image_content.image.save(filename, storage.open('images/'+filename))
-        image_content.save()
+    elif 'image' in cell_dict:
+        filename = str(cell_dict['filename'])
+        image_cell = ImageCell()
+        image_cell.sheet = sheet
+        image_cell.sequence = cell_dict['sequence']
+        image_cell.title = cell_dict['title']
+        image_cell.scale = cell_dict['scale']
+        image_cell.image.save(filename, storage.open('images/'+filename))
+        image_cell.save()
         storage.delete('images/' + filename)
-    elif 'audio' in content_dict:
-        filename = str(content_dict['filename'])
-        audio_content = AudioContent()
-        audio_content.sheet = sheet
-        audio_content.sequence = content_dict['sequence']
-        audio_content.title = content_dict['title']
-        audio_content.audio.save(filename, storage.open('audios/'+filename))
-        audio_content.save()
+    elif 'audio' in cell_dict:
+        filename = str(cell_dict['filename'])
+        audio_cell = AudioCell()
+        audio_cell.sheet = sheet
+        audio_cell.sequence = cell_dict['sequence']
+        audio_cell.title = cell_dict['title']
+        audio_cell.audio.save(filename, storage.open('audios/'+filename))
+        audio_cell.save()
         storage.delete('audios/' + filename)
-    elif 'text' in content_dict:
-        markdown_content = MarkdownContent()
-        markdown_content.sheet = sheet
-        markdown_content.sequence = content_dict['sequence']
-        markdown_content.text = content_dict['text']
-        markdown_content.save()
+    elif 'text' in cell_dict:
+        markdown_cell = MarkdownCell()
+        markdown_cell.sheet = sheet
+        markdown_cell.sequence = cell_dict['sequence']
+        markdown_cell.text = cell_dict['text']
+        markdown_cell.save()
 
-    return HttpResponse(str(content_dict))
+    return HttpResponse(str(cell_dict))
 
 
 def delete_sheet(request, id):
@@ -152,11 +152,11 @@ def delete_sheet(request, id):
 def save_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)
     sheet.title = request.POST['title']
-    # retrieve all old contents
-    old_contents = sheet.content_set.all()
-    # Delete all old contents
-    for old_content in old_contents:
-        old_content.delete()
+    # retrieve all old cells
+    old_cells = sheet.cell_set.all()
+    # Delete all old cells
+    for old_cell in old_cells:
+        old_cell.delete()
     sheet.save()
     return HttpResponse("success")
 
@@ -259,7 +259,7 @@ def print_sheet(request, id):
     p.showPage()
     p.save()
 
-    # FileItemResponse sets the Content-Disposition header so that browsers
+    # FileItemResponse sets the Cell-Disposition header so that browsers
     # present the option to save the file.
     return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
 

@@ -13,8 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from klazor.views import *
 from django.conf import settings
 from django.conf.urls.static import static
@@ -36,7 +37,7 @@ urlpatterns = [
     path('sheet/new/', new_sheet, name='new-sheet'),
     path('folder/<int:id>/sheet/new/', new_folder_sheet, name='new-folder-sheet'),
     path('sheet/<int:id>/save/', save_sheet, name='save-sheet'),
-    path('sheet/<int:id>/content/save/', save_content, name='save-content'),
+    path('sheet/<int:id>/content/save/', save_cell, name='save-content'),
     path('sheet/delete/<int:id>/', delete_sheet, name='delete-sheet'),
     path('folder/delete/<int:id>/', delete_folder, name='delete-folder'),
     path('folder/new/', new_folder, name='new-folder'),
@@ -49,5 +50,7 @@ urlpatterns = [
     path('item/check/<int:id>/', toggle_course_item_status, name='check-item'),
 
     # Libr urls
-    path('libr/', libr.views.index, name='libr')
+    path('libr/', libr.views.index, name='libr'),
+    #Api urls
+    url(r'^api-auth/', include('rest_framework.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

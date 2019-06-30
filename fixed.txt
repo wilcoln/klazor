@@ -1,0 +1,13 @@
+1 - Les composants vues s'enregistrent toujours avant l'instance dans laquelle on veut les utiliser
+
+2 - Pour les composants dont le template est défini à l'extérieur du composant grâce à la balise <template>, 
+il faut inclure le fichier dans lequel ils sont contenus à la fin du body avant le script
+
+3 - To resolve conflicts between props and data members of the component,
+    we begin names of all data members by m (only in case of conflicts)
+    
+4 - To walk around glitches caused by v-if instructions, avoid to use v-if and instead do v-bind:style="{display: condition ? 'flex|block|whatsover..':'none' }"
+and initialise display:none in css file.
+
+4 - Untrack files already added to git repository based on .gitignore
+    git rm -r --cached .

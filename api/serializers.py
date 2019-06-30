@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from klazor import models
+from klazor.models import *
 
 
 class SheetSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = models.Sheet
+        model = Sheet
         fields = ('title', )

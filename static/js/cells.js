@@ -1,4 +1,4 @@
-class Content {
+class Cell {
     constructor(id) {
         this.id = id
         this.editMode = true
@@ -6,7 +6,7 @@ class Content {
     }
 }
 
-class VideoContent extends Content {
+class VideoCell extends Cell {
     constructor(id, title, video, scale) {
         super(id)
         if (video) {
@@ -19,7 +19,7 @@ class VideoContent extends Content {
     }
 }
 
-class AudioContent extends Content {
+class AudioCell extends Cell {
     constructor(id, title, audio) {
         super(id)
         if (audio){
@@ -31,7 +31,7 @@ class AudioContent extends Content {
     }
 }
 
-class ImageContent extends Content {
+class ImageCell extends Cell {
     constructor(id, title, image, scale) {
         super(id)
         if (image){
@@ -45,7 +45,7 @@ class ImageContent extends Content {
 
 }
 
-class MarkdownContent extends Content {
+class MarkdownCell extends Cell {
     constructor(id, text) {
         super(id)
         if (text)
