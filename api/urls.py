@@ -6,6 +6,7 @@ router = routers.DefaultRouter()
 router.register(r'sheet', SheetViewSet)
 router.register(r'cell', CellViewSet)
 router.register(r'course', CourseViewSet)
+router.register(r'sheet', SheetViewSet)
 router.register(r'course-part', CoursePartViewSet)
 router.register(r'file', FileItemViewSet)
 

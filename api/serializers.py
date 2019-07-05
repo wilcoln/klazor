@@ -71,7 +71,7 @@ class TopicSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-
+    # Add resources_set and instructors_set
     class Meta:
         model = Course
         fields = ('title', )
