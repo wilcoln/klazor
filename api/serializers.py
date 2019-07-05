@@ -53,7 +53,7 @@ class AudioCellSerializer(serializers.ModelSerializer):
 class CourseElementSerializer(SheetSerializer):
     class Meta(SheetSerializer.Meta):
         model = CourseElement
-        fields = ('sequence', 'cell_set')
+        fields = ('sequence', 'title', 'cell_set')
 
 
 class CoursePartSerializer(serializers.ModelSerializer):
