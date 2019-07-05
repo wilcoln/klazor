@@ -6,12 +6,13 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from polymorphic.models import PolymorphicModel
 
 
 class Topic(models.Model):
     title = models.CharField(max_length=64, blank=True, null=True)
     subtopics = models.ManyToManyField('Topic', blank=True)
-    
+
     def __str__(self):
         return self.title
 
@@ -30,7 +31,7 @@ class Instructor(models.Model):
         db_table = 'instructor'
 
 
-class Item(models.Model):
+class Item(PolymorphicModel):
     title = models.CharField(max_length=128, blank=True, null=True)
     folder = models.ForeignKey('Folder', null=True, blank=True, on_delete=models.CASCADE)
 
@@ -110,7 +111,20 @@ class Week(models.Model):
         db_table = 'week'
 
 
-class Cell(models.Model):
+class CoursePart(models.Model):
+    title = models.CharField(max_length=50, blank=True, null=True)
+    course = models.ForeignKey(Course, models.DO_NOTHING)
+    parent = models.ForeignKey('CoursePart', models.CASCADE, null=True)
+    item_set = models.ManyToManyField(CourseItem)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'course_part'
+
+
+class Cell(PolymorphicModel):
     sequence = models.IntegerField(blank=False, null=False)
     sheet = models.ForeignKey(Sheet, models.CASCADE)
 

@@ -19,7 +19,6 @@ from django.urls import path, include
 from klazor.views import *
 from django.conf import settings
 from django.conf.urls.static import static
-import libr.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,7 +36,7 @@ urlpatterns = [
     path('sheet/new/', new_sheet, name='new-sheet'),
     path('folder/<int:id>/sheet/new/', new_folder_sheet, name='new-folder-sheet'),
     path('sheet/<int:id>/save/', save_sheet, name='save-sheet'),
-    path('sheet/<int:id>/content/save/', save_cell, name='save-content'),
+    path('sheet/<int:id>/cell/save/', save_cell, name='save-cell'),
     path('sheet/delete/<int:id>/', delete_sheet, name='delete-sheet'),
     path('folder/delete/<int:id>/', delete_folder, name='delete-folder'),
     path('folder/new/', new_folder, name='new-folder'),
@@ -50,7 +49,7 @@ urlpatterns = [
     path('item/check/<int:id>/', toggle_course_item_status, name='check-item'),
 
     # Libr urls
-    path('libr/', libr.views.index, name='libr'),
-    #Api urls
-    url(r'^api-auth/', include('rest_framework.urls'))
+    url(r'^libr', include('libr.urls')),
+    # Api urls
+    url(r'^api/', include('api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
