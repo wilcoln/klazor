@@ -61,7 +61,7 @@ class CoursePartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CoursePart
-        fields = ('level', 'sequence', 'type', 'title', 'courseelement_set', )
+        fields = ('level', 'sequence', 'label', 'title', 'courseelement_set', )
 
 
 class TopicSerializer(serializers.ModelSerializer):

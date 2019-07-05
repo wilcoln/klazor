@@ -84,8 +84,8 @@ class NotSchool(Instructor):
 
 
 class School(Instructor):
-    admissions_link = models.TextField(blank=True, null=True)
-    programs_link = models.TextField(blank=True, null=True)
+    # admissions_link = models.TextField(blank=True, null=True)
+    # programs_link = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'school'
@@ -100,7 +100,7 @@ class SchoolCourse(Course):
 
 
 class CoursePart(models.Model):
-    type = models.CharField(max_length=32, default='Week')
+    label = models.CharField(max_length=32, default='Week')
     title = models.CharField(max_length=64, blank=True, null=True)
     course = models.ForeignKey(Course, models.CASCADE)
     level = models.SmallIntegerField(default=1)
