@@ -5,8 +5,8 @@ from api.views import *
 router = routers.DefaultRouter()
 router.register(r'sheet', SheetViewSet)
 router.register(r'cell', CellViewSet)
-router.register(r'mooc-course', MoocCourseViewSet)
-router.register(r'week', WeekViewSet)
+router.register(r'course', CourseViewSet)
+router.register(r'course-part', CoursePartViewSet)
 router.register(r'file', FileItemViewSet)
 
 # Wire up our API using automatic URL routing.

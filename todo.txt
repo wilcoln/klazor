@@ -39,3 +39,5 @@ TODO
     33. Add Generator class which enables to generate items from folders, e.g generate mooc course from folder, course form folder, school course from folder, music playlist from folder, video playlist from folder..
     34. Change iconify to iconclass
     35. la vidéo fait la taille de la cellule et quand e double clique ça met en plein écran, sans titre impossible de revenir en mode edition
+    36. Refactor content to cell
+    37. Refactor week to coursepart

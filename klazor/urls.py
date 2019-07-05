@@ -26,10 +26,10 @@ urlpatterns = [
     path('welcome/', welcome),
     path('mooc_courses/<int:id>/', view_mooc_course, name='mooc-course'),
     path('school_courses/<int:id>/', view_school_course, name='school-course'),
-    path('mooc_course_item/<int:id>/', view_mooc_course_item, name='mooc-course-item'),
-    path('week/<int:week_id>/reach_item/<int:item_sequence>/', mooc_course_item_reach, name='mooc-course-item-reach'),
-    path('school_course_item/<int:id>/', view_school_course_item, name='school-course-item'),
-    path('school_course/<int:school_course_id>/reach_item/<int:item_sequence>/', school_course_item_reach, name='school-course-item-reach'),
+    path('mooc_course_element/<int:id>/', view_mooc_course_element, name='mooc-course-item'),
+    path('course_part/<int:course_part_id>/reach_item/<int:element_sequence>/', mooc_course_element_reach, name='mooc-course-item-reach'),
+    path('school_course_element/<int:id>/', view_school_course_element, name='school-course-item'),
+    path('school_course/<int:school_course_id>/reach_item/<int:item_sequence>/', school_course_element_reach, name='school-course-item-reach'),
     path('folder/<int:id>/', view_folder, name='folder'),
     path('folder/editor/<int:id>/sheet/<int:sheet_id>', view_folder_editor, name='folder-editor'),
     path('sheet/<int:id>/', view_sheet, name='sheet'),
@@ -46,7 +46,7 @@ urlpatterns = [
     path('school_course/delete/<int:id>/', delete_school_course, name='delete-school-course'),
     path('upload/', upload, name='upload'),
     path('sheet/<int:id>/print', print_sheet, name='print-sheet'),
-    path('item/check/<int:id>/', toggle_course_item_status, name='check-item'),
+    path('item/check/<int:id>/', toggle_course_element_status, name='check-item'),
 
     # Libr urls
     url(r'^libr', include('libr.urls')),

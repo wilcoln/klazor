@@ -37,34 +37,34 @@ def view_school_course(request, id):
     return render(request, 'pages/school_course.html', {'school_course': school_course})
 
 
-def view_mooc_course_item(request, id):
-    mooc_course_item = CourseItem.objects.get(pk=id)
-    return render(request, 'pages/mooc_course_item.html', {'mooc_course_item': mooc_course_item})
+def view_mooc_course_element(request, id):
+    course_element = CourseElement.objects.get(pk=id)
+    return render(request, 'pages/mooc_course_element.html', {'course_element': course_element})
 
 
 # Manages mooc course item nav
-def mooc_course_item_reach(request, week_id, item_sequence):
-    week = Week.objects.get(pk=week_id)
+def mooc_course_element_reach(request, course_part_id, element_sequence):
+    course_part = CoursePart.objects.get(pk=course_part_id)
     try:
-        mooc_course_item = week.item_set.all()[item_sequence-1]
-        return render(request, 'pages/mooc_course_item.html', {'mooc_course_item': mooc_course_item})
+        course_element = course_part.courseelement_set.all()[element_sequence-1]
+        return render(request, 'pages/mooc_course_element.html', {'course_element': course_element})
     except IndexError:
-        return render(request, 'pages/mooc_course.html', {'mooc_course':  week.mooc_course})
+        return render(request, 'pages/mooc_course.html', {'mooc_course':  course_part.course.mooccourse})
 
 
-def view_school_course_item(request, id):
-    school_course_item = CourseItem.objects.get(pk=id)
-    return render(request, 'pages/school_course_item.html', {'school_course_item': school_course_item})
+def view_school_course_element(request, id):
+    course_element = CourseElement.objects.get(pk=id)
+    return render(request, 'pages/school_course_element.html', {'course_element': course_element})
 
 
 # Manages school course item nav
-def school_course_item_reach(request, school_course_id, item_sequence):
-    school_course = SchoolCourse.objects.get(pk=school_course_id)
+def school_course_element_reach(request, course_part_id, element_sequence):
+    course_part = CoursePart.objects.get(pk=course_part_id)
     try:
-        school_course_item = school_course.item_set.all()[item_sequence-1]
-        return render(request, 'pages/school_course_item.html', {'school_course_item': school_course_item})
+        course_element = course_part.courseelement_set.all()[element_sequence - 1]
+        return render(request, 'pages/school_course_element.html', {'course_element': course_element})
     except IndexError:
-        return render(request, 'pages/school_course.html', {'school_course': school_course})
+        return render(request, 'pages/school_course.html', {'school_course': course_part.course.schoolcourse})
 
 
 def view_folder(request, id):
@@ -236,8 +236,8 @@ def upload(request):
     return HttpResponse('no_new_name')
 
 
-def toggle_course_item_status(request, id):
-    item = CourseItem.objects.get(pk=id)
+def toggle_course_element_status(request, id):
+    item = CourseElement.objects.get(pk=id)
     item.completed = not item.completed
     item.save()
     return redirect(request.META.get('HTTP_REFERER'))

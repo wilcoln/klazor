@@ -19,20 +19,20 @@ class CellViewSet(viewsets.ModelViewSet):
     serializer_class = CellSerializer
 
 
-class MoocCourseViewSet(viewsets.ModelViewSet):
+class CourseViewSet(viewsets.ModelViewSet):
     """
         API endpoint that allows sheets to be viewed or edited.
         """
-    queryset = MoocCourse.objects.all()
-    serializer_class = MoocCourseSerializer
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
 
 
-class WeekViewSet(viewsets.ModelViewSet):
+class CoursePartViewSet(viewsets.ModelViewSet):
     """
         API endpoint that allows sheets to be viewed or edited.
         """
-    queryset = Week.objects.all()
-    serializer_class = WeekSerializer
+    queryset = CoursePart.objects.all()
+    serializer_class = CoursePartSerializer
 
 
 class FileItemViewSet(viewsets.ModelViewSet):

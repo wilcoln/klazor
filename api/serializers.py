@@ -50,18 +50,55 @@ class AudioCellSerializer(serializers.ModelSerializer):
         fields = ('sequence', 'title', 'audio')
 
 
-class MoocCourseSerializer(serializers.HyperlinkedModelSerializer):
-    week_set = CellSerializer(required=False, many=True)
+class CourseElementSerializer(SheetSerializer):
+    class Meta(SheetSerializer.Meta):
+        model = CourseElement
+        fields = ('sequence', 'cell_set')
+
+
+class CoursePartSerializer(serializers.ModelSerializer):
+    courseelement_set = CourseElementSerializer(many=True)
+
+    class Meta:
+        model = CoursePart
+        fields = ('level', 'sequence', 'type', 'title', 'courseelement_set', )
+
+
+class TopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Topic
+        fields = ('title', )
+
+
+class CourseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Course
+        fields = ('title', )
+
+    def to_representation(self, obj):
+        if isinstance(obj, MoocCourse):
+            return MoocCourseSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, SchoolCourse):
+            return SchoolCourseSerializer(obj, context=self.context).to_representation(obj)
+
+
+class SchoolCourseSerializer(serializers.ModelSerializer):
+    coursepart_set = CoursePartSerializer(many=True)
+    topic_set = TopicSerializer(many=True)
+
+    class Meta:
+        model = SchoolCourse
+        fields = ('title', 'topic_set', 'coursepart_set', 'year', 'semester', )
+
+
+class MoocCourseSerializer(serializers.ModelSerializer):
+    coursepart_set = CoursePartSerializer(many=True)
+    topic_set = TopicSerializer(many=True)
+
     class Meta:
         model = MoocCourse
-        fields = ('title', 'week_set',)
-
-
-class WeekSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Week
-        fields = ('title',)
+        fields = ('title', 'topic_set', 'coursepart_set', )
 
 
 class FileItemSerializer(serializers.HyperlinkedModelSerializer):

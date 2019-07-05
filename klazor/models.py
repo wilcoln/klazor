@@ -63,12 +63,13 @@ class Sheet(Item):
         db_table = 'sheet'
 
 
-class CourseItem(Sheet):
-    completed = models.BooleanField(default=False)
+class CourseElement(Sheet):
+    # completed = models.BooleanField(default=False)
     sequence = models.IntegerField(blank=True, null=True)
+    course_part = models.ForeignKey('CoursePart', on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'course_item'
+        db_table = 'course_element'
         ordering = ['sequence', ]
 
 
@@ -93,29 +94,17 @@ class School(Instructor):
 class SchoolCourse(Course):
     year = models.SmallIntegerField(blank=True, null=True)
     semester = models.SmallIntegerField(blank=True, null=True)
-    item_set = models.ManyToManyField(CourseItem)
 
     class Meta:
         db_table = 'school_course'
 
 
-class Week(models.Model):
-    title = models.CharField(max_length=50, blank=True, null=True)
-    mooc_course = models.ForeignKey(MoocCourse, models.DO_NOTHING)
-    item_set = models.ManyToManyField(CourseItem)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        db_table = 'week'
-
-
 class CoursePart(models.Model):
-    title = models.CharField(max_length=50, blank=True, null=True)
-    course = models.ForeignKey(Course, models.DO_NOTHING)
-    parent = models.ForeignKey('CoursePart', models.CASCADE, null=True)
-    item_set = models.ManyToManyField(CourseItem)
+    type = models.CharField(max_length=32, default='Week')
+    title = models.CharField(max_length=64, blank=True, null=True)
+    course = models.ForeignKey(Course, models.CASCADE)
+    level = models.SmallIntegerField(default=1)
+    sequence = models.SmallIntegerField(default=1)
 
     def __str__(self):
         return self.title
