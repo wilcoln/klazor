@@ -9,7 +9,7 @@
     <div class="base-container">
         <div class="row">
             <div class="col-md-3">
-                {% include 'includes/components/navs/school_course_nav.html' with school_course=course_element.schoolcourse_set.first %}
+                {% include 'includes/components/navs/school_course_nav.html' with school_course=course_element.course_part.course course_element=course_element %}
             </div>
             <div class="col-md-9">
                 {% include 'includes/components/item.html' with item=course_element %}
@@ -17,7 +17,7 @@
                     <ul class="pagination">
                         <li class="page-item">
                             <a class="page-link {% if course_element.sequence == 1 %} {{ 'btn disabled text-secondary' }} {% endif %}"
-                               href="{% url 'school-course-item-reach' course_element.course_part_set.first.id course_element.sequence|add:-1 %}"
+                               href="{% url 'school-course-item-reach' course_element.course_part.id course_element.sequence|add:-1 %}"
                                aria-label="Previous">
                                 <span aria-hidden="true">&laquo; Previous</span>
                                 <span class="sr-only">Previous</span>
@@ -25,7 +25,7 @@
                         </li>
                         <li class="page-item">
                             <a class="page-link"
-                               href="{% url 'school-course-item-reach' course_element.course_part_set.first.id course_element.sequence|add:1 %}"
+                               href="{% url 'school-course-item-reach' course_element.course_part.id course_element.sequence|add:1 %}"
                                aria-label="Next">
                                 <span aria-hidden="true">Next &raquo;</span>
                                 <span class="sr-only">Next</span>
@@ -34,9 +34,9 @@
                     </ul>
                 </nav>
                 <hr>
-                {% include 'includes/components/course_resources.html' with resources=course_element.course_part_set.first.mooc_course.resource_set.all %}
+                {% include 'includes/components/course_resources.html' with resources=course_element.course_part.school_course.resource_set.all %}
                 <hr>
-                {% include 'includes/components/course_instructors.html' with instructors=course_element.course_part_set.first.mooc_course.resource_set.all %}
+                {% include 'includes/components/course_instructors.html' with instructors=course_element.course_part.school_course.instructor_set.all %}
             </div>
         </div>
     </div>

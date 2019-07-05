@@ -7,7 +7,7 @@
                 {{ school_course.title }}
             </div>
         </a>
-        <small class="text-muted ">{{ school_course.item_set.all.count }} items</small>
+        <small class="text-muted ">{{ school_course.coursepart_set.all.count }} items</small>
         <form action="{% url 'delete-school-course' school_course.id %}" method="post">
             {%  csrf_token %}
             <button role="submit" class="fa fa-trash"></button>
