@@ -5,7 +5,7 @@ from klazor.models import *
 class FileItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = FileItem
-        fields = ('id', 'file',)
+        fields = ('id', 'title', 'file',)
 
 
 class DynamicCellSerializer(serializers.ModelSerializer):
