@@ -1,4 +1,3 @@
-import iso639
 from django.db import models
 from klazor.models import FileItem, Topic
 # Create your models here.

@@ -11,6 +11,7 @@ router.register(r'course', CourseViewSet)
 router.register(r'sheet', SheetViewSet)
 router.register(r'course-part', CoursePartViewSet)
 router.register(r'file', FileItemViewSet)
+router.register(r'topic', TopicViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

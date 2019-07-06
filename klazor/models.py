@@ -11,7 +11,7 @@ from polymorphic.models import PolymorphicModel
 
 class Topic(models.Model):
     title = models.CharField(max_length=64, blank=True, null=True)
-    subtopics = models.ManyToManyField('Topic', blank=True)
+    subtopic_set = models.ManyToManyField('Topic', blank=True)
 
     def __str__(self):
         return self.title

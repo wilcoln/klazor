@@ -3,6 +3,14 @@ from api.serializers import *
 # Create your views here.
 
 
+class TopicViewSet(viewsets.ModelViewSet):
+    """
+        API endpoint that allows sheets to be viewed or edited.
+        """
+    queryset = Topic.objects.all()
+    serializer_class = TopicSerializer
+
+
 class SheetViewSet(viewsets.ModelViewSet):
     """
         API endpoint that allows sheets to be viewed or edited.
