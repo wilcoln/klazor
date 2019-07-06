@@ -20,12 +20,12 @@ class Topic(models.Model):
         db_table = 'topic'
 
 
-class Instructor(models.Model):
-    title = models.CharField(max_length=64, blank=True, null=True)
+class Instructor(PolymorphicModel):
+    name = models.CharField(max_length=128, blank=True, null=True)
     link = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
         db_table = 'instructor'
@@ -84,6 +84,7 @@ class NotSchool(Instructor):
 
 
 class School(Instructor):
+    colloquial_name = models.CharField(max_length=8, blank=True, null=True)
     # admissions_link = models.TextField(blank=True, null=True)
     # programs_link = models.TextField(blank=True, null=True)
 
@@ -133,7 +134,7 @@ class MarkdownCell(Cell):
 
 
 class VideoCell(Cell):
-    title = models.CharField(max_length=50, blank=True, null=True)
+    title = models.CharField(max_length=64, blank=True, null=True)
     video = models.FileField(upload_to='videos')
     scale = models.FloatField(default=1)
 
@@ -145,7 +146,7 @@ class VideoCell(Cell):
 
 
 class AudioCell(Cell):
-    title = models.CharField(max_length=50, blank=True, null=True)
+    title = models.CharField(max_length=64, blank=True, null=True)
     audio = models.FileField(upload_to='audios')
 
     def __str__(self):
@@ -156,7 +157,7 @@ class AudioCell(Cell):
 
 
 class ImageCell(Cell):
-    title = models.CharField(max_length=50, blank=True, null=True)
+    title = models.CharField(max_length=64, blank=True, null=True)
     image = models.FileField(upload_to='images')
     scale = models.FloatField(default=1)
 

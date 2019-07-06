@@ -2,10 +2,16 @@ from rest_framework import serializers
 from klazor.models import *
 
 
-class CellSerializer(serializers.ModelSerializer):
+class FileItemSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = FileItem
+        fields = ('id', 'file',)
+
+
+class DynamicCellSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cell
-        fields = ('id', 'sequence', )
+        fields = ()
 
     def to_representation(self, obj):
         if isinstance(obj, MarkdownCell):
@@ -19,33 +25,39 @@ class CellSerializer(serializers.ModelSerializer):
 
 
 class SheetSerializer(serializers.HyperlinkedModelSerializer):
-    cell_set = CellSerializer(required=False, many=True)  # May be an anonymous user.
+    cell_set = DynamicCellSerializer(required=False, many=True)  # May be an anonymous user.
 
     class Meta:
         model = Sheet
         fields = ('id', 'title', 'cell_set')
 
 
-class MarkdownCellSerializer(serializers.ModelSerializer):
+class CellSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
+        model = Cell
+        fields = ()
+
+
+class MarkdownCellSerializer(CellSerializer):
+    class Meta(CellSerializer.Meta):
         model = MarkdownCell
         fields = ('id', 'sequence', 'text',)
 
 
-class VideoCellSerializer(serializers.ModelSerializer):
-    class Meta:
+class VideoCellSerializer(CellSerializer):
+    class Meta(CellSerializer.Meta):
         model = VideoCell
         fields = ('id', 'sequence', 'title', 'video', 'scale')
 
 
-class ImageCellSerializer(serializers.ModelSerializer):
-    class Meta:
+class ImageCellSerializer(CellSerializer):
+    class Meta(CellSerializer.Meta):
         model = ImageCell
         fields = ('id', 'sequence', 'title', 'image', 'scale')
 
 
-class AudioCellSerializer(serializers.ModelSerializer):
-    class Meta:
+class AudioCellSerializer(CellSerializer):
+    class Meta(CellSerializer.Meta):
         model = AudioCell
         fields = ('id', 'sequence', 'title', 'audio')
 
@@ -65,17 +77,15 @@ class CoursePartSerializer(serializers.ModelSerializer):
 
 
 class TopicSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Topic
         fields = ('id', 'title', 'subtopic_set')
 
 
-class CourseSerializer(serializers.ModelSerializer):
-    # Add resources_set and instructors_set
+class DynamicCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('id', 'title', )
+        fields = ()
 
     def to_representation(self, obj):
         if isinstance(obj, MoocCourse):
@@ -84,25 +94,57 @@ class CourseSerializer(serializers.ModelSerializer):
             return SchoolCourseSerializer(obj, context=self.context).to_representation(obj)
 
 
-class SchoolCourseSerializer(serializers.ModelSerializer):
+class DynamicInstructorSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Instructor
+        fields = ()
+
+    def to_representation(self, obj):
+        if isinstance(obj, NotSchool):
+            return NotSchoolSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, School):
+            return SchoolSerializer(obj, context=self.context).to_representation(obj)
+
+
+class CourseSerializer(serializers.ModelSerializer):
     coursepart_set = CoursePartSerializer(many=True)
     topic_set = TopicSerializer(many=True)
+    instructor_set = DynamicInstructorSerializer(many=True)
+    resource_set = FileItemSerializer(many=True)
 
     class Meta:
+        model = Course
+        fields = ()
+
+
+class InstructorSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Instructor
+        fields = ()
+
+
+class SchoolSerializer(InstructorSerializer):
+    class Meta(InstructorSerializer.Meta):
+        model = School
+        fields = ('id', 'name', 'link', 'colloquial_name', )
+
+
+class NotSchoolSerializer(InstructorSerializer):
+    class Meta(InstructorSerializer.Meta):
+        model = NotSchool
+        fields = ('id', 'name', 'link', )
+
+
+class SchoolCourseSerializer(CourseSerializer):
+    class Meta(CourseSerializer.Meta):
         model = SchoolCourse
-        fields = ('id', 'title', 'topic_set', 'coursepart_set', 'year', 'semester', )
+        fields = ('id', 'title', 'topic_set', 'coursepart_set', 'year', 'semester', 'instructor_set', 'resource_set', )
 
 
-class MoocCourseSerializer(serializers.ModelSerializer):
-    coursepart_set = CoursePartSerializer(many=True)
-    topic_set = TopicSerializer(many=True)
-
-    class Meta:
+class MoocCourseSerializer(CourseSerializer):
+    class Meta(CourseSerializer.Meta):
         model = MoocCourse
-        fields = ('id', 'title', 'topic_set', 'coursepart_set', )
+        fields = ('id', 'title', 'topic_set', 'coursepart_set', 'instructor_set', 'resource_set')
 
 
-class FileItemSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = FileItem
-        fields = ('id', 'file',)
+

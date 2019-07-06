@@ -34,9 +34,9 @@
                     </ul>
                 </nav>
                 <hr>
-                {% include 'includes/components/course_resources.html' with resources=course_element.course_part.mooc_course.resource_set.all %}
+                {% include 'includes/components/course_resources.html' with resources=course_element.course_part.course.resource_set.all %}
                 <hr>
-                {% include 'includes/components/course_instructors.html' with instructors=course_element.course_part.mooc_course.instructor_set.all %}
+                {% include 'includes/components/course_instructors.html' with instructors=course_element.course_part.course.instructor_set.all %}
             </div>
         </div>
     </div>

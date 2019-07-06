@@ -5,6 +5,7 @@ from api.views import *
 router = routers.DefaultRouter()
 router.register(r'sheet', SheetViewSet)
 router.register(r'cell', CellViewSet)
+router.register(r'instructor', InstructorViewSet)
 router.register(r'mooc-course', MoocCourseViewSet)
 router.register(r'school-course', SchoolCourseViewSet)
 router.register(r'course', CourseViewSet)

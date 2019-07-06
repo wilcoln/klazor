@@ -11,6 +11,14 @@ class TopicViewSet(viewsets.ModelViewSet):
     serializer_class = TopicSerializer
 
 
+class InstructorViewSet(viewsets.ModelViewSet):
+    """
+        API endpoint that allows sheets to be viewed or edited.
+        """
+    queryset = Instructor.objects.all()
+    serializer_class = DynamicInstructorSerializer
+
+
 class SheetViewSet(viewsets.ModelViewSet):
     """
         API endpoint that allows sheets to be viewed or edited.
@@ -24,7 +32,7 @@ class CellViewSet(viewsets.ModelViewSet):
         API endpoint that allows sheets to be viewed or edited.
         """
     queryset = Cell.objects.all()
-    serializer_class = CellSerializer
+    serializer_class = DynamicCellSerializer
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -32,7 +40,8 @@ class CourseViewSet(viewsets.ModelViewSet):
         API endpoint that allows sheets to be viewed or edited.
         """
     queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+    serializer_class = DynamicCourseSerializer
+
 
 class MoocCourseViewSet(viewsets.ModelViewSet):
     """
@@ -40,6 +49,7 @@ class MoocCourseViewSet(viewsets.ModelViewSet):
         """
     queryset = MoocCourse.objects.all()
     serializer_class = MoocCourseSerializer
+
 
 class SchoolCourseViewSet(viewsets.ModelViewSet):
     """
