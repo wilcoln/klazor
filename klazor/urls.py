@@ -23,7 +23,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', welcome, name='welcome'),
-    path('welcome/', welcome),
     path('mooc_courses/<int:id>/', view_mooc_course, name='mooc-course'),
     path('school_courses/<int:id>/', view_school_course, name='school-course'),
     path('mooc_course_element/<int:id>/', view_mooc_course_element, name='mooc-course-item'),
