@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import User
 from polymorphic.models import PolymorphicModel
 
 
@@ -32,6 +33,7 @@ class Instructor(PolymorphicModel):
 
 
 class Item(PolymorphicModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=128, blank=True, null=True)
     folder = models.ForeignKey('Folder', null=True, blank=True, on_delete=models.CASCADE)
 
@@ -169,6 +171,7 @@ class ImageCell(Cell):
 
 
 class Folder(models.Model):
+    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, blank=True, null=True)
     parent = models.ForeignKey('Folder', models.CASCADE, null=True)
 
