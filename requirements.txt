@@ -1,6 +1,7 @@
 config-parser==0.0.1
-Django==2.2.3
+Django==2.2.2
 django-filter==2.1.0
+django-polymorphic==2.0.3
 djangorestframework==3.9.4
 iso639==0.1.4
 Markdown==3.1.1
