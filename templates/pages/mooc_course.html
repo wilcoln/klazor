@@ -16,7 +16,7 @@
                     <h2 class="text-muted">Contenu du cours </h2><br>
                     {% for coursepart in mooc_course.coursepart_set.all  %}
                         <div class="row">
-                            <h3 class="col-md-2">{{ coursepart.type }} {{ forloop.counter }} :</h3>
+                            <h3 class="col-md-2">{{ coursepart.label }} {{ coursepart.sequence }} :</h3>
                             <h3 class="col-md-10">{{ coursepart.title }}</h3>
                         </div>
                         <ul class="row">

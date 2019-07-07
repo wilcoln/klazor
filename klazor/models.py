@@ -171,7 +171,7 @@ class ImageCell(Cell):
 
 
 class Folder(models.Model):
-    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, default=1, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, blank=True, null=True)
     parent = models.ForeignKey('Folder', models.CASCADE, null=True)
 
