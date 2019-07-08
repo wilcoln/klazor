@@ -7,7 +7,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.shortcuts import redirect
 from klazor.models import *
-from klazor.converters import *
+from klazor import converters as cvt
 import io
 import base64
 import json
@@ -114,6 +114,11 @@ def view_folder_editor(request, id, sheet_id):
     return render(request, 'pages/folder_editor.html',
                   {'folder': folder, 'active_sheet': active_sheet, 'sheets': sheets, 'file_items': file_items})
 
+def convert_folder_to_mooc_course(request, id):
+    folder = Folder.objects.get(pk=id)
+    cvt.folder_to_mooc_course(folder)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
 def view_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)
@@ -216,6 +221,13 @@ def new_folder(request):
     folder = Folder()
     folder.user = request.user
     folder.parent_id = request.POST['parent-id']
+    folder.name = request.POST['folder-name']
+    folder.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def rename_folder(request, id):
+    folder = Folder.objects.get(pk=id)
     folder.name = request.POST['folder-name']
     folder.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

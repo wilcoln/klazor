@@ -49,3 +49,20 @@
 .tiny {
     background-color: #fdfdfd;
 }
+
+/* Context menu styling  */
+
+.rmenu.show {
+    z-index:1000;
+    position: absolute;
+    display: block;
+    width: fit-content;
+    box-shadow: .1rem .1rem .5rem rgba(0,0,0,.2);
+}
+.rmenu.show .list-group-item{
+    padding: 5px 5px;
+    font-size: .9rem;
+}
+.rmenu.hide {
+    display: none;
+}

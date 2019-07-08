@@ -1,17 +1,18 @@
 from klazor.models import *
 import copy
 
+
 def folder_to_course(folder):
     course = Course()
     course.title = folder.name
     return course
+
 
 def folder_to_mooc_course(folder):
     mooc_course = MoocCourse()
     mooc_course.user = folder.user
     mooc_course.title = folder.name
     mooc_course.save()
-    course_parts = []
     for i, subfolder in enumerate(folder.folder_set.all()):
         course_part = CoursePart()
         course_part.sequence = i+1
