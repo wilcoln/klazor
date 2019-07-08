@@ -7,6 +7,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.shortcuts import redirect
 from klazor.models import *
+from klazor.converters import *
 import io
 import base64
 import json
@@ -99,6 +100,7 @@ def view_folder(request, id):
     sheets = Sheet.objects.filter(folder=id)
     file_items = FileItem.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
+    # mooc = folder_to_mooc_course(folder)
     return render(request, 'pages/folder.html', {'folder': folder, 'sheets': sheets, 'file_items': file_items})
 
 
