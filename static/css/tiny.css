@@ -52,17 +52,18 @@
 
 /* Context menu styling  */
 
-.rmenu.show {
+.rmenu{
     z-index:1000;
     position: absolute;
-    display: block;
     width: fit-content;
-    box-shadow: .1rem .1rem .5rem rgba(0,0,0,.2);
+    border-width: 0;
+    box-shadow: .0rem .0rem 1rem rgba(0,0,0,.2);
+    display: none;
+}
+.rmenu.show{
+    display: block;
 }
 .rmenu.show .list-group-item{
     padding: 5px 5px;
-    font-size: .9rem;
-}
-.rmenu.hide {
-    display: none;
+    font-size: .8rem;
 }

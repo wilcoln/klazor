@@ -11,8 +11,8 @@ function openFolderContextMenu(e, id) {
     let contextmenuId = "fmenu_" + id
     document.getElementById(contextmenuId).className = "rmenu show";
     document.getElementById(contextmenuId).style.position = 'absolute';
-    document.getElementById(contextmenuId).style.top = (e.screenY - e.clientY)*.3 + 'px';
-    document.getElementById(contextmenuId).style.left = e.clientX*.5 + 'px';
+    document.getElementById(contextmenuId).style.top = e.clientY*.001 + 'px';
+    document.getElementById(contextmenuId).style.left = e.clientX*.25 + 'px';
 
     window.event.returnValue = false;
 }

@@ -17,7 +17,7 @@ def folder_to_mooc_course(folder):
         course_part = CoursePart()
         course_part.sequence = i+1
         course_part.level = 1
-        course_part.label, course_part.title = subfolder.name.split(':')
+        course_part.label, course_part.sequence, course_part.title = subfolder.name.split(':')
         course_part.course = mooc_course
         course_part.save()
         for j, sheet in enumerate(subfolder.item_set.all()):

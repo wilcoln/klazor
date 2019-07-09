@@ -7,7 +7,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.shortcuts import redirect
 from klazor.models import *
-from klazor import converters as cvt
+from klazor import converter as cvt
 import io
 import base64
 import json
