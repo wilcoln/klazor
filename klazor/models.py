@@ -147,6 +147,18 @@ class VideoCell(Cell):
         db_table = 'video_cell'
 
 
+class YoutubeCell(Cell):
+    title = models.CharField(max_length=64, blank=True, null=True)
+    url = models.TextField(blank=True, null=True)
+    scale = models.FloatField(default=1)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'youtube_cell'
+
+
 class AudioCell(Cell):
     title = models.CharField(max_length=64, blank=True, null=True)
     audio = models.FileField(upload_to='audios')

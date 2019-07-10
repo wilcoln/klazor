@@ -19,6 +19,20 @@ class VideoCell extends Cell {
     }
 }
 
+class YoutubeCell extends Cell {
+    constructor(id, title, url, scale) {
+        super(id)
+        this.title = title
+        this.url = url
+        this.scale = scale
+    }
+    embedUrl(){
+        let urlparts = this.url.split('/')
+        let videoId = urlparts[urlparts.length - 1]
+        return 'https://www.youtube.com/embed/' + videoId
+    }
+}
+
 class AudioCell extends Cell {
     constructor(id, title, audio) {
         super(id)
