@@ -274,6 +274,10 @@
                             lightCell.title = cell.title
                             lightCell.audio = null
                             file = cell.audio
+                        } else if (cell instanceof YoutubeCell) {
+                            lightCell.title = cell.title
+                            lightCell.url = cell.url
+                            lightCell.scale = cell.scale
                         } else if (cell instanceof ImageCell) {
                             lightCell.title = cell.title
                             lightCell.scale = cell.scale

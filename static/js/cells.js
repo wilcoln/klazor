@@ -19,6 +19,12 @@ class VideoCell extends Cell {
     }
 }
 
+function getVideoId(url){
+    let urlparts = url.split('/')
+    urlparts = urlparts[urlparts.length - 1].split('=')
+    let videoId = urlparts[urlparts.length -1]
+    return videoId
+}
 class YoutubeCell extends Cell {
     constructor(id, title, url, scale) {
         super(id)
@@ -27,8 +33,7 @@ class YoutubeCell extends Cell {
         this.scale = scale
     }
     embedUrl(){
-        let urlparts = this.url.split('/')
-        let videoId = urlparts[urlparts.length - 1]
+        let videoId = getVideoId(this.url)
         return 'https://www.youtube.com/embed/' + videoId
     }
 }

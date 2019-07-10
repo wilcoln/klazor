@@ -177,6 +177,13 @@ def save_cell(request, id):
         markdown_cell.sequence = cell_dict['sequence']
         markdown_cell.text = cell_dict['text']
         markdown_cell.save()
+    elif 'url' in cell_dict:
+        youtube_cell = YoutubeCell()
+        youtube_cell.sheet = sheet
+        youtube_cell.sequence = cell_dict['sequence']
+        youtube_cell.url = cell_dict['url']
+        youtube_cell.title = cell_dict['title']
+        youtube_cell.save()
 
     return HttpResponse(str(cell_dict))
 
