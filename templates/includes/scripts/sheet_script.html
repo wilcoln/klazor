@@ -276,7 +276,7 @@
                             file = cell.audio
                         } else if (cell instanceof YoutubeCell) {
                             lightCell.title = cell.title
-                            lightCell.url = cell.url
+                            lightCell.youtube = cell.youtube
                             lightCell.scale = cell.scale
                         } else if (cell instanceof ImageCell) {
                             lightCell.title = cell.title
@@ -369,7 +369,7 @@
                     {% if cell.videocell %}
                         this.cells.push(new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.video.url }}`, {{ cell.videocell.scale }}))
                     {% elif cell.youtubecell %}
-                        this.cells.push(new YoutubeCell(counter, `{{ cell.youtubecell.title }}`, `{{ cell.youtubecell.url}}`, {{ cell.youtubecell.scale }}))
+                        this.cells.push(new YoutubeCell(counter, `{{ cell.youtubecell.title }}`, `{{ cell.youtubecell.youtube}}`, {{ cell.youtubecell.scale }}))
                     {% elif cell.audiocell %}
                         this.cells.push(new AudioCell(counter, `{{ cell.audiocell.title }}`, `{{ cell.audiocell.audio.url}}`))
                     {% elif cell.imagecell %}

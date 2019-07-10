@@ -149,7 +149,7 @@ class VideoCell(Cell):
 
 class YoutubeCell(Cell):
     title = models.CharField(max_length=64, blank=True, null=True)
-    url = models.TextField(blank=True, null=True)
+    youtube = models.TextField(blank=True, null=True)
     scale = models.FloatField(default=1)
 
     def __str__(self):

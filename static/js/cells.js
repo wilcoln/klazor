@@ -26,16 +26,16 @@ function getVideoId(url){
     return videoId
 }
 class YoutubeCell extends Cell {
-    constructor(id, title, url, scale) {
+    constructor(id, title, youtube, scale) {
         super(id)
         this.title = title
-        this.url = url
+        this.youtube = youtube
         this.scale = scale
     }
     embedUrl(){
-        let videoId = getVideoId(this.url)
-        this.url =  'https://www.youtube.com/embed/' + videoId
-        return this.url
+        let videoId = getVideoId(this.youtube)
+        this.youtube =  'https://www.youtube.com/embed/' + videoId
+        return this.youtube
     }
 }
 

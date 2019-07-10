@@ -55,7 +55,7 @@ class VideoCellSerializer(CellSerializer):
 class YoutubeCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = YoutubeCell
-        fields = ('id', 'sequence', 'title', 'url', 'scale')
+        fields = ('id', 'sequence', 'title', 'youtube', 'scale')
 
 
 class ImageCellSerializer(CellSerializer):

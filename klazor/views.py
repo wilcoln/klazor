@@ -177,11 +177,11 @@ def save_cell(request, id):
         markdown_cell.sequence = cell_dict['sequence']
         markdown_cell.text = cell_dict['text']
         markdown_cell.save()
-    elif 'url' in cell_dict:
+    elif 'youtube' in cell_dict:
         youtube_cell = YoutubeCell()
         youtube_cell.sheet = sheet
         youtube_cell.sequence = cell_dict['sequence']
-        youtube_cell.url = cell_dict['url']
+        youtube_cell.youtube = cell_dict['youtube']
         youtube_cell.title = cell_dict['title']
         youtube_cell.scale = cell_dict['scale']
         youtube_cell.save()
