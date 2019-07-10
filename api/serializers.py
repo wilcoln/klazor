@@ -20,6 +20,8 @@ class DynamicCellSerializer(serializers.ModelSerializer):
             return ImageCellSerializer(obj, context=self.context).to_representation(obj)
         elif isinstance(obj, VideoCell):
             return VideoCellSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, YoutubeCell):
+            return YoutubeCellSerializer(obj, context=self.context).to_representation(obj)
         elif isinstance(obj, AudioCell):
             return AudioCellSerializer(obj, context=self.context).to_representation(obj)
 
@@ -48,6 +50,12 @@ class VideoCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = VideoCell
         fields = ('id', 'sequence', 'title', 'video', 'scale')
+
+
+class YoutubeCellSerializer(CellSerializer):
+    class Meta(CellSerializer.Meta):
+        model = YoutubeCell
+        fields = ('id', 'sequence', 'title', 'url', 'scale')
 
 
 class ImageCellSerializer(CellSerializer):

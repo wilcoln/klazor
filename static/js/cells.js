@@ -34,7 +34,8 @@ class YoutubeCell extends Cell {
     }
     embedUrl(){
         let videoId = getVideoId(this.url)
-        return 'https://www.youtube.com/embed/' + videoId
+        this.url =  'https://www.youtube.com/embed/' + videoId
+        return this.url
     }
 }
 
