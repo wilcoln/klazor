@@ -20,9 +20,10 @@ class VideoCell extends Cell {
 }
 
 function getVideoId(url){
+    url = url.replace('&t', '')
     let urlparts = url.split('/')
     urlparts = urlparts[urlparts.length - 1].split('=')
-    let videoId = urlparts[urlparts.length -1]
+    let videoId = urlparts.length > 1 ? urlparts[1]: urlparts[0]
     return videoId
 }
 class YoutubeCell extends Cell {
