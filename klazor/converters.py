@@ -2,6 +2,27 @@ from klazor.models import *
 import copy
 
 
+def to_playlist(obj, type='audio'):
+    if type == 'audio':
+        return to_audio_playlist(obj)
+    elif type == 'video':
+        return to_video_playlist(obj)
+
+
+def to_folder(obj):
+    pass
+
+
+def to_course(obj, type='mooc'):
+    if type == 'mooc':
+        return to_mooc_course(obj)
+
+
+def to_mooc_course(obj):
+    if isinstance(obj, Folder):
+        return folder_to_mooc_course(obj)
+
+
 def folder_to_course(folder):
     course = Course()
     course.title = folder.name

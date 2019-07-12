@@ -7,7 +7,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.shortcuts import redirect
 from klazor.models import *
-from klazor import converter as cvt
+from klazor import converters as cvt
 import io
 import base64
 import json
@@ -116,7 +116,7 @@ def view_folder_editor(request, id, sheet_id):
 
 def convert_folder_to_mooc_course(request, id):
     folder = Folder.objects.get(pk=id)
-    cvt.folder_to_mooc_course(folder)
+    cvt.to_course(folder) # by default type == 'mooc'
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
