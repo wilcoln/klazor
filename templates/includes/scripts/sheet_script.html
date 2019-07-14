@@ -109,6 +109,17 @@
         },
     })
 
+    Vue.component('youtube-cell', {
+        template: "#youtube-cell",
+        props: ['cell', 'editable'],
+        methods: {
+            toggleMode: function () {
+                if (this.editable)
+                    this.cell.editMode = !this.cell.editMode
+            },
+        },
+    })
+
     Vue.component('audio-cell', {
         template: "#audio-cell",
         props: ['cell', 'editable'],
@@ -182,6 +193,10 @@
             addVideoCell() {
                 let videoCell = new VideoCell(this.lastInsertedId + 1, '', '', 1)
                 this.cells.push(videoCell)
+            },
+            addYoutubeCell() {
+                let youtubeCell = new YoutubeCell(this.lastInsertedId + 1, '', '', 1)
+                this.cells.push(youtubeCell)
             },
             addAudioCell() {
                 let audioCell = new AudioCell(this.lastInsertedId + 1, '')
@@ -259,6 +274,10 @@
                             lightCell.title = cell.title
                             lightCell.audio = null
                             file = cell.audio
+                        } else if (cell instanceof YoutubeCell) {
+                            lightCell.title = cell.title
+                            lightCell.youtube = cell.youtube
+                            lightCell.scale = cell.scale
                         } else if (cell instanceof ImageCell) {
                             lightCell.title = cell.title
                             lightCell.scale = cell.scale
@@ -349,6 +368,8 @@
                 counter = {{ forloop.counter }}
                     {% if cell.videocell %}
                         this.cells.push(new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.video.url }}`, {{ cell.videocell.scale }}))
+                    {% elif cell.youtubecell %}
+                        this.cells.push(new YoutubeCell(counter, `{{ cell.youtubecell.title }}`, `{{ cell.youtubecell.youtube}}`, {{ cell.youtubecell.scale }}))
                     {% elif cell.audiocell %}
                         this.cells.push(new AudioCell(counter, `{{ cell.audiocell.title }}`, `{{ cell.audiocell.audio.url}}`))
                     {% elif cell.imagecell %}

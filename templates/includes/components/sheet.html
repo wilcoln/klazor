@@ -18,6 +18,11 @@
                                    v-on:up="moveCell($event,-1)"
                                    v-on:down="moveCell($event,1)"
                                    v-on:delete="deleteCell($event)"></video-cell>
+                    <youtube-cell v-if="cell instanceof YoutubeCell"
+                                   v-bind:editable="editMode" v-bind:cell="cell"
+                                   v-on:up="moveCell($event,-1)"
+                                   v-on:down="moveCell($event,1)"
+                                   v-on:delete="deleteCell($event)"></youtube-cell>
                     <audio-cell v-else-if="cell instanceof AudioCell"
                                    v-on:up="moveCell($event,-1)"
                                    v-on:down="moveCell($event,1)"

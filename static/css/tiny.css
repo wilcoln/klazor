@@ -1,7 +1,7 @@
 
 .tiny.card i.fa {
     position: absolute;
-    top: .5rem;
+    top: .8rem;
     right: .5rem;
     font-size: 2rem;
     color: rgba(18, 94, 240, .2);
@@ -48,4 +48,22 @@
 
 .tiny {
     background-color: #fdfdfd;
+}
+
+/* Context menu styling  */
+
+.rmenu{
+    z-index:1000;
+    position: absolute;
+    width: fit-content;
+    border-width: 0;
+    box-shadow: .0rem .0rem 1rem rgba(0,0,0,.2);
+    display: none;
+}
+.rmenu.show{
+    display: block;
+}
+.rmenu.show .list-group-item{
+    padding: 5px 5px;
+    font-size: .8rem;
 }

@@ -7,6 +7,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.shortcuts import redirect
 from klazor.models import *
+from klazor import converters as cvt
 import io
 import base64
 import json
@@ -99,6 +100,7 @@ def view_folder(request, id):
     sheets = Sheet.objects.filter(folder=id)
     file_items = FileItem.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
+    # mooc = folder_to_mooc_course(folder)
     return render(request, 'pages/folder.html', {'folder': folder, 'sheets': sheets, 'file_items': file_items})
 
 
@@ -111,6 +113,11 @@ def view_folder_editor(request, id, sheet_id):
     file_items = FileItem.objects.filter(folder=id)
     return render(request, 'pages/folder_editor.html',
                   {'folder': folder, 'active_sheet': active_sheet, 'sheets': sheets, 'file_items': file_items})
+
+def convert_folder_to_mooc_course(request, id):
+    folder = Folder.objects.get(pk=id)
+    cvt.to_course(folder) # by default type == 'mooc'
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def view_sheet(request, id):
@@ -170,6 +177,14 @@ def save_cell(request, id):
         markdown_cell.sequence = cell_dict['sequence']
         markdown_cell.text = cell_dict['text']
         markdown_cell.save()
+    elif 'youtube' in cell_dict:
+        youtube_cell = YoutubeCell()
+        youtube_cell.sheet = sheet
+        youtube_cell.sequence = cell_dict['sequence']
+        youtube_cell.youtube = cell_dict['youtube']
+        youtube_cell.title = cell_dict['title']
+        youtube_cell.scale = cell_dict['scale']
+        youtube_cell.save()
 
     return HttpResponse(str(cell_dict))
 
@@ -214,6 +229,13 @@ def new_folder(request):
     folder = Folder()
     folder.user = request.user
     folder.parent_id = request.POST['parent-id']
+    folder.name = request.POST['folder-name']
+    folder.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def rename_folder(request, id):
+    folder = Folder.objects.get(pk=id)
     folder.name = request.POST['folder-name']
     folder.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

@@ -42,6 +42,7 @@ class Item(PolymorphicModel):
 
     class Meta:
         db_table = 'item'
+        ordering = ['id', ]
 
 
 class FileItem(Item):
@@ -114,6 +115,7 @@ class CoursePart(models.Model):
 
     class Meta:
         db_table = 'course_part'
+        ordering = ['id', ]
 
 
 class Cell(PolymorphicModel):
@@ -147,6 +149,18 @@ class VideoCell(Cell):
         db_table = 'video_cell'
 
 
+class YoutubeCell(Cell):
+    title = models.CharField(max_length=64, blank=True, null=True)
+    youtube = models.TextField(blank=True, null=True)
+    scale = models.FloatField(default=1)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'youtube_cell'
+
+
 class AudioCell(Cell):
     title = models.CharField(max_length=64, blank=True, null=True)
     audio = models.FileField(upload_to='audios')
@@ -171,7 +185,7 @@ class ImageCell(Cell):
 
 
 class Folder(models.Model):
-    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, default=1, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, blank=True, null=True)
     parent = models.ForeignKey('Folder', models.CASCADE, null=True)
 
@@ -180,3 +194,4 @@ class Folder(models.Model):
 
     class Meta:
         db_table = 'folder'
+        ordering = ['id', ]
