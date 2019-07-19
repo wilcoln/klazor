@@ -33,7 +33,7 @@ def register(request):
 
 def welcome(request):
     if request.user.is_authenticated:
-        courses = Course.objects.filter(user_id=request.user.id)
+        courses = Course.objects.filter(user_id=request.user.id, folder_id=1)
         folders = Folder.objects.filter(parent_id=1, id__gt=1, user_id=request.user.id)  # We remove the root folder
         # sheets libres # les course elements n'ont pas de dossier parent
         free_sheets = Sheet.objects.filter(folder=1, user_id=request.user.id)
@@ -65,22 +65,25 @@ def view_course_element(request, course_id, part_sequence, element_sequence):
 def view_folder(request, id):
     if id == 1:
         return welcome(request)
+    courses = Course.objects.filter(folder=id)
     sheets = Sheet.objects.filter(folder=id)
     file_items = FileItem.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
     #  = folder_to_course(folder)
-    return render(request, 'pages/folder.html', {'folder': folder, 'sheets': sheets, 'file_items': file_items})
+    return render(request, 'pages/folder.html', {'folder': folder, 'courses': courses, 'sheets': sheets, 'file_items': file_items})
 
 
 def view_folder_editor(request, id, sheet_id):
     if id == 1:
         return welcome(request)
+    courses = Course.objects.filter(folder=id)
     active_sheet = Sheet.objects.get(pk=sheet_id)
     sheets = Sheet.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
     file_items = FileItem.objects.filter(folder=id)
     return render(request, 'pages/folder_editor.html',
-                  {'folder': folder, 'active_sheet': active_sheet, 'sheets': sheets, 'file_items': file_items})
+                  {'folder': folder, 'active_sheet': active_sheet, 'courses': courses, 'sheets': sheets, 'file_items': file_items})
+
 
 def convert_folder_to_course(request, id):
     folder = Folder.objects.get(pk=id)

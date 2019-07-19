@@ -2,6 +2,14 @@ from klazor.models import *
 import copy
 
 
+def to_audio_playlist(obj):
+    pass
+
+
+def to_video_playlist(obj):
+    pass
+
+
 def to_playlist(obj, type='audio'):
     if type == 'audio':
         return to_audio_playlist(obj)
@@ -11,11 +19,6 @@ def to_playlist(obj, type='audio'):
 
 def to_folder(obj):
     pass
-
-
-def to_course(obj, type='mooc'):
-    if type == 'mooc':
-        return to_course(obj)
 
 
 def to_course(obj):
