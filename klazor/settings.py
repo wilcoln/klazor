@@ -95,7 +95,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'klazor',
-        'USER': 'root',
+        'USER': 'wilcoln',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '3306'
