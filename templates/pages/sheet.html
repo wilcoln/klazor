@@ -1,6 +1,8 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block style %}
+    <link rel="stylesheet" href="{% static 'highlight.js/styles/default.css' %}">
+    {% include 'includes/styles/codemirror_style.html' %}
     <link rel="stylesheet" href="{% static 'css/course.css' %}">
     <link rel="stylesheet" href="{% static 'css/sheet.css' %}">
 {% endblock %}

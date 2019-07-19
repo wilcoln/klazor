@@ -259,10 +259,12 @@ def upload(request):
 
 
 def toggle_course_element_status(request, id):
-    item = CourseElement.objects.get(pk=id)
-    item.completed = not item.completed
-    item.save()
-    return redirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    # TODO Implement this
+    # item = CourseElement.objects.get(pk=id)
+    # item.completed = not item.completed
+    # item.save()
+    # return redirect(request.META.get('HTTP_REFERER'))
 
 
 # Test pdf generation

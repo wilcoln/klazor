@@ -1,6 +1,8 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block style %}
+    <link rel="stylesheet" href="{% static 'highlight.js/styles/default.css' %}">
+    {% include 'includes/styles/codemirror_style.html' %}
     <link rel="stylesheet" href="{% static 'css/course.css' %}">
     <link rel="stylesheet" href="{% static 'css/sheet.css' %}">
     <link rel="stylesheet" href="{% static 'css/course_element.css' %}">
@@ -51,5 +53,5 @@
     </div>
 {% endblock %}
 {% block script %}
-    {% include 'includes/scripts/course_element_script.html' with course_element=course_element %}
+    {% include 'includes/scripts/sheet_script.html' with sheet=course_element %}
 {% endblock %}
