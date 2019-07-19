@@ -206,6 +206,11 @@ def rename_folder(request, id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
+def move_folder(request, id):
+    # TODO: to implement
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
 def add_folder_files(request):
     folder_id = request.POST['folder-id']
     folder = Folder.objects.get(pk=folder_id)

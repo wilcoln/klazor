@@ -52,6 +52,7 @@ urlpatterns = [
     path('sheet/<int:id>/cell/save/', save_cell, name='save-cell'),
     path('sheet/delete/<int:id>/', delete_sheet, name='delete-sheet'),
     path('folder/delete/<int:id>/', delete_folder, name='delete-folder'),
+    path('folder/move/<int:id>/', move_folder, name='move-folder'),
     path('folder/rename/<int:id>/', rename_folder, name='rename-folder'),
     path('folder/new/', new_folder, name='new-folder'),
     path('folder/<int:id>/convert/course', convert_folder_to_course, name='folder-to-course'),
