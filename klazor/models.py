@@ -47,7 +47,7 @@ class Item(PolymorphicModel):
 
 
 class FileItem(Item):
-    file = models.FileField(upload_to='files')
+    file = models.FileField(upload_to='files', null=True)
 
     class Meta:
         db_table = 'file'
