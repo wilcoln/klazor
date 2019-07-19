@@ -56,6 +56,7 @@ class Course(Item):
     topic_set = models.ManyToManyField(Topic, blank=True)
     instructor_set = models.ManyToManyField(Instructor, blank=True)
     resource_set = models.ManyToManyField(FileItem, blank=True)
+    year = models.SmallIntegerField(blank=True, null=True)
 
     class Meta:
         db_table = 'course'
@@ -76,11 +77,6 @@ class CourseElement(Sheet):
         ordering = ['sequence', ]
 
 
-class MoocCourse(Course):
-    class Meta:
-        db_table = 'mooc_course'
-
-
 class NotSchool(Instructor):
     class Meta:
         db_table = 'not_school'
@@ -93,14 +89,6 @@ class School(Instructor):
 
     class Meta:
         db_table = 'school'
-
-
-class SchoolCourse(Course):
-    year = models.SmallIntegerField(blank=True, null=True)
-    semester = models.SmallIntegerField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'school_course'
 
 
 class CoursePart(models.Model):
@@ -185,7 +173,7 @@ class ImageCell(Cell):
 
 
 class Folder(models.Model):
-    user = models.ForeignKey(User, null=True, default=1, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, blank=True, null=True)
     parent = models.ForeignKey('Folder', models.CASCADE, null=True)
 

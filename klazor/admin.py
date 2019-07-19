@@ -1,8 +1,7 @@
 from django.contrib import admin
 from klazor.models import *
 
-admin.site.register(SchoolCourse)
-admin.site.register(MoocCourse)
+admin.site.register(Course)
 admin.site.register(Topic)
 admin.site.register(FileItem)
 admin.site.register(CourseElement)

@@ -33,15 +33,13 @@ def register(request):
 
 def welcome(request):
     if request.user.is_authenticated:
-        mooc_courses = MoocCourse.objects.filter(user_id=request.user.id)
-        school_courses = SchoolCourse.objects.filter(user_id=request.user.id)
+        courses = Course.objects.filter(user_id=request.user.id)
         folders = Folder.objects.filter(parent_id=1, id__gt=1, user_id=request.user.id)  # We remove the root folder
         # sheets libres # les course elements n'ont pas de dossier parent
         free_sheets = Sheet.objects.filter(folder=1, user_id=request.user.id)
         file_items = FileItem.objects.filter(folder=1, user_id=request.user.id)
         return render(request, 'pages/welcome.html', {
-            'mooc_courses': mooc_courses,
-            'school_courses': school_courses,
+            'courses': courses,
             'folders': folders,
             'free_sheets': free_sheets,
             'file_items': file_items
@@ -53,45 +51,19 @@ def welcome(request):
 des éléments qui ne nous appartiennent pas """
 
 
-def view_mooc_course(request, id):
-    mooc_course = MoocCourse.objects.get(pk=id)
-    return render(request, 'pages/mooc_course.html', {'mooc_course': mooc_course})
+def view_course(request, id):
+    course = Course.objects.get(pk=id)
+    return render(request, 'pages/course.html', {'course': course})
 
 
-def view_school_course(request, id):
-    school_course = SchoolCourse.objects.get(pk=id)
-    return render(request, 'pages/school_course.html', {'school_course': school_course})
-
-
-def view_mooc_course_element(request, id):
-    course_element = CourseElement.objects.get(pk=id)
-    return render(request, 'pages/mooc_course_element.html', {'course_element': course_element})
-
-
-# Supprimer cette fonction (la fusionner avec la précédente comme fait avec skoole)
-def mooc_course_element_reach(request, course_part_id, element_sequence):
-    course_part = CoursePart.objects.get(pk=course_part_id)
+def view_course_element(request, course_id, part_sequence, element_sequence):
+    course = Course.objects.get(pk=course_id)
+    course_part = course.coursepart_set.all()[part_sequence - 1]
     try:
         course_element = course_part.courseelement_set.all()[element_sequence - 1]
-        return render(request, 'pages/mooc_course_element.html', {'course_element': course_element})
+        return render(request, 'pages/course_element.html', {'course_element': course_element})
     except IndexError:
-        return render(request, 'pages/mooc_course.html', {'mooc_course': course_part.course.mooccourse})
-
-
-def view_school_course_element(request, id):
-    course_element = CourseElement.objects.get(pk=id)
-    return render(request, 'pages/school_course_element.html', {'course_element': course_element})
-
-
-# Manages school course item nav
-# Supprimer cette fonction (la fusionnner avec la précédente comme pour les moocs)
-def school_course_element_reach(request, course_part_id, element_sequence):
-    course_part = CoursePart.objects.get(pk=course_part_id)
-    try:
-        course_element = course_part.courseelement_set.all()[element_sequence - 1]
-        return render(request, 'pages/school_course_element.html', {'course_element': course_element})
-    except IndexError:
-        return render(request, 'pages/school_course.html', {'school_course': course_part.course.schoolcourse})
+        return redirect('/course/' + str(course.id))
 
 
 def view_folder(request, id):
@@ -100,7 +72,7 @@ def view_folder(request, id):
     sheets = Sheet.objects.filter(folder=id)
     file_items = FileItem.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
-    # mooc = folder_to_mooc_course(folder)
+    #  = folder_to_course(folder)
     return render(request, 'pages/folder.html', {'folder': folder, 'sheets': sheets, 'file_items': file_items})
 
 
@@ -114,9 +86,9 @@ def view_folder_editor(request, id, sheet_id):
     return render(request, 'pages/folder_editor.html',
                   {'folder': folder, 'active_sheet': active_sheet, 'sheets': sheets, 'file_items': file_items})
 
-def convert_folder_to_mooc_course(request, id):
+def convert_folder_to_course(request, id):
     folder = Folder.objects.get(pk=id)
-    cvt.to_course(folder) # by default type == 'mooc'
+    cvt.to_course(folder) # by default type == ''
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
@@ -213,15 +185,9 @@ def delete_folder(request, id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-def delete_mooc_course(request, id):
-    mooc_course = MoocCourse.objects.get(pk=id)
-    mooc_course.delete()
-    return redirect('welcome')
-
-
-def delete_school_course(request, id):
-    school_course = SchoolCourse.objects.get(pk=id)
-    school_course.delete()
+def delete_course(request, id):
+    course = Course.objects.get(pk=id)
+    course.delete()
     return redirect('welcome')
 
 

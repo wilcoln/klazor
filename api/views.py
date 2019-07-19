@@ -40,23 +40,7 @@ class CourseViewSet(viewsets.ModelViewSet):
         API endpoint that allows sheets to be viewed or edited.
         """
     queryset = Course.objects.all()
-    serializer_class = DynamicCourseSerializer
-
-
-class MoocCourseViewSet(viewsets.ModelViewSet):
-    """
-        API endpoint that allows sheets to be viewed or edited.
-        """
-    queryset = MoocCourse.objects.all()
-    serializer_class = MoocCourseSerializer
-
-
-class SchoolCourseViewSet(viewsets.ModelViewSet):
-    """
-        API endpoint that allows sheets to be viewed or edited.
-        """
-    queryset = SchoolCourse.objects.all()
-    serializer_class = SchoolCourseSerializer
+    serializer_class = CourseSerializer
 
 
 class CoursePartViewSet(viewsets.ModelViewSet):

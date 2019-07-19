@@ -1,0 +1,15 @@
+<div onmouseover="showDeleteButton(this)" onmouseout="hideDeleteButton(this)" class="tiny card course mb-3">
+    <i class="fa fa-graduation-cap"></i>
+    <div class="card-body">
+        <a href="{% url 'course' course.id %}">
+            <div class="course-name">
+                {{ course.title }}
+            </div>
+        </a>
+        <small class="text-muted ">{{ course.coursepart_set.all.count }} parts </small>
+        <form action="{% url 'delete-course' course.id %}" method="post">
+            {%  csrf_token %}
+            <button role="submit" class="fa fa-trash"></button>
+        </form>
+    </div>
+</div>

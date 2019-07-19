@@ -90,18 +90,6 @@ class TopicSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'subtopic_set')
 
 
-class DynamicCourseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Course
-        fields = ()
-
-    def to_representation(self, obj):
-        if isinstance(obj, MoocCourse):
-            return MoocCourseSerializer(obj, context=self.context).to_representation(obj)
-        elif isinstance(obj, SchoolCourse):
-            return SchoolCourseSerializer(obj, context=self.context).to_representation(obj)
-
-
 class DynamicInstructorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Instructor
@@ -122,7 +110,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ()
+        fields = ('id', 'title', 'topic_set', 'coursepart_set', 'instructor_set', 'resource_set', 'year')
 
 
 class InstructorSerializer(serializers.HyperlinkedModelSerializer):
@@ -143,16 +131,7 @@ class NotSchoolSerializer(InstructorSerializer):
         fields = ('id', 'name', 'link', )
 
 
-class SchoolCourseSerializer(CourseSerializer):
-    class Meta(CourseSerializer.Meta):
-        model = SchoolCourse
-        fields = ('id', 'title', 'topic_set', 'coursepart_set', 'year', 'semester', 'instructor_set', 'resource_set', )
-
-
-class MoocCourseSerializer(CourseSerializer):
-    class Meta(CourseSerializer.Meta):
-        model = MoocCourse
-        fields = ('id', 'title', 'topic_set', 'coursepart_set', 'instructor_set', 'resource_set')
+        
 
 
 
