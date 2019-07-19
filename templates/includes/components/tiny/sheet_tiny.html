@@ -1,4 +1,4 @@
-<div onmouseover="showDeleteButton(this)" onmouseout="hideDeleteButton(this)" class="tiny card sheet mb-3">
+<div onmouseover="showDeleteButton(this)" onmouseout="hideDeleteButton(this)" class="tiny card sheet mb-3" oncontextmenu="openSheetContextMenu(event, {{ sheet.id }})">
     <i class="fa fa-leaf"></i>
     <div class="card-body">
         <a href="{% url 'sheet' sheet.id %}">
@@ -11,3 +11,4 @@
         </form>
     </div>
 </div>
+{% include 'includes/components/menus/contextmenus/tiny_sheet_contextmenu.html' with folder=folder %}

@@ -28,6 +28,7 @@ def to_course(obj):
 
 def folder_to_course(folder):
     course = Course()
+    course.folder = folder.parent
     course.user = folder.user
     course.title = folder.name
     course.save()
