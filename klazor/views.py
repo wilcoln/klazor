@@ -47,10 +47,6 @@ def welcome(request):
     return redirect('/login')
 
 
-""" TODO Dans les fonctions view ajouter des contrôls ne permettant pas de visualiser 
-des éléments qui ne nous appartiennent pas """
-
-
 def view_course(request, id):
     course = Course.objects.get(pk=id)
     return render(request, 'pages/course.html', {'course': course})

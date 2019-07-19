@@ -42,8 +42,11 @@ INSTALLED_APPS = [
     'libr',
     'rest_framework',
     'api',
-    'corsheaders'
+    'corsheaders',
+    'crispy_forms'
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

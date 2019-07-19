@@ -36,6 +36,7 @@ class Item(PolymorphicModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=128, blank=True, null=True)
     folder = models.ForeignKey('Folder', null=True, blank=True, on_delete=models.CASCADE)
+    is_public = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
