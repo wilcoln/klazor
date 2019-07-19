@@ -3,6 +3,10 @@
   src: url("/static/font/source-code-pro.ttf");
 }
 
+body{
+    background: whitesmoke;
+}
+
 @media print {
     .sheet-toolbar, .sheet-toolbar *{
         display:none !important;
