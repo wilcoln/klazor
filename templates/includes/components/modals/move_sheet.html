@@ -1,24 +1,24 @@
 <!-- Modal -->
-<div class="modal fade" id="moveFolderModal_{{ folder.id }}" tabindex="-1" role="dialog"
+<div class="modal fade" id="moveSheetModal_{{ sheet.id }}" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Déplacer Dossier '{{ folder.name }}'</h5>
+                <h5 class="modal-title">Déplacer Feuille '{{ sheet.name }}'</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div>
-                    <a href="{% url 'move-folder' folder.id folder.parent.parent.id %}" class="text-center">
+                    <a href="{% url 'move-sheet' sheet.id sheet.folder.parent.id %}" class="text-center">
                         <strong>../</strong><i class="text-primary fa fa-arrow-left"></i>
                     </a>
                 </div>
                 <div class="folder-content pl-2">
-                    {% for sibling_folder in folder.siblings %}
+                    {% for sibling_folder in sheet.folder.siblings %}
                         <div>
-                            <a href="{% url 'move-folder' folder.id sibling_folder.id %}">
+                            <a href="{% url 'move-sheet' sheet.id sibling_folder.id %}">
                                 <i class="text-primary fa fa-folder"></i> {{ sibling_folder.name | truncatechars:40 }}
                             </a>
                         </div>

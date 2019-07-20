@@ -181,6 +181,9 @@ class Folder(models.Model):
     def __str__(self):
         return self.name
 
+    def siblings(self):
+        return [folder for folder in self.parent.folder_set.filter(user=self.user) if folder.id != self.id and folder.id != 1]
+
     class Meta:
         db_table = 'folder'
         ordering = ['id', ]

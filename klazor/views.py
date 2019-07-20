@@ -206,8 +206,17 @@ def rename_folder(request, id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-def move_folder(request, id):
-    # TODO: to implement
+def move_sheet(request, id, destination_id):
+    sheet = Sheet.objects.get(pk=id)
+    sheet.folder_id = destination_id
+    sheet.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def move_folder(request, id, destination_id):
+    folder = Folder.objects.get(pk=id)
+    folder.parent_id = destination_id
+    folder.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
