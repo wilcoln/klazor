@@ -30,6 +30,8 @@ class YoutubeCell extends Cell {
     constructor(id, title, youtube, scale) {
         super(id)
         this.title = title
+        if(youtube)
+            this.editMode = false
         this.youtube = youtube
         this.scale = scale
     }
