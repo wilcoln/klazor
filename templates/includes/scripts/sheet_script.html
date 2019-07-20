@@ -247,8 +247,9 @@
                      * If we are in the folder editor we update title at change
                      */
                     let highLightElt = document.querySelector('.highlight-item')
+                    console.log(highLightElt)
                     if (highLightElt)
-                        highLightElt.firstElementChild.firstElementChild.nextSibling.textCell = ' ' + sheet.title
+                        highLightElt.firstElementChild.firstElementChild.nextSibling.textContent = ' ' + sheet.title
                     /**
                      * End case
                      */
