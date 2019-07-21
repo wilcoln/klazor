@@ -29,6 +29,9 @@ class SheetViewSet(viewsets.ModelViewSet):
     queryset = Sheet.objects.all()
     serializer_class = SheetSerializer
 
+    def get_queryset(self):
+        return Sheet.objects.all().filter(user=self.request.user)
+
 
 class CellViewSet(viewsets.ModelViewSet):
     """
@@ -47,6 +50,9 @@ class CourseViewSet(viewsets.ModelViewSet):
                           IsOwner]
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
+    def get_queryset(self):
+        return Course.objects.all().filter(user=self.request.user)
 
 
 class CoursePartViewSet(viewsets.ModelViewSet):
