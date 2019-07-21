@@ -120,6 +120,23 @@ class Cell(PolymorphicModel):
         ordering = ['sequence', ]
 
 
+class MediaCell(Cell):
+    title = models.CharField(max_length=64, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        abstract = True
+
+
+class GraphicMediaCell(MediaCell):
+    scale = models.FloatField(default=1)
+
+    class Meta:
+        abstract = True
+
+
 class MarkdownCell(Cell):
     text = models.TextField(blank=True, null=True)
 
@@ -130,48 +147,29 @@ class MarkdownCell(Cell):
         db_table = 'markdown_cell'
 
 
-class VideoCell(Cell):
-    title = models.CharField(max_length=64, blank=True, null=True)
+class VideoCell(GraphicMediaCell):
     video = models.FileField(upload_to='videos')
-    scale = models.FloatField(default=1)
-
-    def __str__(self):
-        return self.title
 
     class Meta:
         db_table = 'video_cell'
 
 
-class YoutubeCell(Cell):
-    title = models.CharField(max_length=64, blank=True, null=True)
+class YoutubeCell(GraphicMediaCell):
     youtube = models.TextField(blank=True, null=True)
-    scale = models.FloatField(default=1)
-
-    def __str__(self):
-        return self.title
 
     class Meta:
         db_table = 'youtube_cell'
 
 
-class AudioCell(Cell):
-    title = models.CharField(max_length=64, blank=True, null=True)
+class AudioCell(MediaCell):
     audio = models.FileField(upload_to='audios')
-
-    def __str__(self):
-        return self.title
 
     class Meta:
         db_table = 'audio_cell'
 
 
-class ImageCell(Cell):
-    title = models.CharField(max_length=64, blank=True, null=True)
+class ImageCell(GraphicMediaCell):
     image = models.FileField(upload_to='images')
-    scale = models.FloatField(default=1)
-
-    def __str__(self):
-        return self.title
 
     class Meta:
         db_table = 'image_cell'

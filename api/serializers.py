@@ -31,7 +31,7 @@ class SheetSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Sheet
-        fields = ('id', 'title', 'cell_set')
+        fields = ('id', 'title', 'cell_set', 'updated_at')
 
 
 class CellSerializer(serializers.HyperlinkedModelSerializer):
