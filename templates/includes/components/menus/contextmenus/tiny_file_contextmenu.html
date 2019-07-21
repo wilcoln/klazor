@@ -1,0 +1,11 @@
+<!-- initially hidden right-click menu -->
+<div class="hide rmenu" id="file-menu_{{ file_item.id }}">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-action">
+            <form action="{% url 'remove-folder-file' file_item.id %}" method="post">
+                {% csrf_token %}
+                <button role="submit" class="rmenu-action text-danger"><i class="fa fa-trash"></i> &nbsp; Delete File
+                </button>
+            </form>
+    </ul>
+</div>

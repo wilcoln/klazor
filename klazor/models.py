@@ -32,11 +32,20 @@ class Instructor(PolymorphicModel):
         db_table = 'instructor'
 
 
-class Item(PolymorphicModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Content(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    is_public = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    view_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Item(PolymorphicModel, Content):
     title = models.CharField(max_length=128, blank=True, null=True)
     folder = models.ForeignKey('Folder', null=True, blank=True, on_delete=models.CASCADE)
-    is_public = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -76,11 +85,6 @@ class CourseElement(Sheet):
     class Meta:
         db_table = 'course_element'
         ordering = ['sequence', ]
-
-
-class NotSchool(Instructor):
-    class Meta:
-        db_table = 'not_school'
 
 
 class School(Instructor):
@@ -173,8 +177,7 @@ class ImageCell(Cell):
         db_table = 'image_cell'
 
 
-class Folder(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+class Folder(Content):
     name = models.CharField(max_length=128, blank=True, null=True)
     parent = models.ForeignKey('Folder', models.CASCADE, null=True)
 

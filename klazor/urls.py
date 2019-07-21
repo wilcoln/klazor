@@ -65,7 +65,7 @@ urlpatterns = [
     path('course-element/check/<int:id>/', toggle_course_element_status, name='check-course-element'),
 
     # Libr urls
-    url(r'^libr', include('libr.urls')),
+    url(r'^libr/', include('libr.urls')),
     # Api urls
     url(r'^api/', include('api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

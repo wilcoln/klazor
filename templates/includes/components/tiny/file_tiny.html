@@ -1,15 +1,14 @@
 {% load filename %}
 {% load iconclass %}
-<div onmouseover="showDeleteButton(this)" onmouseout="hideDeleteButton(this)" class="tiny card file mb-3">
+<div class="tiny card file mb-3" oncontextmenu="openTinyFileContextMenu(event, {{ file_item.id }})">
     <i class="fa {{ file_item.file.name|iconclass}}"></i>
     <div class="card-body">
         <a href="{{file_item.file.url}}">
             <div class="filename">{{ file_item.file | filename }} </div>
         </a>
         <small class="text-muted ">size : {{ file_item.file.size | filesizeformat}}</small>
-        <form action="{% url 'remove-folder-file' file_item.id %}" method="post">
-            {%  csrf_token %}
-            <button role="submit" class="fa fa-trash"></button>
-        </form>
+        <br>
+        {% include 'includes/components/tiny/created_updated.html' with obj=file_item %}
     </div>
 </div>
+{% include 'includes/components/menus/contextmenus/tiny_file_contextmenu.html' with file_item=file_item %}

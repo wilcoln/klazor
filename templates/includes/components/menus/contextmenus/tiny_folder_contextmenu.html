@@ -4,6 +4,9 @@
         <li class="list-group-item list-group-item-action"><a href="#renameFolderModal_{{ folder.id }}" data-toggle="modal" data-target="#renameFolderModal_{{ folder.id }}"> <i class="fa fa-edit"></i> &nbsp; Rename folder</a></li>
         <li class="list-group-item list-group-item-action"><a href="#moveFolderModal_{{ folder.id }}" data-toggle="modal" data-target="#moveFolderModal_{{ folder.id }}"> <i class="fa fa-arrows"></i> &nbsp; Move folder</a></li>
         <li class="list-group-item list-group-item-action"><a href="{% url 'folder-to-course' folder.id %}"> <i class="fa fa-graduation-cap"></i> Convert to Course</a></li>
-        <li class="list-group-item list-group-item-action"><a  class="text-danger" href=""> <i class="fa fa-trash"></i> &nbsp;Delete folder</a></li>
+        <li class="list-group-item list-group-item-action"><form action="{% url 'delete-folder' folder.id %}" method="post">
+            {%  csrf_token %}
+            <button role="submit" class="rmenu-action text-danger"><i class="fa fa-trash"></i> &nbsp; Delete folder</button>
+        </form>
     </ul>
 </div>

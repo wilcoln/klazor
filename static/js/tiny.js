@@ -5,30 +5,32 @@ function closeAllContextMenu(){
     for(let contextmenu of contextmenus)
         contextmenu.className = "rmenu hide"
 }
-function openFolderContextMenu(e, id) {
-    e.preventDefault()
-    closeAllContextMenu()
+function openTinyFolderContextMenu(e, id) {
     let contextmenuId = "fmenu_" + id
-    document.getElementById(contextmenuId).className = "rmenu show";
-    document.getElementById(contextmenuId).style.position = 'absolute';
-    document.getElementById(contextmenuId).style.top = e.clientY*.001 + 'px';
-    document.getElementById(contextmenuId).style.left = e.clientX*.25 + 'px';
-
-    window.event.returnValue = false;
+    openTinyContextMenu(e, contextmenuId)
 }
 
-function openSheetContextMenu(e, id) {
+function openTinySheetContextMenu(e, id) {
+    let contextmenuId = "smenu_" + id
+    openTinyContextMenu(e, contextmenuId)
+}
+function openTinyCourseContextMenu(e, id) {
+    let contextmenuId = "cmenu_" + id
+    openTinyContextMenu(e, contextmenuId)
+}
+
+function openTinyFileContextMenu(e, id) {
+    let contextmenuId = "file-menu_" + id
+    openTinyContextMenu(e, contextmenuId)
+}
+function openTinyContextMenu(e, contextMenuId){
     e.preventDefault()
     closeAllContextMenu()
-    let contextmenuId = "smenu_" + id
-    document.getElementById(contextmenuId).className = "rmenu show";
-    document.getElementById(contextmenuId).style.position = 'absolute';
-    document.getElementById(contextmenuId).style.top = e.clientY*.001 + 'px';
-    document.getElementById(contextmenuId).style.left = e.clientX*.25 + 'px';
-
+    document.getElementById(contextMenuId).className = "rmenu show";
+    document.getElementById(contextMenuId).style.top = e.clientY*.001 + 'px';
+    document.getElementById(contextMenuId).style.left = e.clientX*.25 + 'px';
     window.event.returnValue = false;
 }
-
 function deleteFolder(id) {
     axios({
         method: 'post',
@@ -55,15 +57,4 @@ function deleteSheet(id) {
     }).catch((error) => {
         console.log(error)
     });
-}
-
-/* TODO :
-    Get rid of this functions, we will delete tiny items through context menu now
- */
-function showDeleteButton(e) {
-    e.firstElementChild.nextElementSibling.lastElementChild.lastElementChild.style.display = 'inline-block'
-}
-
-function hideDeleteButton(e) {
-    e.firstElementChild.nextElementSibling.lastElementChild.lastElementChild.style.display = 'none'
 }

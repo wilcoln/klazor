@@ -1,4 +1,4 @@
-<div onmouseover="showDeleteButton(this)" onmouseout="hideDeleteButton(this)" class="tiny card course mb-3">
+<div class="tiny card course mb-3" oncontextmenu="openTinyCourseContextMenu(event, {{ course.id }})">
     <i class="fa fa-graduation-cap"></i>
     <div class="card-body">
         <a href="{% url 'course' course.id %}">
@@ -6,10 +6,9 @@
                 {{ course.title }}
             </div>
         </a>
-        <small class="text-muted ">{{ course.coursepart_set.all.count }} parts </small>
-        <form action="{% url 'delete-course' course.id %}" method="post">
-            {%  csrf_token %}
-            <button role="submit" class="fa fa-trash"></button>
-        </form>
+        <small class="text-muted ">{{ course.coursepart_set.all.count }} part{{ course.coursepart_set.all.count|pluralize }}</small>
+        <br>
+        {% include 'includes/components/tiny/created_updated.html' with obj=course %}
     </div>
 </div>
+{% include 'includes/components/menus/contextmenus/tiny_course_contextmenu.html' with course=course %}

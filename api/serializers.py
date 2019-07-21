@@ -96,10 +96,10 @@ class DynamicInstructorSerializer(serializers.HyperlinkedModelSerializer):
         fields = ()
 
     def to_representation(self, obj):
-        if isinstance(obj, NotSchool):
-            return NotSchoolSerializer(obj, context=self.context).to_representation(obj)
-        elif isinstance(obj, School):
+        if isinstance(obj, School):
             return SchoolSerializer(obj, context=self.context).to_representation(obj)
+        else:
+            return InstructorSerializer(obj, context=self.context).to_representation(obj)
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -116,7 +116,7 @@ class CourseSerializer(serializers.ModelSerializer):
 class InstructorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Instructor
-        fields = ()
+        fields = ('id', 'name', 'link', )
 
 
 class SchoolSerializer(InstructorSerializer):
@@ -124,11 +124,6 @@ class SchoolSerializer(InstructorSerializer):
         model = School
         fields = ('id', 'name', 'link', 'colloquial_name', )
 
-
-class NotSchoolSerializer(InstructorSerializer):
-    class Meta(InstructorSerializer.Meta):
-        model = NotSchool
-        fields = ('id', 'name', 'link', )
 
 
         
