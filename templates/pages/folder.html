@@ -30,7 +30,7 @@
             </div>
             {% for course in courses %}
                         <div class="col-md-4">
-                            {% include 'includes/components/tiny/course_tiny.html' with course=course %}
+                            {% include 'includes/components/tiny/tiny_course.html' with course=course %}
                         </div>
             {% endfor %}
         </div>
@@ -46,7 +46,7 @@
 
             {% for sub_folder in  folder.folder_set.all %}
                 <div class="col-lg-2 col-md-3">
-                    {% include 'includes/components/tiny/folder_tiny.html' with folder=sub_folder %}
+                    {% include 'includes/components/tiny/tiny_folder.html' with folder=sub_folder %}
                 </div>
             {% endfor %}
         </div>
@@ -60,7 +60,7 @@
             </div>
             {% for sheet in sheets %}
                 <div class="col-lg-2 col-md-3">
-                    {% include 'includes/components/tiny/sheet_tiny.html' %}
+                    {% include 'includes/components/tiny/tiny_sheet.html' %}
                 </div>
             {% endfor %}
         </div>
@@ -75,7 +75,7 @@
             </div>
             {% for file_item in file_items %}
                 <div class="col-lg-3 col-md-4">
-                    {% include 'includes/components/tiny/file_tiny.html' with file_item=file_item %}
+                    {% include 'includes/components/tiny/tiny_file.html' with file_item=file_item %}
                 </div>
             {% endfor %}
         </div>

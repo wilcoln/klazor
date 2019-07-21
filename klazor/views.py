@@ -229,6 +229,7 @@ def add_folder_files(request):
         file_item = FileItem()
         file_item.folder = folder
         file_item.user = user
+        file_item.title = file.name
         file_item.file = file
         file_item.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

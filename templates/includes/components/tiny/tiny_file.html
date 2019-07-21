@@ -1,7 +1,7 @@
 {% load filename %}
 {% load iconclass %}
 <div class="tiny card file mb-3" oncontextmenu="openTinyFileContextMenu(event, {{ file_item.id }})">
-    <i class="fa {{ file_item.file.name|iconclass}}"></i>
+    <i class="file fa {{ file_item.file.name|iconclass}}"></i>
     <div class="card-body">
         <a href="{{file_item.file.url}}">
             <div class="filename">{{ file_item.file | filename }} </div>
