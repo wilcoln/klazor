@@ -1,0 +1,9 @@
+<!-- initially hidden right-click menu -->
+<div class="hide rmenu" id="folder-menu_{{ folder.id }}">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-action"> <a href="{% url 'new-folder-sheet' folder.id %}"> <i class="fa fa-leaf"></i> &nbsp; Add Sheet</a></li>
+        <li class="list-group-item list-group-item-action"><button data-toggle="modal"
+                        data-target="#exampleModalCenter" class="pl-0 rmenu-action text-primary"><i class="fa fa-folder"></i> &nbsp; Add folder</button></li>
+        <li class="list-group-item list-group-item-action"> <a href="{% url 'add-course' folder.id %}"> <i class="fa fa-graduation-cap"></i> &nbsp; Add course</a></li>
+    </ul>
+</div>

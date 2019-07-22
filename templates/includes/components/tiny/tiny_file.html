@@ -8,7 +8,6 @@
         </a>
         <small class="text-muted ">size : {{ file_item.file.size | filesizeformat}}</small>
         <br>
-        {% include 'includes/components/tiny/created_updated.html' with obj=file_item %}
     </div>
 </div>
 {% include 'includes/components/menus/contextmenus/tiny_file_contextmenu.html' with file_item=file_item %}

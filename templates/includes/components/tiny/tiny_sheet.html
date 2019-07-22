@@ -6,7 +6,6 @@
         </a>
         <small class="text-muted ">{{ sheet.cell_set.all.count }} cell{{ sheet.cell_set.all.count|pluralize }}</small>
         <br>
-        {% include 'includes/components/tiny/created_updated.html' with obj=sheet %}
     </div>
 </div>
 {% include 'includes/components/menus/contextmenus/tiny_sheet_contextmenu.html' with folder=folder %}

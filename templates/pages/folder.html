@@ -21,65 +21,7 @@
                 </h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <h1> Cours disponibles
-                    <small>({{ courses.all.count }})</small>
-                    <a href="{% url 'add-course' folder.id %}" class="float-right badge badge-info">
-                        <i class="fa fa-plus"></i></a>
-                </h1>
-            </div>
-            {% for course in courses %}
-                        <div class="col-md-4">
-                            {% include 'includes/components/tiny/tiny_course.html' with course=course %}
-                        </div>
-            {% endfor %}
-        </div>
-        <hr>
-        <div class="folder-container  row">
-            <div class="col-12">
-                <h1> Dossiers
-                    <small>({{ folder.folder_set.all.count|default:0 }})</small>
-                    <button type="button" class="btn float-right badge badge-primary" data-toggle="modal"
-                            data-target="#exampleModalCenter"><i class="fa fa-plus"></i></button>
-                </h1>
-            </div>
-
-            {% for sub_folder in  folder.folder_set.all %}
-                <div class="col-lg-2 col-md-3">
-                    {% include 'includes/components/tiny/tiny_folder.html' with folder=sub_folder %}
-                </div>
-            {% endfor %}
-        </div>
-        <hr>
-        <div class="sheet-container  row">
-            <div class="col-12">
-                <h1> Feuilles
-                    <small>({{ sheets.count|default:0 }})</small>
-                    <a href="{% url 'new-folder-sheet' folder.id %}" class="float-right badge badge-success">
-                        <i class="fa fa-plus"></i></a>
-            </div>
-            {% for sheet in sheets %}
-                <div class="col-lg-2 col-md-3">
-                    {% include 'includes/components/tiny/tiny_sheet.html' %}
-                </div>
-            {% endfor %}
-        </div>
-        <hr>
-        <div class="file-container  row">
-            <div class="col-12">
-                <h1> Fichiers
-                    <small>({{ file_items.count|default:0 }})</small>
-                    <button type="button" class="btn float-right badge badge-secondary" data-toggle="modal"
-                            data-target="#addFileModal"><i class="fa fa-plus"></i></button>
-                </h1>
-            </div>
-            {% for file_item in file_items %}
-                <div class="col-lg-3 col-md-4">
-                    {% include 'includes/components/tiny/tiny_file.html' with file_item=file_item %}
-                </div>
-            {% endfor %}
-        </div>
+        {% include 'includes/folder_content.html' with folder=folder %}
     </div>
 {% endblock %}
 {% block script %}

@@ -34,15 +34,17 @@ def register(request):
 
 def welcome(request):
     if request.user.is_authenticated:
+        root_folder = Folder.objects.get(pk=1)
         courses = Course.objects.filter(user_id=request.user.id, folder_id=1)
         folders = Folder.objects.filter(parent_id=1, id__gt=1, user_id=request.user.id)  # We remove the root folder
         # sheets libres # les course elements n'ont pas de dossier parent
         free_sheets = Sheet.objects.filter(folder=1, user_id=request.user.id)
         file_items = FileItem.objects.filter(folder=1, user_id=request.user.id)
         return render(request, 'pages/welcome.html', {
+            'root_folder': root_folder,
             'courses': courses,
-            'folders': folders,
-            'free_sheets': free_sheets,
+            'sub_folders': folders,
+            'sheets': free_sheets,
             'file_items': file_items
         })
     return redirect('/login')
@@ -70,8 +72,9 @@ def view_folder(request, id):
     sheets = Sheet.objects.filter(folder=id)
     file_items = FileItem.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
+    sub_folders = folder.folder_set.all()
     #  = folder_to_course(folder)
-    return render(request, 'pages/folder.html', {'folder': folder, 'courses': courses, 'sheets': sheets, 'file_items': file_items})
+    return render(request, 'pages/folder.html', {'folder': folder, 'sub_folders': sub_folders, 'courses': courses, 'sheets': sheets, 'file_items': file_items})
 
 
 def view_folder_editor(request, id, sheet_id):
