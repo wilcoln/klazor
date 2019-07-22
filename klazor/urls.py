@@ -59,6 +59,7 @@ urlpatterns = [
     path('folder/<int:id>/convert/course', convert_folder_to_course, name='folder-to-course'),
     path('folder/file/add/', add_folder_files, name='add-folder-files'),
     path('folder/file/<int:id>/delete/', remove_folder_file, name='remove-folder-file'),
+    path('course/add/into/<int:folder_id>/', add_course, name='add-course'),
     path('course/delete/<int:id>/', delete_course, name='delete-course'),
     path('upload/', upload, name='upload'),
     path('sheet/<int:id>/print', print_sheet, name='print-sheet'),

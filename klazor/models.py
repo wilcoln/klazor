@@ -35,9 +35,10 @@ class Instructor(PolymorphicModel):
 class Content(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     is_public = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    view_at = models.DateTimeField(auto_now=True)
+    # remove null=True for these three
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+    view_at = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         abstract = True

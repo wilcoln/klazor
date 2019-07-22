@@ -7,6 +7,7 @@ from reportlab.pdfgen import canvas
 from django.shortcuts import render
 from django.shortcuts import redirect
 from klazor.models import *
+from klazor.forms import *
 from klazor import converters as cvt
 import io
 import base64
@@ -184,10 +185,22 @@ def delete_folder(request, id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
+def add_course(request, folder_id):
+    course = Course()
+    course.user = request.user
+    course.folder_id = folder_id
+    course.title = 'New Course'
+    course.save()
+
+    form = CourseForm()
+
+    return render(request, 'pages/edit_course.html', {'course': course, 'form': form})
+
+
 def delete_course(request, id):
     course = Course.objects.get(pk=id)
     course.delete()
-    return redirect('welcome')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def new_folder(request):
