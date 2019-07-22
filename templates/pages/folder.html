@@ -12,7 +12,9 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                {% include 'includes/folder_breadcrumb.html' with folder=folder %}
+                {% if folder.id != 1 %}
+                    {% include 'includes/folder_breadcrumb.html' with folder=folder %}
+                {% endif %}
             </div>
         </div>
         {% block quick_access %} {% endblock %}

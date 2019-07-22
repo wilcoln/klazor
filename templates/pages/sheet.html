@@ -8,7 +8,10 @@
 {% endblock %}
 {% block title %} {{ sheet.title }}{% endblock %}
 {% block content %}
-    {% include 'includes/components/sheet.html' with sheet=sheet %}
+    <div class="container">
+        {% include 'includes/components/sheet.html' with sheet=sheet %}
+    </div>
+
 {% endblock %}
 {% block script %}
     {% include 'includes/scripts/sheet_script.html' %}

@@ -2,13 +2,11 @@
 {% load iconclass %}
 <!-- menu -->
 <div id="folder-nav" class="p-2">
-    {% if folder.parent %}
-        <div>
-            <a href="{% url 'folder' folder.parent.id %}" class="text-center">
-                <strong>../</strong><i class="text-primary fa fa-arrow-left"></i>
-            </a>
-        </div>
-    {% endif %}
+    <div>
+        <a href="{% url 'folder' folder.parent.id %}" class="text-center">
+            <strong>../</strong><i class="text-primary fa fa-arrow-left"></i>
+        </a>
+    </div>
     <div>
         <a href="{% url 'folder' folder.id %}">
             <i class="fa fa-folder-open"></i> <strong>{{ folder.name | truncatechars:40 }}</strong>

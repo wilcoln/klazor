@@ -13,16 +13,9 @@
             </li>
         {% endfor %}
         <li class="breadcrumb-item active" aria-current="page">
-            {% if folder.id == 1 %}
-                <i class="fa fa-home"></i>
-            {% else %}
                 {{ folder.name }}
-            {% endif %}
         </li>
-
-        {% if folder.id != 1 and sheets.count %}
             <a href="{% url 'folder-editor' folder.id sheets.first.id %}"
-               class="ml-auto"> <i class="fa fa-bars"></i></a>
-        {% endif %}
+               class="ml-auto"> <i class="fa fa-th-list"></i></a>
     </ol>
 </nav>
