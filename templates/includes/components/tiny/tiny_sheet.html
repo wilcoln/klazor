@@ -5,7 +5,7 @@
             <div class="sheet-title">{{ sheet.title }}</div>
         </a>
         <small class="text-muted ">{{ sheet.cell_set.all.count }} cell{{ sheet.cell_set.all.count|pluralize }}</small>
-        <br>
+        {% block other_info %}{% endblock %}
     </div>
 </div>
 {% include 'includes/components/menus/contextmenus/tiny_sheet_contextmenu.html' with folder=folder %}

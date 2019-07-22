@@ -34,6 +34,7 @@ def register(request):
 
 def welcome(request):
     if request.user.is_authenticated:
+        quick_access = Sheet.objects.filter(user_id=request.user.id).order_by('-updated_at')[:6]
         root_folder = Folder.objects.get(pk=1)
         courses = Course.objects.filter(user_id=request.user.id, folder_id=1)
         folders = Folder.objects.filter(parent_id=1, id__gt=1, user_id=request.user.id)  # We remove the root folder
@@ -41,7 +42,8 @@ def welcome(request):
         free_sheets = Sheet.objects.filter(folder=1, user_id=request.user.id)
         file_items = FileItem.objects.filter(folder=1, user_id=request.user.id)
         return render(request, 'pages/welcome.html', {
-            'root_folder': root_folder,
+            'quick_access': quick_access,
+            'folder': root_folder,
             'courses': courses,
             'sub_folders': folders,
             'sheets': free_sheets,
@@ -67,13 +69,12 @@ def view_course_element(request, course_id, part_sequence, element_sequence):
 
 def view_folder(request, id):
     if id == 1:
-        return welcome(request)
+        return redirect('welcome')
     courses = Course.objects.filter(folder=id)
     sheets = Sheet.objects.filter(folder=id)
     file_items = FileItem.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
     sub_folders = folder.folder_set.all()
-    #  = folder_to_course(folder)
     return render(request, 'pages/folder.html', {'folder': folder, 'sub_folders': sub_folders, 'courses': courses, 'sheets': sheets, 'file_items': file_items})
 
 

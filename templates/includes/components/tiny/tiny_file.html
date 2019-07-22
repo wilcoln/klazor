@@ -7,7 +7,7 @@
             <div class="filename">{{ file_item.file | filename }} </div>
         </a>
         <small class="text-muted ">size : {{ file_item.file.size | filesizeformat}}</small>
-        <br>
+        {% block other_info %}{% endblock %}
     </div>
 </div>
 {% include 'includes/components/menus/contextmenus/tiny_file_contextmenu.html' with file_item=file_item %}

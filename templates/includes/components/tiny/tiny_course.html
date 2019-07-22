@@ -7,7 +7,6 @@
             </div>
         </a>
         <small class="text-muted ">{{ course.coursepart_set.all.count }} part{{ course.coursepart_set.all.count|pluralize }}</small>
-        <br>
     </div>
 </div>
 {% include 'includes/components/menus/contextmenus/tiny_course_contextmenu.html' with course=course %}

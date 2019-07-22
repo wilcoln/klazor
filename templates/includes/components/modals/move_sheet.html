@@ -10,11 +10,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div>
-                    <a href="{% url 'move-sheet' sheet.id sheet.folder.parent.id %}" class="text-center">
-                        <strong>../</strong><i class="text-primary fa fa-arrow-left"></i>
-                    </a>
-                </div>
+                {% if sheet.folder.parent %}
+                    <div>
+                        <a href="{% url 'move-sheet' sheet.id sheet.folder.parent.id %}" class="text-center">
+                            <strong>../</strong><i class="text-primary fa fa-arrow-left"></i>
+                        </a>
+                    </div>
+                {% endif %}
                 <div class="folder-content pl-2">
                     {% for sibling_folder in sheet.folder.siblings %}
                         <div>
@@ -28,7 +30,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
-{#                <button type="submit" class="btn btn-primary">Déplacer</button>#}
+                {#                <button type="submit" class="btn btn-primary">Déplacer</button>#}
             </div>
         </div>
     </div>

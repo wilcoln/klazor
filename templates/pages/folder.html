@@ -3,24 +3,19 @@
 {% block title %} {{ folder.name }} {% endblock %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/tiny.css' %}">
+    <link rel="stylesheet" href="{% static 'css/folder.css' %}">
 {% endblock %}
+
 {% block content %}
+    {% include 'includes/components/modals/create_folder.html' with parent_id=folder.id %}
+    {% include 'includes/components/modals/add_folder_files.html' with folder_id=folder.id %}
     <div class="container">
         <div class="row">
-            {% include 'includes/components/modals/create_folder.html' with parent_id=folder.id %}
-            {% include 'includes/components/modals/add_folder_files.html' with folder_id=folder.id %}
             <div class="col-12">
-                <h1 class="text-center text-uppercase mb-4"> {{ folder.name }}
-                    <a href="{% url 'folder' folder.parent.id %}" class="float-left">
-                        ../ <i class="fa fa-arrow-left"></i>
-                    </a>
-                    {% if sheets.count %}
-                        <a href="{% url 'folder-editor' folder.id sheets.first.id %}"
-                           class="float-right badge " class="ml-2"> <i class="fa fa-bars"></i></a>
-                    {% endif %}
-                </h1>
+                {% include 'includes/folder_breadcrumb.html' with folder=folder %}
             </div>
         </div>
+        {% block quick_access %} {% endblock %}
         {% include 'includes/folder_content.html' with folder=folder %}
     </div>
 {% endblock %}

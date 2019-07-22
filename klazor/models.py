@@ -184,7 +184,21 @@ class Folder(Content):
         return self.name
 
     def siblings(self):
-        return [folder for folder in self.parent.folder_set.filter(user=self.user) if folder.id != self.id and folder.id != 1]
+        result = []
+        if self.parent:
+            result =  [folder for folder in self.parent.folder_set.filter(user=self.user) if folder.id != self.id and folder.id != 1]
+        return result
+
+    def ascendants(self):
+        result = []
+        folder = self
+        while folder.id != 1:
+            result.append(folder.parent)
+            folder = folder.parent
+
+        result.reverse()
+        print(result)
+        return result
 
     class Meta:
         db_table = 'folder'

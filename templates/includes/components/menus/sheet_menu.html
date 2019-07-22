@@ -5,7 +5,7 @@
         <span class="slider round"></span>
     </label>
     <div class="mode"><i class="fa" v-bind:class="{ 'fa-eye': !editMode, 'fa-edit':editMode}" ></i></div>
-    <div class="mx-2 pb-3" v-bind:style="{display: !editMode ? 'inline-block':'none' }">{% include 'includes/infos/last_modified.html' with obj=sheet %}</div>
+    <div class="mx-2 pb-3 text-muted" v-bind:style="{display: !editMode ? 'inline-block':'none' }">{% include 'includes/infos/last_modified.html' with obj=sheet %}</div>
     <div class="edit-menu justify-cell-around" v-bind:style="{display: editMode ? 'flex':'none' }">
         <div class="separator"></div>
         <div class="btn-group" role="group">
@@ -17,7 +17,7 @@
         </div>
         <button class="btn-save mr-3" v-on:click="saveSheet"><i class="fa fa-save"></i> Save</button>
         <button class="btn-clear mr-3 " v-on:click="clearSheet"><i class="fa fa-warning"></i> <i class="fa fa-eraser"></i> Clear</button>
-        <div class="mx-2 pb-3">{% include 'includes/infos/last_modified.html' with obj=sheet %}</div>
+        <div class="mx-2 pb-3 text-muted">{% include 'includes/infos/last_modified.html' with obj=sheet %}</div>
     </div>
     {% comment %}<a href="{% url 'print-sheet' sheet.id %}"><i class="fa fa-print"></i>Print Sheet</a>{% endcomment %}
 

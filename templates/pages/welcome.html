@@ -1,18 +1,15 @@
-{% extends 'layouts/base.html' %}
-{% load static %}
-{% block style %}
-    <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
-    <link rel="stylesheet" href="{% static 'css/tiny.css' %}">
-{% endblock %}
-{% block title %} Welcome {% endblock %}
-{% block content %}
-    <div class="container">
-        {% include 'includes/folder_content.html' with folder=root_folder %}
-    </div>
-
-{% endblock %}
-{% block script %}
-    <script src="{% static 'js-cookie/src/js.cookie.js' %}"></script>
-    <script src="{% static 'axios/dist/axios.min.js' %}"></script>
-    <script src="{% static 'js/tiny.js' %}"></script>
+{% extends 'pages/folder.html' %}
+{% block quick_access %}
+    <div class="quick-access-container row">
+            <div class="col-12">
+                <h1> Accès rapide
+                </h1>
+            </div>
+            {% for sheet in quick_access %}
+                <div class="col-md-2">
+                    {% include 'includes/components/tiny/tiny_recent_sheet.html' with sheet=sheet %}
+                </div>
+            {% endfor %}
+        </div>
+    <hr>
 {% endblock %}
