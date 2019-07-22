@@ -229,7 +229,7 @@
             },
             saveSheet() {
                 this.saved = false
-                $('#info-modification').text('Saving...')
+                $('.info-modification').text('Saving...')
                 let csrftoken = Cookies.get('csrftoken')
                 let sheet = this // capture the vue instance to use in the callback
                 let formData = new FormData()
@@ -350,7 +350,7 @@
                         sheet.saved = false
                     }, 2500)
                     sheet.nbCellsSaved = 0
-                    $('#info-modification').text('All modifications saved')
+                    $('.info-modification').text('All modifications saved')
                 }
             },
             autosave: function (val) {
