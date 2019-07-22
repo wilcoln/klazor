@@ -13,7 +13,8 @@
                 {% if folder.parent and folder.parent.parent %}
                     <div>
                         <a href="{% url 'move-folder' folder.id folder.parent.parent.id %}" class="text-center">
-                            <strong>../</strong><i class="text-primary fa fa-arrow-left"></i>
+                            {% if folder.parent.parent.id == 1 %} <i class="fa fa-home"></i> {% else %}
+                                {{ folder.parent.parent.name }}{% endif %}/<i class="text-primary fa fa-arrow-left"></i>
                         </a>
                     </div>
                 {% endif %}

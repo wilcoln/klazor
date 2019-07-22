@@ -1,8 +1,4 @@
-{% comment %}
-    TODO : Retirer les 'or True' des conditions if
-    Avant de le faire, résoudre le problème du menu contextuel du dossier qui masque les menus contextuel des éléments
-{% endcomment %}
-    {% if courses.all.count or True %}
+{% if courses.all.count %}
     <div class="course-container row">
         <div class="col-12">
             <h1> Cours
@@ -18,7 +14,7 @@
         {% endfor %}
     </div>
 {% endif %}
-{% if sub_folders.all.count or True %}
+{% if sub_folders.all.count %}
     <hr>
     <div class="folder-container row">
         {% include 'includes/components/modals/create_folder.html' with parent_id=folder.id %}
@@ -38,7 +34,7 @@
     </div>
 {% endif %}
 
-{% if sheets.all.count or True %}
+{% if sheets.all.count %}
     <hr>
     <div class="sheet-container  row">
         <div class="col-12">
@@ -55,7 +51,7 @@
         {% endfor %}
     </div>
 {% endif %}
-{% if file_items.count.all or True %}
+{% if file_items.all.count %}
     <hr>
     <div class="file-container  row">
         {% include 'includes/components/modals/add_folder_files.html' with folder_id=folder.id %}

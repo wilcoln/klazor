@@ -25,4 +25,8 @@
     <script src="{% static 'js-cookie/src/js.cookie.js' %}"></script>
     <script src="{% static 'axios/dist/axios.min.js' %}"></script>
     <script src="{% static 'js/tiny.js' %}"></script>
+    <script src="{% static 'js/folder.js' %}"></script>
+    <script>
+       window.oncontextmenu = (event) => openFolderContextMenu(event, {{ folder.id }})
+    </script>
 {% endblock %}

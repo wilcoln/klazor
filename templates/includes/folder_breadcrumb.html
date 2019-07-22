@@ -15,7 +15,9 @@
         <li class="breadcrumb-item active" aria-current="page">
                 {{ folder.name }}
         </li>
-            <a href="{% url 'folder-editor' folder.id sheets.first.id %}"
+            {% if sheets.count %}
+                <a href="{% url 'folder-editor' folder.id sheets.first.id %}"
                class="ml-auto"> <i class="fa fa-th-list"></i></a>
+            {% endif %}
     </ol>
 </nav>

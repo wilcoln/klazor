@@ -37,7 +37,7 @@ def welcome(request):
         quick_access = Sheet.objects.filter(user_id=request.user.id).order_by('-updated_at')[:6]
         root_folder = Folder.objects.get(pk=1)
         courses = Course.objects.filter(user_id=request.user.id, folder_id=1)
-        folders = Folder.objects.filter(parent_id=1, id__gt=1, user_id=request.user.id)  # We remove the root folder
+        folders = Folder.objects.filter(parent_id=1, user_id=request.user.id)  # We remove the root folder
         # sheets libres # les course elements n'ont pas de dossier parent
         free_sheets = Sheet.objects.filter(folder=1, user_id=request.user.id)
         file_items = FileItem.objects.filter(folder=1, user_id=request.user.id)
