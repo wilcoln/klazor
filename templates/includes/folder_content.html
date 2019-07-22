@@ -56,7 +56,7 @@
         {% endfor %}
     </div>
 {% endif %}
-{% if file_items.count.all %}
+{% if file_items.count.all or True %}
     <hr>
     <div class="file-container  row">
         {% include 'includes/components/modals/add_folder_files.html' with folder_id=folder.id %}
