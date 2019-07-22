@@ -76,3 +76,15 @@ class MarkdownCell extends Cell {
         this.text = text
     }
 }
+
+class FileCell extends Cell {
+    constructor(id, title, file) {
+        super(id)
+        if (file){
+            this.editMode = false
+            this.filename = file.substring(14)
+        }
+        this.title = title
+        this.file = file
+    }
+}

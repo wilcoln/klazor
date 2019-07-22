@@ -168,6 +168,13 @@ class AudioCell(MediaCell):
         db_table = 'audio_cell'
 
 
+class FileCell(MediaCell):
+    file = models.FileField(upload_to='files')
+
+    class Meta:
+        db_table = 'file_cell'
+
+
 class ImageCell(GraphicMediaCell):
     image = models.FileField(upload_to='images')
 

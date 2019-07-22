@@ -142,6 +142,64 @@
         },
     })
 
+    Vue.component('file-cell', {
+        template: "#file-cell",
+        props: ['cell', 'editable'],
+        methods: {
+            toggleMode: function () {
+                if (this.editable)
+                    this.cell.editMode = !this.cell.editMode
+            },
+            updateFile: function () {
+                let inputId = 'input-' + this.cell.id
+                let input = document.getElementById(inputId)
+                if (input.files && input.files[0]) {
+                    let reader = new FileReader()
+                    reader.onload = (e) => {
+                        this.cell.file = e.target.result
+                    }
+                    reader.readAsDataURL(input.files[0])
+                }
+            }
+        },
+        filters: {
+            iconclass: function (fileUrl) {
+                let ext = ''
+                if(fileUrl.includes('data:')){
+                    let format = fileUrl.split(';base64,')[0]
+                    ext = format.split('/')[1]
+                }
+                else{
+                    let urlParts = fileUrl.split('.')
+                    ext = urlParts[urlParts.length - 1]
+                }
+
+                if (['txt', 'tex'].includes(ext))
+                    return 'fa-file-text-o'
+                else if (['png', 'jpeg', 'jpg', 'gif'].includes(ext))
+                    return 'fa-file-image-o'
+                else if (['pdf'].includes(ext))
+                    return 'fa-file-pdf-o'
+                else if (['odt', 'doc', 'docx', 'rtf', 'wks', 'wps', 'wpd'].includes(ext))
+                    return 'fa-file-word-o'
+                else if (['ppt', 'pptx', 'pps', 'odp', 'key'].includes(ext))
+                    return 'fa-file-powerpoint-o'
+                else if (['xls', 'xlsx', 'csv', 'xlr', 'ods'].includes(ext))
+                    return 'fa-file-excel-o'
+                else if (['htm', 'html', 'xhtml', 'xml'].includes(ext))
+                    return 'fa-file-code-o'
+                else if (['7z', 'arj', 'rar', 'deb', 'pkg', 'rpm', 'tar.gz', 'z', 'zip'].includes(ext))
+                    return 'fa-file-archive-o'
+                else if (['mp4', 'mkv', 'avi', 'mov', 'flv', '3gp', 'wmv', 'vob', 'swf', 'mpg', 'mpeg', '3g2'].includes(ext))
+                    return 'fa-file-movie-o'
+                else if (['mp3', 'ogg', 'webm', 'aif', 'cda', 'mpa', 'wav', 'wma', 'wpl'].includes(ext))
+                    return 'fa-file-movie-o'
+                else
+                    return 'fa-file-o'
+            }
+        }
+    })
+
     Vue.component('image-cell', {
         template: "#image-cell",
         props: ['cell', 'editable'],
@@ -209,6 +267,10 @@
             addMarkdownCell() {
                 let markdownCell = new MarkdownCell(this.lastInsertedId + 1, '')
                 this.cells.push(markdownCell)
+            },
+            addFileCell() {
+                let fileCell = new FileCell(this.lastInsertedId + 1, '')
+                this.cells.push(fileCell)
             },
             moveCell(id, shift) {
                 let cell = this.cells.filter((cell) => {
@@ -287,6 +349,10 @@
                         } else if (cell instanceof MarkdownCell) {
                             lightCell.text = cell.text.replace(/\\/g, '\\\\')
                             lightCell.text = lightCell.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
+                        } else if (cell instanceof FileCell) {
+                            lightCell.title = cell.title
+                            lightCell.file = null // escape for markdown monospace syntaxe
+                            file = cell.file
                         }
 
                         formData = new FormData()
@@ -353,10 +419,10 @@
                     sheet.savedCells = 0
                 }
             },
-            autosave: function(val){
+            autosave: function (val) {
                 let sheet = this
-                if(val)
-                     sheet.saveInterval = setInterval(sheet.saveSheet, 5000)
+                if (val)
+                    sheet.saveInterval = setInterval(sheet.saveSheet, 5000)
                 else
                     clearInterval(sheet.saveInterval)
             },
@@ -379,6 +445,8 @@
                         text = `{{ cell.markdowncell.text|safe }}`
                         text = text.replace(/\\\\/g, '\\\\') // escape backslash for mathjax compatibility
                         this.cells.push(new MarkdownCell(counter, text))
+                    {% elif cell.filecell %}
+                        this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.file.url}}`))
                     {% endif %}
             {% endfor %}
         }
