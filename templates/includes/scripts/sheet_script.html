@@ -172,7 +172,7 @@
             cells: [],
             editMode: false,
             saved: false,
-            savedCells: 0,
+            nbCellsSaved: 0,
             autosave: false,
             saveInterval: null
         },
@@ -228,6 +228,8 @@
                 this.cells = []
             },
             saveSheet() {
+                this.saved = false
+                $('#info-modification').text('Saving...')
                 let csrftoken = Cookies.get('csrftoken')
                 let sheet = this // capture the vue instance to use in the callback
                 let formData = new FormData()
@@ -253,11 +255,7 @@
                     /**
                      * End case
                      */
-                    sheet.saved = true
-                    setTimeout(() => {
-                        sheet.saved = false
-                    }, 2500)
-                    sheet.savedCells = 0
+                    sheet.nbCellsSaved = 0
                     console.log("uploading files...")
                     for (let cell of sheet.cells) {
                         let lightCell = {}
@@ -320,7 +318,9 @@
                                 }
                             }).then((response) => {
                                 console.log("1 cell saved !")
-                                sheet.savedCells++
+                                sheet.nbCellsSaved++
+                                if (sheet.nbCellsSaved === sheet.cells.length)
+                                    sheet.saved = true
                                 console.log(response)
                             }).catch((error) => {
                                 console.log(error)
@@ -343,20 +343,20 @@
             }
         },
         watch: {
-            savedCells: function () {
-                if (this.savedCells === this.cells.length) {
-                    sheet.saved = true
+            saved: function (val) {
+                if (val) {
                     sheet = this
                     setTimeout(() => {
                         sheet.saved = false
                     }, 2500)
-                    sheet.savedCells = 0
+                    sheet.nbCellsSaved = 0
+                    $('#info-modification').text('All modifications saved')
                 }
             },
-            autosave: function(val){
+            autosave: function (val) {
                 let sheet = this
-                if(val)
-                     sheet.saveInterval = setInterval(sheet.saveSheet, 5000)
+                if (val)
+                    sheet.saveInterval = setInterval(sheet.saveSheet, 5000)
                 else
                     clearInterval(sheet.saveInterval)
             },
