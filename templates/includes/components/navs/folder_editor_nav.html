@@ -14,7 +14,7 @@
         {% for child_sheet in sheets.all %}
             <div {% if child_sheet.id == sheet_id %}{{ 'class="highlight-item"' }}{% endif %}>
                 <a href="{% url 'folder-editor' folder.id child_sheet.id %}"><i
-                        class="text-success fa fa-leaf"></i> {{ child_sheet.title | truncatechars:40 }}</a>
+                        class="text-success fa fa-leaf"></i> <span {% if child_sheet.id == sheet_id %} class="sheet-title-text" {% endif %}>{{ child_sheet.title | truncatechars:40 }}</span></a>
             </div>
         {% endfor %}
         <hr class="mb-0">

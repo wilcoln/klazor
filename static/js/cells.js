@@ -41,13 +41,12 @@ class YoutubeCell extends Cell {
         return this.youtube
     }
 }
-
 class AudioCell extends Cell {
     constructor(id, title, audio) {
         super(id)
         if (audio){
             this.editMode = false
-            this.filename = audio.substring(14)
+            this.filename = getFilenameFromUrl(audio)
         }
         this.title = title
         this.audio = audio
@@ -59,13 +58,12 @@ class ImageCell extends Cell {
         super(id)
         if (image){
             this.editMode = false
-            this.filename = image.substring(14)
+            this.filename = getFilenameFromUrl(image)
         }
         this.title = title
         this.image = image
         this.scale = scale
     }
-
 }
 
 class MarkdownCell extends Cell {
@@ -75,4 +73,21 @@ class MarkdownCell extends Cell {
             this.editMode = false
         this.text = text
     }
+}
+
+class FileCell extends Cell {
+    constructor(id, title, file) {
+        super(id)
+        if (file){
+            this.editMode = false
+            this.filename = getFilenameFromUrl(file)
+        }
+        this.title = title
+        this.file = file
+    }
+}
+
+function getFilenameFromUrl(url){
+    let urlparts = url.split('/')
+    return urlparts[urlparts.length - 1]
 }

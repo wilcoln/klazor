@@ -17,12 +17,12 @@
                 {% if sheet.folder.id == 1 %}
                         <i class="fa fa-home"></i>
                     {% else %}
-                        {{ sheet.folder.name }}
+                       {{ sheet.folder.name }}
                     {% endif %}
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-               <i class="fa fa-leaf"></i> {{ sheet.title }}
+            <i class="fa fa-leaf"></i>  <span class="sheet-title-text">{{ sheet.title }}</span>
         </li>
     </ol>
 </nav>

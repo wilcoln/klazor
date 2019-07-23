@@ -142,6 +142,64 @@
         },
     })
 
+    Vue.component('file-cell', {
+        template: "#file-cell",
+        props: ['cell', 'editable'],
+        methods: {
+            toggleMode: function () {
+                if (this.editable)
+                    this.cell.editMode = !this.cell.editMode
+            },
+            updateFile: function () {
+                let inputId = 'input-' + this.cell.id
+                let input = document.getElementById(inputId)
+                if (input.files && input.files[0]) {
+                    let reader = new FileReader()
+                    reader.onload = (e) => {
+                        this.cell.file = e.target.result
+                    }
+                    reader.readAsDataURL(input.files[0])
+                }
+            }
+        },
+        filters: {
+            iconclass: function (fileUrl) {
+                let ext = ''
+                if(fileUrl.includes('data:')){
+                    let format = fileUrl.split(';base64,')[0]
+                    ext = format.split('/')[1]
+                }
+                else{
+                    let urlParts = fileUrl.split('.')
+                    ext = urlParts[urlParts.length - 1]
+                }
+
+                if (['txt', 'tex'].includes(ext))
+                    return 'fa-file-text-o'
+                else if (['png', 'jpeg', 'jpg', 'gif'].includes(ext))
+                    return 'fa-file-image-o'
+                else if (['pdf'].includes(ext))
+                    return 'fa-file-pdf-o'
+                else if (['odt', 'doc', 'docx', 'rtf', 'wks', 'wps', 'wpd'].includes(ext))
+                    return 'fa-file-word-o'
+                else if (['ppt', 'pptx', 'pps', 'odp', 'key'].includes(ext))
+                    return 'fa-file-powerpoint-o'
+                else if (['xls', 'xlsx', 'csv', 'xlr', 'ods'].includes(ext))
+                    return 'fa-file-excel-o'
+                else if (['htm', 'html', 'xhtml', 'xml'].includes(ext))
+                    return 'fa-file-code-o'
+                else if (['7z', 'arj', 'rar', 'deb', 'pkg', 'rpm', 'tar.gz', 'z', 'zip'].includes(ext))
+                    return 'fa-file-archive-o'
+                else if (['mp4', 'mkv', 'avi', 'mov', 'flv', '3gp', 'wmv', 'vob', 'swf', 'mpg', 'mpeg', '3g2'].includes(ext))
+                    return 'fa-file-movie-o'
+                else if (['mp3', 'ogg', 'webm', 'aif', 'cda', 'mpa', 'wav', 'wma', 'wpl'].includes(ext))
+                    return 'fa-file-movie-o'
+                else
+                    return 'fa-file-o'
+            }
+        }
+    })
+
     Vue.component('image-cell', {
         template: "#image-cell",
         props: ['cell', 'editable'],
@@ -210,6 +268,10 @@
                 let markdownCell = new MarkdownCell(this.lastInsertedId + 1, '')
                 this.cells.push(markdownCell)
             },
+            addFileCell() {
+                let fileCell = new FileCell(this.lastInsertedId + 1, '')
+                this.cells.push(fileCell)
+            },
             moveCell(id, shift) {
                 let cell = this.cells.filter((cell) => {
                     return cell.id === id
@@ -246,14 +308,13 @@
                     console.log(response)
                     console.log("sheet title saved !")
                     /**
-                     * If we are in the folder editor we update title at change
+                     * Update sheet-title-text elts
                      */
-                    let highLightElt = document.querySelector('.highlight-item')
-                    console.log(highLightElt)
-                    if (highLightElt)
-                        highLightElt.firstElementChild.firstElementChild.nextSibling.textContent = ' ' + sheet.title
+                    let sheetTitleText = $('.sheet-title-text')
+                    if(sheetTitleText.length)
+                        sheetTitleText.text(sheet.title)
                     /**
-                     * End case
+                     * End update
                      */
                     if(sheet.cells.length){
                         sheet.nbCellsSaved = 0
@@ -286,11 +347,17 @@
                         } else if (cell instanceof MarkdownCell) {
                             lightCell.text = cell.text.replace(/\\/g, '\\\\')
                             lightCell.text = lightCell.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
+                        } else if (cell instanceof FileCell) {
+                            lightCell.title = cell.title
+                            lightCell.file = null // escape for markdown monospace syntaxe
+                            file = cell.file
                         }
 
                         formData = new FormData()
                         formData.append('file', file)
                         formData.append('title', lightCell.title)
+                        formData.append('filename', cell.filename)
+                        console.log(cell.filename)
                         axios.post('/upload/',
                             formData,
                             {
@@ -304,7 +371,9 @@
                             console.log(" 1 file uploaded !")
                             console.log(" saving cell ...")
                             // Le serveur renvoie le chemin du fichier fraichement sauvegardé
-                            lightCell.filename = success.data === 'no_new_name' ? cell.filename : success.data
+                            cell.filename = success.data
+                            lightCell.filename = cell.filename
+                            console.log(lightCell.filename)
                             lightCell.sequence = sheet.cells.indexOf(cell) + 1
                             lightCellJson = JSON.stringify(lightCell)
                             axios({
@@ -383,6 +452,8 @@
                         text = `{{ cell.markdowncell.text|safe }}`
                         text = text.replace(/\\\\/g, '\\\\') // escape backslash for mathjax compatibility
                         this.cells.push(new MarkdownCell(counter, text))
+                    {% elif cell.filecell %}
+                        this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.file.url}}`))
                     {% endif %}
             {% endfor %}
         }

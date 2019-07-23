@@ -1,5 +1,6 @@
 <div id="sheet-drawer" class="collapse">
    <div class="container pt-2">
+       <i class="text-muted float-right fa fa-close" data-toggle="collapse" href="#sheet-drawer" role="button" aria-expanded="false" aria-controls="sheet-drawer"></i>
         <h1>Cells</h1>
        <hr>
     <div class="row">
@@ -15,7 +16,7 @@
             <button class="cell-btn" v-on:click="addImageCell"> <i class="cell-icon fa fa-file-image-o"></i></button>
             <button class="cell-btn" v-on:click="addAudioCell"> <i class="cell-icon fa fa-file-audio-o"></i></button>
             <button class="cell-btn" v-on:click="addMarkdownCell"> <i class="cell-icon fa fa-file-text-o"></i></button>
-            <button class="cell-btn"> <i class="cell-icon fa fa-paperclip"></i></button>
+            <button class="cell-btn" v-on:click="addFileCell"> <i class="cell-icon fa fa-file"></i></button>
        </div>
 
         {#     Form  cells #}

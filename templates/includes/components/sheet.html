@@ -34,6 +34,11 @@
                                       v-on:delete="deleteCell($event)"
                                         v-on:save="saveSheet">
                     </markdown-cell>
+                    <file-cell v-else-if="cell instanceof FileCell"
+                                   v-on:up="moveCell($event,-1)"
+                                   v-on:down="moveCell($event,1)"
+                                   v-bind:editable="editMode" v-bind:cell="cell"
+                                   v-on:delete="deleteCell($event)"></file-cell>
                 </div>
             </div>
         </div>

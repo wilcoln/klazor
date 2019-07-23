@@ -127,7 +127,7 @@ def save_cell(request, id):
         video_cell.scale = cell_dict['scale']
         video_cell.video.save(filename, storage.open('videos/' + filename))
         video_cell.save()
-        storage.delete('videos/' + filename)
+        # storage.delete('videos/' + filename)
     elif 'image' in cell_dict:
         filename = str(cell_dict['filename'])
         image_cell = ImageCell()
@@ -137,7 +137,7 @@ def save_cell(request, id):
         image_cell.scale = cell_dict['scale']
         image_cell.image.save(filename, storage.open('images/' + filename))
         image_cell.save()
-        storage.delete('images/' + filename)
+        # storage.delete('images/' + filename)
     elif 'audio' in cell_dict:
         filename = str(cell_dict['filename'])
         audio_cell = AudioCell()
@@ -146,7 +146,7 @@ def save_cell(request, id):
         audio_cell.title = cell_dict['title']
         audio_cell.audio.save(filename, storage.open('audios/' + filename))
         audio_cell.save()
-        storage.delete('audios/' + filename)
+        # storage.delete('audios/' + filename)
     elif 'text' in cell_dict:
         markdown_cell = MarkdownCell()
         markdown_cell.sheet = sheet
@@ -161,6 +161,15 @@ def save_cell(request, id):
         youtube_cell.title = cell_dict['title']
         youtube_cell.scale = cell_dict['scale']
         youtube_cell.save()
+    elif 'file' in cell_dict:
+        filename = str(cell_dict['filename'])
+        file_cell = FileCell()
+        file_cell.sheet = sheet
+        file_cell.sequence = cell_dict['sequence']
+        file_cell.title = cell_dict['title']
+        file_cell.file.save(filename, storage.open('files/' + filename))
+        file_cell.save()
+        # storage.delete('files/' + filename)
 
     return HttpResponse(str(cell_dict))
 
@@ -271,12 +280,12 @@ def new_folder_sheet(request, id):
 
 def upload(request):
     data = request.POST['file']
+    filename = request.POST['filename']
     if ';base64,' in data:
         filename = request.POST['title'].lower().replace(' ', '_')
         format, file_str = data.split(';base64,')
         ext = format.split('/')[-1]
         storage = FileSystemStorage()
-        path = ''
         filename = filename + '.' + ext
         if 'image' in format:
             path = 'images/' + filename
@@ -284,10 +293,11 @@ def upload(request):
             path = 'audios/' + filename
         elif 'video' in format:
             path = 'videos/' + filename
+        else:
+            path = 'files/' + filename
         if not storage.exists(path):
             storage.save(path, ContentFile(base64.b64decode(file_str)))
-        return HttpResponse(filename)
-    return HttpResponse('no_new_name')
+    return HttpResponse(filename)
 
 
 def toggle_course_element_status(request, id):
