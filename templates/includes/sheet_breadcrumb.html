@@ -1,0 +1,24 @@
+<nav aria-label="breadcrumb">
+
+    <ol class="breadcrumb">
+        {% for ascendant in sheet.folder.ascendants %}
+            <li class="breadcrumb-item">
+                <a href="{% url 'folder' ascendant.id %}">
+                    {% if ascendant.id == 1 %}
+                        <i class="fa fa-home"></i>
+                    {% else %}
+                        {{ ascendant.name }}
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+        <li class="breadcrumb-item">
+            <a href="{% url 'folder' sheet.folder.id %}">
+                {{ sheet.folder.name }}
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+               <i class="fa fa-leaf"></i> {{ sheet.title }}
+        </li>
+    </ol>
+</nav>

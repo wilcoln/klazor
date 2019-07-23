@@ -9,6 +9,7 @@
 {% block title %} {{ sheet.title }}{% endblock %}
 {% block content %}
     <div class="container">
+        {% include 'includes/sheet_breadcrumb.html' with sheet=sheet %}
         {% include 'includes/components/sheet.html' with sheet=sheet %}
     </div>
 

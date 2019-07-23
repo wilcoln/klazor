@@ -57,11 +57,11 @@ body{
 }
 .sheet-toolbar{
     position: sticky;
-    top: .6rem;
+    top: 4.75rem;
     z-index: 1021;
     background: transparent;
     padding-top: .8rem;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 
 }
 .sheet-toolbar .btn-group i.fa.fa-plus, .btn-clear i.fa.fa-warning{
