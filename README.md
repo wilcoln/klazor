@@ -22,7 +22,3 @@ python manage.py createsuperuser
 ```bash
 python manage.py runserver
 ```
-## Preview
-![home](https://drive.google.com/uc?id=18yH2ABjyBAxsrVRSy20MwpKQbt4ev5Pb)
----
-![sheet](https://drive.google.com/uc?id=1mop-XVh9RNJ2PVeGLEdG4VXvl6BfGrOR)
