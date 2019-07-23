@@ -1,5 +1,6 @@
 {% if courses.all.count %}
     <div class="course-container row">
+        <hr>
         <div class="col-12">
             <h1> Cours
                 <small>({{ courses.all.count }})</small>
@@ -17,7 +18,7 @@
 {% if sub_folders.all.count %}
     <hr>
     <div class="folder-container row">
-        {% include 'includes/components/modals/create_folder.html' with parent_id=folder.id %}
+        {% include 'includes/components/modals/add_folder.html' with parent_id=folder.id %}
         <div class="col-12">
             <h1> Dossiers
                 <small>({{ sub_folders.all.count|default:0 }})</small>

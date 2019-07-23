@@ -4,3 +4,6 @@ h1{
 .breadcrumb{
     background: whitesmoke;
 }
+.folder-breadcrumb .breadcrumb-item.active > a:hover{
+    color: #007bff !important;
+}

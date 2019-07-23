@@ -7,14 +7,12 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'includes/components/modals/create_folder.html' with parent_id=folder.id %}
+    {% include 'includes/components/modals/add_folder.html' with parent_id=folder.id %}
     {% include 'includes/components/modals/add_folder_files.html' with folder_id=folder.id %}
     <div class="container">
         <div class="row">
             <div class="col-12">
-                {% if folder.id != 1 %}
-                    {% include 'includes/folder_breadcrumb.html' with folder=folder %}
-                {% endif %}
+                {% include 'includes/folder_breadcrumb.html' with folder=folder %}
             </div>
         </div>
         {% block quick_access %} {% endblock %}
