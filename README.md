@@ -18,7 +18,13 @@ python manage.py migrate
 python manage.py loaddata folders.json
 python manage.py createsuperuser
 ```
-### Run
+## Run
 ```bash
 python manage.py runserver
 ```
+## Preview
+![home](https://drive.google.com/uc?id=18yH2ABjyBAxsrVRSy20MwpKQbt4ev5Pb)
+---
+![sheet](https://drive.google.com/uc?id=1mop-XVh9RNJ2PVeGLEdG4VXvl6BfGrOR)
+---
+![folder_editor](https://drive.google.com/uc?id=1gNaooudTWS28YVosdPhiPHmXZzSd2jF9)
