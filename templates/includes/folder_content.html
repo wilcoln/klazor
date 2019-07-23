@@ -3,7 +3,7 @@
         <div class="col-12">
             <h1> Cours
                 <small>({{ courses.all.count }})</small>
-                <a href="{% url 'add-course' folder.id %}" class="mr-2 float-right badge badge-info">
+                <a href="{% url 'add-course' folder.id %}" class="mr-2 btn float-right badge badge-info">
                     <i class="fa fa-plus"></i></a>
             </h1>
         </div>
@@ -40,7 +40,7 @@
         <div class="col-12">
             <h1> Feuilles
                 <small>({{ sheets|length|default:0 }})</small>
-                <a href="{% url 'new-folder-sheet' folder.id %}" class="mr-2 float-right badge badge-success"><i
+                <a href="{% url 'new-folder-sheet' folder.id %}" class="mr-2 btn float-right badge badge-success"><i
                         class="fa fa-plus"></i>
                 </a></h1>
         </div>

@@ -8,6 +8,14 @@ body{
 }
 
 @media print {
+    body{
+        background: white;
+    }
+    .sheet-component{
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
     .sheet-toolbar, .sheet-toolbar *{
         display:none !important;
     }
