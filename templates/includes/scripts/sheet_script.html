@@ -255,7 +255,8 @@
                     /**
                      * End case
                      */
-                    sheet.nbCellsSaved = 0
+                    if(sheet.cells.length){
+                        sheet.nbCellsSaved = 0
                     console.log("uploading files...")
                     for (let cell of sheet.cells) {
                         let lightCell = {}
@@ -331,6 +332,9 @@
                                 console.log(error)
                             })
                     }
+                    }
+                    else
+                        sheet.saved = true
                 }).catch((error) => {
                     console.log(error)
                 })
