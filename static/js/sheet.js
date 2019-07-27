@@ -1,5 +1,5 @@
 // Navbr and toolbar animation
- let threshold = $('.sheet-breadcrumb').length ? 90:40;
+ let threshold = $('.sheet-breadcrumb').length ? 60:10;
 onscroll = function () {
     let sheetToolbar = $(".sheet-toolbar");
     if (scrollY > threshold) {

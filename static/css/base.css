@@ -50,6 +50,7 @@ blockquote p{
 .navbar{
     background: #125EF0;
     box-shadow: 0 1rem 1rem rgba(0,0,0, .1);
+    height: 50px;
 }
 .navbar input {
     font-size: .85rem;
@@ -70,4 +71,11 @@ blockquote p{
 }
 .navbar input:focus::placeholder {
     color: grey;
+}
+.breadcrumb{
+    margin-bottom: 0;
+}
+hr{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
 }
