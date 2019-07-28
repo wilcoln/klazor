@@ -47,10 +47,14 @@ blockquote p{
 
 /* Navbar styles */
 
+@media screen and (min-width: 991px) {
+    .navbar{
+        height: 50px;
+    }
+}
 .navbar{
     background: #125EF0;
     box-shadow: 0 1rem 1rem rgba(0,0,0, .1);
-    height: 50px;
 }
 .navbar input {
     font-size: .85rem;
