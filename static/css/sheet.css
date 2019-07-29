@@ -284,7 +284,7 @@ input{
 #sheet-drawer{
     z-index: 1022;
     position: fixed;
-    top: 77px;
+    top: 0;
     right: 0;
     height: 100vh;
     width: 20rem;

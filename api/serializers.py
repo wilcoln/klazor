@@ -8,6 +8,46 @@ class FileItemSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'title', 'file',)
 
 
+class PropositionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Proposition
+        fields = ('id', 'text', 'is_true')
+
+
+class MultipleChoiceQuestionCellSerializer(serializers.ModelSerializer):
+    proposition_set = PropositionSerializer(required=False, many=True)
+
+    class Meta(QuestionCell.Meta):
+        model = MultipleChoiceQuestionCell
+        fields = ('id', 'sequence', 'question', 'proposition_set')
+
+
+class NumericalQuestionCellSerializer(serializers.ModelSerializer):
+    class Meta(QuestionCell.Meta):
+        model = NumericalQuestionCell
+        fields = ('id', 'sequence', 'question', 'answer')
+
+
+class OpenEndedQuestionCellSerializer(serializers.ModelSerializer):
+    class Meta(QuestionCell.Meta):
+        model = OpenEndedQuestionCell
+        fields = ('id', 'sequence', 'question', 'answer')
+
+
+class DynamicQuestionCellSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionCell
+        fields = ()
+
+    def to_representation(self, obj):
+        if isinstance(obj, MultipleChoiceQuestionCell):
+            return MultipleChoiceQuestionCellSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, NumericalQuestionCell):
+            return NumericalQuestionCellSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, OpenEndedQuestionCell):
+            return OpenEndedQuestionCellSerializer(obj, context=self.context).to_representation(obj)
+
+
 class DynamicCellSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cell
@@ -24,6 +64,8 @@ class DynamicCellSerializer(serializers.ModelSerializer):
             return YoutubeCellSerializer(obj, context=self.context).to_representation(obj)
         elif isinstance(obj, AudioCell):
             return AudioCellSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, QuestionCell):
+            return DynamicQuestionCellSerializer(obj, context=self.context).to_representation(obj)
 
 
 class SheetSerializer(serializers.HyperlinkedModelSerializer):
