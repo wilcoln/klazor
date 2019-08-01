@@ -87,6 +87,20 @@ class FileCell extends Cell {
     }
 }
 
+class QuestionCell extends Cell{
+    constructor(id, question){
+        super(id)
+        this.question = question
+    }
+}
+
+class MultipleChoiceQuestionCell extends QuestionCell{
+    constructor(id, question, propositions){
+        super(id, question)
+        //TODO : continue
+    }
+}
+
 function getFilenameFromUrl(url){
     let urlparts = url.split('/')
     return urlparts[urlparts.length - 1]

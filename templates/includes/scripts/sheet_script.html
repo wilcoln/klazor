@@ -272,6 +272,21 @@
                 let fileCell = new FileCell(this.lastInsertedId + 1, '')
                 this.cells.push(fileCell)
             },
+            addQuestionCell(typeIndex){
+                let questionCell = null
+                switch (typeIndex) {
+                    case 1: // MCQ
+                        questionCell = new MultipleChoiceQuestionCell(this.lastInsertedId + 1, '')
+                        break;
+                    case 2: // NQ
+
+                        break;
+                    case 3: // OEQ
+
+                        break;
+
+                }
+            },
             moveCell(id, shift) {
                 let cell = this.cells.filter((cell) => {
                     return cell.id === id

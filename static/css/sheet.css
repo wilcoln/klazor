@@ -77,9 +77,6 @@ body{
     background-color: transparent;
     border:none;
 }
-.sheet .btn-group i:hover{
-
-}
 .sheet-toolbar .btn-group button:hover i{
     color: #007bff;
 }
@@ -306,4 +303,7 @@ input{
 #sheet-drawer .cell-btn .cell-icon{
     font-size: 1.4rem;
     color: grey;
+}
+#sheet-drawer .cell-btn:hover .cell-icon{
+    color: #007bff;
 }
