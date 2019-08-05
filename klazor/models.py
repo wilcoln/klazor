@@ -212,27 +212,20 @@ class Folder(Content):
         ordering = ['id', ]
 
 
-class QuestionCell(Cell):
-    question = models.TextField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'question'
-
-
-class MultipleChoiceQuestionCell(QuestionCell):
+class MultipleChoiceQuestionCell(Cell):
 
     class Meta:
         db_table = 'multiple_choice_question'
 
 
-class NumericalQuestionCell(QuestionCell):
+class NumericalQuestionCell(Cell):
     answer = models.FloatField(blank=True, null=True)
 
     class Meta:
         db_table = 'numerical_question'
 
 
-class OpenEndedQuestionCell(QuestionCell):
+class OpenEndedQuestionCell(Cell):
     answer = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -241,5 +234,5 @@ class OpenEndedQuestionCell(QuestionCell):
 
 class Proposition(models.Model):
     question = models.ForeignKey(MultipleChoiceQuestionCell, on_delete=models.CASCADE)
-    text = models.TextField(blank=True, null=True)
+    statement = models.TextField(blank=True, null=True)
     is_true = models.BooleanField(default=False)

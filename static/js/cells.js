@@ -86,21 +86,34 @@ class FileCell extends Cell {
         this.file = file
     }
 }
-
-class QuestionCell extends Cell{
-    constructor(id, question){
+class MultipleChoiceQuestionCell extends Cell{
+    constructor(id){
         super(id)
-        this.question = question
+        this.propositions = []
+
+    }
+    addProposition(statement, truthValue){
+        this.propositions.push(new Proposition(statement, truthValue))
     }
 }
-
-class MultipleChoiceQuestionCell extends QuestionCell{
-    constructor(id, question, propositions){
-        super(id, question)
-        //TODO : continue
+class Proposition{
+    constructor(statement, truthValue){
+        this.statement = statement
+        this.isTrue = truthValue
     }
 }
-
+class NumericalQuestionCell extends Cell{
+    constructor(id, answer){
+        super(id)
+        this.answer = answer
+    }
+}
+class OpenEndedQuestionCell extends Cell{
+    constructor(id, answer){
+        super(id)
+        this.answer = answer
+    }
+}
 function getFilenameFromUrl(url){
     let urlparts = url.split('/')
     return urlparts[urlparts.length - 1]

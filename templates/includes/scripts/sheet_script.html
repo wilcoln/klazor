@@ -165,11 +165,10 @@
         filters: {
             iconclass: function (fileUrl) {
                 let ext = ''
-                if(fileUrl.includes('data:')){
+                if (fileUrl.includes('data:')) {
                     let format = fileUrl.split(';base64,')[0]
                     ext = format.split('/')[1]
-                }
-                else{
+                } else {
                     let urlParts = fileUrl.split('.')
                     ext = urlParts[urlParts.length - 1]
                 }
@@ -223,6 +222,28 @@
         },
     })
 
+    Vue.component('numerical-question-cell', {
+        template: "#numerical-question-cell",
+        props: ['cell', 'editable'],
+        methods: {
+            toggleMode: function () {
+                if (this.editable)
+                    this.cell.editMode = !this.cell.editMode
+            },
+        },
+    })
+
+    Vue.component('open-ended-question-cell', {
+        template: "#open-ended-question-cell",
+        props: ['cell', 'editable'],
+        methods: {
+            toggleMode: function () {
+                if (this.editable)
+                    this.cell.editMode = !this.cell.editMode
+            },
+        },
+    })
+
     let sheet = new Vue({
         el: "#sheet",
         data: { // Represents the sheet as described by the Sheet class
@@ -272,20 +293,21 @@
                 let fileCell = new FileCell(this.lastInsertedId + 1, '')
                 this.cells.push(fileCell)
             },
-            addQuestionCell(typeIndex){
+            addQuestionCell(typeIndex) {
                 let questionCell = null
                 switch (typeIndex) {
                     case 1: // MCQ
-                        questionCell = new MultipleChoiceQuestionCell(this.lastInsertedId + 1, '')
+                        questionCell = new MultipleChoiceQuestionCell(this.lastInsertedId + 1)
                         break;
                     case 2: // NQ
-
+                        questionCell = new NumericalQuestionCell(this.lastInsertedId + 1, 0)
                         break;
                     case 3: // OEQ
-
+                        questionCell = new OpenEndedQuestionCell(this.lastInsertedId + 1, '')
                         break;
-
                 }
+                console.log(questionCell)
+                this.cells.push(questionCell)
             },
             moveCell(id, shift) {
                 let cell = this.cells.filter((cell) => {
@@ -326,98 +348,97 @@
                      * Update sheet-title-text elts
                      */
                     let sheetTitleText = $('.sheet-title-text')
-                    if(sheetTitleText.length)
+                    if (sheetTitleText.length)
                         sheetTitleText.text(sheet.title)
                     /**
                      * End update
                      */
-                    if(sheet.cells.length){
+                    if (sheet.cells.length) {
                         sheet.nbCellsSaved = 0
-                    console.log("uploading files...")
-                    for (let cell of sheet.cells) {
-                        let lightCell = {}
-                        let lightCellJson = null
-                        // Upload files
-                        let formData = null
-                        let file = null
-                        lightCell.id = cell.id
-                        if (cell instanceof VideoCell) {
-                            lightCell.title = cell.title
-                            lightCell.scale = cell.scale
-                            lightCell.video = null
-                            file = cell.video
-                        } else if (cell instanceof AudioCell) {
-                            lightCell.title = cell.title
-                            lightCell.audio = null
-                            file = cell.audio
-                        } else if (cell instanceof YoutubeCell) {
-                            lightCell.title = cell.title
-                            lightCell.youtube = cell.youtube
-                            lightCell.scale = cell.scale
-                        } else if (cell instanceof ImageCell) {
-                            lightCell.title = cell.title
-                            lightCell.scale = cell.scale
-                            lightCell.image = null
-                            file = cell.image
-                        } else if (cell instanceof MarkdownCell) {
-                            lightCell.text = cell.text.replace(/\\/g, '\\\\')
-                            lightCell.text = lightCell.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
-                        } else if (cell instanceof FileCell) {
-                            lightCell.title = cell.title
-                            lightCell.file = null // escape for markdown monospace syntaxe
-                            file = cell.file
-                        }
-
-                        formData = new FormData()
-                        formData.append('file', file)
-                        formData.append('title', lightCell.title)
-                        formData.append('filename', cell.filename)
-                        console.log(cell.filename)
-                        axios.post('/upload/',
-                            formData,
-                            {
-                                headers: {
-                                    'X-CSRFToken': csrftoken,
-                                    'cell-Type': 'multipart/form-data'
-                                }
+                        console.log("uploading files...")
+                        for (let cell of sheet.cells) {
+                            let lightCell = {}
+                            let lightCellJson = null
+                            // Upload files
+                            let formData = null
+                            let file = null
+                            lightCell.id = cell.id
+                            if (cell instanceof VideoCell) {
+                                lightCell.title = cell.title
+                                lightCell.scale = cell.scale
+                                lightCell.video = null
+                                file = cell.video
+                            } else if (cell instanceof AudioCell) {
+                                lightCell.title = cell.title
+                                lightCell.audio = null
+                                file = cell.audio
+                            } else if (cell instanceof YoutubeCell) {
+                                lightCell.title = cell.title
+                                lightCell.youtube = cell.youtube
+                                lightCell.scale = cell.scale
+                            } else if (cell instanceof ImageCell) {
+                                lightCell.title = cell.title
+                                lightCell.scale = cell.scale
+                                lightCell.image = null
+                                file = cell.image
+                            } else if (cell instanceof MarkdownCell) {
+                                lightCell.text = cell.text.replace(/\\/g, '\\\\')
+                                lightCell.text = lightCell.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
+                            } else if (cell instanceof FileCell) {
+                                lightCell.title = cell.title
+                                lightCell.file = null // escape for markdown monospace syntaxe
+                                file = cell.file
                             }
-                        ).then((success) => {
-                            console.log(success)
-                            console.log(" 1 file uploaded !")
-                            console.log(" saving cell ...")
-                            // Le serveur renvoie le chemin du fichier fraichement sauvegardé
-                            cell.filename = success.data
-                            lightCell.filename = cell.filename
-                            console.log(lightCell.filename)
-                            lightCell.sequence = sheet.cells.indexOf(cell) + 1
-                            lightCellJson = JSON.stringify(lightCell)
-                            axios({
-                                method: 'post',
-                                url: '/sheet/' + {{ sheet.id }} +'/cell/save/',
-                                data: {
-                                    'cell': lightCellJson
-                                },
-                                headers: {
-                                    "X-CSRFToken": csrftoken,
-                                    "cell-type": "application/json"
-                                }
-                            }).then((response) => {
-                                console.log("1 cell saved !")
-                                sheet.nbCellsSaved++
-                                if (sheet.nbCellsSaved === sheet.cells.length)
-                                    sheet.saved = true
-                                console.log(response)
-                            }).catch((error) => {
-                                console.log(error)
-                            })
 
-                        })
-                            .catch((error) => {
-                                console.log(error)
+                            formData = new FormData()
+                            formData.append('file', file)
+                            formData.append('title', lightCell.title)
+                            formData.append('filename', cell.filename)
+                            console.log(cell.filename)
+                            axios.post('/upload/',
+                                formData,
+                                {
+                                    headers: {
+                                        'X-CSRFToken': csrftoken,
+                                        'cell-Type': 'multipart/form-data'
+                                    }
+                                }
+                            ).then((success) => {
+                                console.log(success)
+                                console.log(" 1 file uploaded !")
+                                console.log(" saving cell ...")
+                                // Le serveur renvoie le chemin du fichier fraichement sauvegardé
+                                cell.filename = success.data
+                                lightCell.filename = cell.filename
+                                console.log(lightCell.filename)
+                                lightCell.sequence = sheet.cells.indexOf(cell) + 1
+                                lightCellJson = JSON.stringify(lightCell)
+                                axios({
+                                    method: 'post',
+                                    url: '/sheet/' + {{ sheet.id }} +'/cell/save/',
+                                    data: {
+                                        'cell': lightCellJson
+                                    },
+                                    headers: {
+                                        "X-CSRFToken": csrftoken,
+                                        "cell-type": "application/json"
+                                    }
+                                }).then((response) => {
+                                    console.log("1 cell saved !")
+                                    sheet.nbCellsSaved++
+                                    if (sheet.nbCellsSaved === sheet.cells.length)
+                                        sheet.saved = true
+                                    console.log(response)
+                                }).catch((error) => {
+                                    console.log(error)
+                                })
+
                             })
-                    }
-                    }
-                    else
+                                .catch((error) => {
+                                    console.log(error)
+                                })
+                        }
+                    } else
                         sheet.saved = true
                 }).catch((error) => {
                     console.log(error)
@@ -469,6 +490,16 @@
                         this.cells.push(new MarkdownCell(counter, text))
                     {% elif cell.filecell %}
                         this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.file.url}}`))
+                    {% elif cell.multiplechoicequestioncell %}
+                        let questionCell = new MultipleChoiceQuestionCell(counter)
+                        {% for proposition in cell.multiplechoicequestioncell.proposition_set %}
+                            questionCell.addProposition(`{{ proposition.statement }}`, {{ proposition.is_true }})
+                        {% endfor %}
+                        this.cells.push(questionCell)
+                    {% elif cell.numericalquestioncell %}
+                        this.cells.push(new NumericalQuestionCell(counter, `{{ cell.numericalquestioncell.answer}}`))
+                    {% elif cell.openendedquestioncell %}
+                        this.cells.push(new OpenEndedQuestionCell(counter, `{{ cell.openendedquestioncell.answer}}`))
                     {% endif %}
             {% endfor %}
         }

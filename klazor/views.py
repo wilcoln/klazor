@@ -34,7 +34,7 @@ def register(request):
 
 def welcome(request):
     if request.user.is_authenticated:
-        quick_access = Sheet.objects.filter(user_id=request.user.id).order_by('-updated_at')[:6]
+        quick_access = Sheet.objects.filter(folder_id__isnull=False, user_id=request.user.id).order_by('-updated_at')[:6]
         root_folder = Folder.objects.get(pk=1)
         courses = Course.objects.filter(user_id=request.user.id, folder_id=1)
         folders = Folder.objects.filter(parent_id=1, user_id=request.user.id)  # We remove the root folder

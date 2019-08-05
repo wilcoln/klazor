@@ -11,41 +11,27 @@ class FileItemSerializer(serializers.HyperlinkedModelSerializer):
 class PropositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proposition
-        fields = ('id', 'text', 'is_true')
+        fields = ('id', 'statement', 'is_true')
 
 
 class MultipleChoiceQuestionCellSerializer(serializers.ModelSerializer):
     proposition_set = PropositionSerializer(required=False, many=True)
 
-    class Meta(QuestionCell.Meta):
+    class Meta:
         model = MultipleChoiceQuestionCell
-        fields = ('id', 'sequence', 'question', 'proposition_set')
+        fields = ('id', 'sequence', 'proposition_set')
 
 
 class NumericalQuestionCellSerializer(serializers.ModelSerializer):
-    class Meta(QuestionCell.Meta):
+    class Meta:
         model = NumericalQuestionCell
-        fields = ('id', 'sequence', 'question', 'answer')
+        fields = ('id', 'sequence', 'answer')
 
 
 class OpenEndedQuestionCellSerializer(serializers.ModelSerializer):
-    class Meta(QuestionCell.Meta):
-        model = OpenEndedQuestionCell
-        fields = ('id', 'sequence', 'question', 'answer')
-
-
-class DynamicQuestionCellSerializer(serializers.ModelSerializer):
     class Meta:
-        model = QuestionCell
-        fields = ()
-
-    def to_representation(self, obj):
-        if isinstance(obj, MultipleChoiceQuestionCell):
-            return MultipleChoiceQuestionCellSerializer(obj, context=self.context).to_representation(obj)
-        elif isinstance(obj, NumericalQuestionCell):
-            return NumericalQuestionCellSerializer(obj, context=self.context).to_representation(obj)
-        elif isinstance(obj, OpenEndedQuestionCell):
-            return OpenEndedQuestionCellSerializer(obj, context=self.context).to_representation(obj)
+        model = OpenEndedQuestionCell
+        fields = ('id', 'sequence', 'answer')
 
 
 class DynamicCellSerializer(serializers.ModelSerializer):
@@ -64,8 +50,14 @@ class DynamicCellSerializer(serializers.ModelSerializer):
             return YoutubeCellSerializer(obj, context=self.context).to_representation(obj)
         elif isinstance(obj, AudioCell):
             return AudioCellSerializer(obj, context=self.context).to_representation(obj)
-        elif isinstance(obj, QuestionCell):
-            return DynamicQuestionCellSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, FileCell):
+            return FileCellSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, MultipleChoiceQuestionCell):
+            return MultipleChoiceQuestionCellSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, NumericalQuestionCell):
+            return NumericalQuestionCellSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, OpenEndedQuestionCell):
+            return OpenEndedQuestionCellSerializer(obj, context=self.context).to_representation(obj)
 
 
 class SheetSerializer(serializers.HyperlinkedModelSerializer):
@@ -86,6 +78,12 @@ class MarkdownCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = MarkdownCell
         fields = ('id', 'sequence', 'text',)
+
+
+class FileCellSerializer(CellSerializer):
+    class Meta(CellSerializer.Meta):
+        model = FileCell
+        fields = ('id', 'sequence', 'title', 'file',)
 
 
 class VideoCellSerializer(CellSerializer):
@@ -123,7 +121,7 @@ class CoursePartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CoursePart
-        fields = ('id', 'level', 'sequence', 'label', 'title', 'courseelement_set', )
+        fields = ('id', 'level', 'sequence', 'label', 'title', 'courseelement_set',)
 
 
 class TopicSerializer(serializers.ModelSerializer):
@@ -158,17 +156,10 @@ class CourseSerializer(serializers.ModelSerializer):
 class InstructorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Instructor
-        fields = ('id', 'name', 'link', )
+        fields = ('id', 'name', 'link',)
 
 
 class SchoolSerializer(InstructorSerializer):
     class Meta(InstructorSerializer.Meta):
         model = School
-        fields = ('id', 'name', 'link', 'colloquial_name', )
-
-
-
-        
-
-
-
+        fields = ('id', 'name', 'link', 'colloquial_name',)

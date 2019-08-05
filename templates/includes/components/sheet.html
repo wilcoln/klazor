@@ -39,6 +39,16 @@
                                    v-on:down="moveCell($event,1)"
                                    v-bind:editable="editMode" v-bind:cell="cell"
                                    v-on:delete="deleteCell($event)"></file-cell>
+                    <numerical-question-cell v-else-if="cell instanceof NumericalQuestionCell"
+                                   v-on:up="moveCell($event,-1)"
+                                   v-on:down="moveCell($event,1)"
+                                   v-bind:editable="editMode" v-bind:cell="cell"
+                                   v-on:delete="deleteCell($event)"></numerical-question-cell>
+                    <open-ended-question-cell v-else-if="cell instanceof OpenEndedQuestionCell"
+                                   v-on:up="moveCell($event,-1)"
+                                   v-on:down="moveCell($event,1)"
+                                   v-bind:editable="editMode" v-bind:cell="cell"
+                                   v-on:delete="deleteCell($event)"></open-ended-question-cell>
                 </div>
             </div>
         </div>
