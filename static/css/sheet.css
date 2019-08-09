@@ -19,6 +19,9 @@ body{
     .sheet-toolbar, .sheet-toolbar *{
         display:none !important;
     }
+    .sheet-breadcrumb * {
+        display:none !important;
+    }
 }
 .sheet-component{
     border: 1px solid whitesmoke;
