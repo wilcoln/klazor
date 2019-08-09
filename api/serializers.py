@@ -83,7 +83,7 @@ class MarkdownCellSerializer(CellSerializer):
 class FileCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = FileCell
-        fields = ('id', 'sequence', 'title', 'file',)
+        fields = ('id', 'sequence', 'title', 'url',)
 
 
 class VideoCellSerializer(CellSerializer):

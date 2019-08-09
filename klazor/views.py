@@ -161,13 +161,12 @@ def save_cell(request, id):
         youtube_cell.title = cell_dict['title']
         youtube_cell.scale = cell_dict['scale']
         youtube_cell.save()
-    elif 'file' in cell_dict:
-        filename = str(cell_dict['filename'])
+    elif 'url' in cell_dict: # for file cells
         file_cell = FileCell()
         file_cell.sheet = sheet
         file_cell.sequence = cell_dict['sequence']
         file_cell.title = cell_dict['title']
-        file_cell.file.save(filename, storage.open('files/' + filename))
+        file_cell.url = cell_dict['url']
         file_cell.save()
         # storage.delete('files/' + filename)
 
@@ -287,14 +286,14 @@ def upload(request):
         ext = format.split('/')[-1]
         storage = FileSystemStorage()
         filename = filename + '.' + ext
+        path = ''
         if 'image' in format:
             path = 'images/' + filename
         elif 'audio' in format:
             path = 'audios/' + filename
         elif 'video' in format:
             path = 'videos/' + filename
-        else:
-            path = 'files/' + filename
+
         if not storage.exists(path):
             storage.save(path, ContentFile(base64.b64decode(file_str)))
     return HttpResponse(filename)

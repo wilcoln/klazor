@@ -150,17 +150,6 @@
                 if (this.editable)
                     this.cell.editMode = !this.cell.editMode
             },
-            updateFile: function () {
-                let inputId = 'input-' + this.cell.id
-                let input = document.getElementById(inputId)
-                if (input.files && input.files[0]) {
-                    let reader = new FileReader()
-                    reader.onload = (e) => {
-                        this.cell.file = e.target.result
-                    }
-                    reader.readAsDataURL(input.files[0])
-                }
-            }
         },
         filters: {
             iconclass: function (fileUrl) {
@@ -386,8 +375,7 @@
                                 lightCell.text = lightCell.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
                             } else if (cell instanceof FileCell) {
                                 lightCell.title = cell.title
-                                lightCell.file = null // escape for markdown monospace syntaxe
-                                file = cell.file
+                                lightCell.url = cell.url // escape for markdown monospace syntaxe
                             }
 
                             formData = new FormData()
@@ -489,7 +477,7 @@
                         text = text.replace(/\\\\/g, '\\\\') // escape backslash for mathjax compatibility
                         this.cells.push(new MarkdownCell(counter, text))
                     {% elif cell.filecell %}
-                        this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.file.url}}`))
+                        this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.url}}`))
                     {% elif cell.multiplechoicequestioncell %}
                         let questionCell = new MultipleChoiceQuestionCell(counter)
                         {% for proposition in cell.multiplechoicequestioncell.proposition_set %}

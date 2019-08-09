@@ -76,14 +76,14 @@ class MarkdownCell extends Cell {
 }
 
 class FileCell extends Cell {
-    constructor(id, title, file) {
+    constructor(id, title, url) {
         super(id)
-        if (file){
+        if (url){
             this.editMode = false
-            this.filename = getFilenameFromUrl(file)
+            this.filename = getFilenameFromUrl(url)
         }
         this.title = title
-        this.file = file
+        this.url = url
     }
 }
 class MultipleChoiceQuestionCell extends Cell{

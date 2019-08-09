@@ -2,7 +2,7 @@
     <div class="row cell-editable" v-if="editable && cell.editMode">
         <div class="col-11">
             <figure class="figure text-center">
-                <input class="mb-2" v-bind:id="'input-' + cell.id" type="file" v-on:change="updateFile">
+                <input class="mb-2" v-bind:id="'input-' + cell.id" type="text" v-model="cell.url">
                 <br>
                 <figcaption
                         class="figure-caption text-center">
@@ -16,7 +16,7 @@
         <figure class="figure">
             {% verbatim %}
             <div>
-                <a :href="cell.file"><i class="file fa" :class="cell.file | iconclass"></i> {{ cell.title }}</a>
+                <a :href="cell.url"><i class="file fa" :class="cell.url | iconclass"></i> {{ cell.title }}</a>
             </div>
             {% endverbatim %}
         </figure>
