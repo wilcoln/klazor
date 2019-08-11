@@ -185,6 +185,20 @@ def save_cell(request, id):
         open_ended_question_cell.sequence = cell_dict['sequence']
         open_ended_question_cell.answer = cell_dict['answer']
         open_ended_question_cell.save()
+    elif cell_type == 'MULTIPLE_CHOICE_QUESTION':
+        multiple_choice_question_cell = MultipleChoiceQuestionCell()
+        multiple_choice_question_cell.sheet = sheet
+        multiple_choice_question_cell.sequence = cell_dict['sequence']
+        multiple_choice_question_cell.save()
+        propositions = cell_dict['propositions']
+        for proposition_dict in propositions:
+            proposition = Proposition()
+            proposition.question_cell = multiple_choice_question_cell
+            proposition.statement = proposition_dict['statement']
+            print(proposition_dict['isTrue'])
+            proposition.is_true = proposition_dict['isTrue']
+            print(proposition.is_true)
+            proposition.save()
 
     return HttpResponse(str(cell_dict))
 

@@ -49,6 +49,11 @@
                                    v-on:down="moveCell($event,1)"
                                    v-bind:editable="editMode" v-bind:cell="cell"
                                    v-on:delete="deleteCell($event)"></open-ended-question-cell>
+                    <multiple-choice-question-cell v-else-if="cell instanceof MultipleChoiceQuestionCell"
+                                   v-on:up="moveCell($event,-1)"
+                                   v-on:down="moveCell($event,1)"
+                                   v-bind:editable="editMode" v-bind:cell="cell"
+                                   v-on:delete="deleteCell($event)"></multiple-choice-question-cell>
                 </div>
             </div>
         </div>

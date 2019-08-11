@@ -90,10 +90,19 @@ class MultipleChoiceQuestionCell extends Cell{
     constructor(id){
         super(id)
         this.propositions = []
+        this.nbPropositions = 0
 
     }
     addProposition(statement, truthValue){
         this.propositions.push(new Proposition(statement, truthValue))
+    }
+    getNbChecked(){
+        let result = 0
+        for(let proposition of this.propositions)
+            if(proposition.isTrue)
+                result++
+        console.log(result)
+        return result
     }
 }
 class Proposition{

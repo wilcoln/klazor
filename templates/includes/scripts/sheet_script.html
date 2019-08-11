@@ -233,6 +233,24 @@
         },
     })
 
+    Vue.component('multiple-choice-question-cell', {
+        template: "#multiple-choice-question-cell",
+        props: ['cell', 'editable'],
+        methods: {
+            toggleMode: function () {
+                if (this.editable)
+                    this.cell.editMode = !this.cell.editMode
+            },
+            createBlankPropositions: function(){
+                this.cell.propositions = []
+                for(let i = 0; i < this.cell.nbPropositions; i++){
+                    this.cell.propositions.push(new Proposition('Statement ' + (i+1), false))
+                }
+            }
+
+        },
+    })
+
     let sheet = new Vue({
         el: "#sheet",
         data: { // Represents the sheet as described by the Sheet class
@@ -388,6 +406,9 @@
                             } else if (cell instanceof OpenEndedQuestionCell) {
                                 lightCell.type = 'OPEN_ENDED_QUESTION'
                                 lightCell.answer = cell.answer
+                            } else if (cell instanceof MultipleChoiceQuestionCell) {
+                                lightCell.type = 'MULTIPLE_CHOICE_QUESTION'
+                                lightCell.propositions = cell.propositions
                             }
 
                             formData = new FormData()
@@ -413,6 +434,7 @@
                                 console.log(lightCell.filename)
                                 lightCell.sequence = sheet.cells.indexOf(cell) + 1
                                 lightCellJson = JSON.stringify(lightCell)
+                                console.log(lightCellJson)
                                 axios({
                                     method: 'post',
                                     url: '/sheet/' + {{ sheet.id }} +'/cell/save/',
@@ -492,9 +514,12 @@
                         this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.url}}`))
                     {% elif cell.multiplechoicequestioncell %}
                         let questionCell = new MultipleChoiceQuestionCell(counter)
-                        {% for proposition in cell.multiplechoicequestioncell.proposition_set %}
-                            questionCell.addProposition(`{{ proposition.statement }}`, {{ proposition.is_true }})
+                        questionCell.nbPropositions = 0
+                        {% for proposition in cell.multiplechoicequestioncell.proposition_set.all %}
+                            questionCell.addProposition(`{{ proposition.statement }}`, {{ proposition.is_true | lower }})
+                            questionCell.nbPropositions++
                         {% endfor %}
+                                                             console.log(questionCell)
                         this.cells.push(questionCell)
                     {% elif cell.numericalquestioncell %}
                         this.cells.push(new NumericalQuestionCell(counter, `{{ cell.numericalquestioncell.answer}}`))

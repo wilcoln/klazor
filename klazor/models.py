@@ -233,6 +233,6 @@ class OpenEndedQuestionCell(Cell):
 
 
 class Proposition(models.Model):
-    question = models.ForeignKey(MultipleChoiceQuestionCell, on_delete=models.CASCADE)
-    text = models.TextField(blank=True, null=True)
+    question_cell = models.ForeignKey(MultipleChoiceQuestionCell, on_delete=models.CASCADE)
+    statement = models.TextField(blank=True, null=True)
     is_true = models.BooleanField(default=False)
