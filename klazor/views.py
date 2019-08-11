@@ -34,7 +34,8 @@ def register(request):
 
 def welcome(request):
     if request.user.is_authenticated:
-        quick_access = Sheet.objects.filter(folder_id__isnull=False, user_id=request.user.id).order_by('-updated_at')[:6]
+        quick_access = Sheet.objects.filter(folder_id__isnull=False, user_id=request.user.id).order_by('-updated_at')[
+                       :6]
         root_folder = Folder.objects.get(pk=1)
         courses = Course.objects.filter(user_id=request.user.id, folder_id=1)
         folders = Folder.objects.filter(parent_id=1, user_id=request.user.id)  # We remove the root folder
@@ -75,7 +76,9 @@ def view_folder(request, id):
     file_items = FileItem.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
     sub_folders = folder.folder_set.all()
-    return render(request, 'pages/folder.html', {'folder': folder, 'sub_folders': sub_folders, 'courses': courses, 'sheets': sheets, 'file_items': file_items})
+    return render(request, 'pages/folder.html',
+                  {'folder': folder, 'sub_folders': sub_folders, 'courses': courses, 'sheets': sheets,
+                   'file_items': file_items})
 
 
 def view_folder_editor(request, id, sheet_id):
@@ -87,12 +90,13 @@ def view_folder_editor(request, id, sheet_id):
     folder = Folder.objects.get(pk=id)
     file_items = FileItem.objects.filter(folder=id)
     return render(request, 'pages/folder_editor.html',
-                  {'folder': folder, 'active_sheet': active_sheet, 'courses': courses, 'sheets': sheets, 'file_items': file_items})
+                  {'folder': folder, 'active_sheet': active_sheet, 'courses': courses, 'sheets': sheets,
+                   'file_items': file_items})
 
 
 def convert_folder_to_course(request, id):
     folder = Folder.objects.get(pk=id)
-    cvt.to_course(folder) # by default type == ''
+    cvt.to_course(folder)  # by default type == ''
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
@@ -118,7 +122,8 @@ def save_cell(request, id):
     sheet = Sheet.objects.get(pk=id)  # The saved sheet, and is instance of Sheet
 
     storage = FileSystemStorage()
-    if 'video' in cell_dict:
+    cell_type = cell_dict['type']
+    if cell_type == 'VIDEO':
         filename = str(cell_dict['filename'])
         video_cell = VideoCell()
         video_cell.sheet = sheet
@@ -128,7 +133,7 @@ def save_cell(request, id):
         video_cell.video.save(filename, storage.open('videos/' + filename))
         video_cell.save()
         # storage.delete('videos/' + filename)
-    elif 'image' in cell_dict:
+    elif cell_type == 'IMAGE':
         filename = str(cell_dict['filename'])
         image_cell = ImageCell()
         image_cell.sheet = sheet
@@ -138,7 +143,7 @@ def save_cell(request, id):
         image_cell.image.save(filename, storage.open('images/' + filename))
         image_cell.save()
         # storage.delete('images/' + filename)
-    elif 'audio' in cell_dict:
+    elif cell_type == 'AUDIO':
         filename = str(cell_dict['filename'])
         audio_cell = AudioCell()
         audio_cell.sheet = sheet
@@ -147,13 +152,13 @@ def save_cell(request, id):
         audio_cell.audio.save(filename, storage.open('audios/' + filename))
         audio_cell.save()
         # storage.delete('audios/' + filename)
-    elif 'text' in cell_dict:
+    elif cell_type == 'MARKDOWN':
         markdown_cell = MarkdownCell()
         markdown_cell.sheet = sheet
         markdown_cell.sequence = cell_dict['sequence']
         markdown_cell.text = cell_dict['text']
         markdown_cell.save()
-    elif 'youtube' in cell_dict:
+    elif cell_type == 'YOUTUBE':
         youtube_cell = YoutubeCell()
         youtube_cell.sheet = sheet
         youtube_cell.sequence = cell_dict['sequence']
@@ -161,14 +166,25 @@ def save_cell(request, id):
         youtube_cell.title = cell_dict['title']
         youtube_cell.scale = cell_dict['scale']
         youtube_cell.save()
-    elif 'url' in cell_dict: # for file cells
+    elif cell_type == 'FILE':
         file_cell = FileCell()
         file_cell.sheet = sheet
         file_cell.sequence = cell_dict['sequence']
         file_cell.title = cell_dict['title']
         file_cell.url = cell_dict['url']
         file_cell.save()
-        # storage.delete('files/' + filename)
+    elif cell_type == 'NUMERICAL_QUESTION':
+        numerical_question_cell = NumericalQuestionCell()
+        numerical_question_cell.sheet = sheet
+        numerical_question_cell.sequence = cell_dict['sequence']
+        numerical_question_cell.answer = cell_dict['answer']
+        numerical_question_cell.save()
+    elif cell_type == 'OPEN_ENDED_QUESTION':
+        open_ended_question_cell = OpenEndedQuestionCell()
+        open_ended_question_cell.sheet = sheet
+        open_ended_question_cell.sequence = cell_dict['sequence']
+        open_ended_question_cell.answer = cell_dict['answer']
+        open_ended_question_cell.save()
 
     return HttpResponse(str(cell_dict))
 

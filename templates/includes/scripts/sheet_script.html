@@ -353,29 +353,41 @@
                             let file = null
                             lightCell.id = cell.id
                             if (cell instanceof VideoCell) {
+                                lightCell.type = 'VIDEO'
                                 lightCell.title = cell.title
                                 lightCell.scale = cell.scale
                                 lightCell.video = null
                                 file = cell.video
                             } else if (cell instanceof AudioCell) {
+                                lightCell.type = 'AUDIO'
                                 lightCell.title = cell.title
                                 lightCell.audio = null
                                 file = cell.audio
                             } else if (cell instanceof YoutubeCell) {
+                                lightCell.type = 'YOUTUBE'
                                 lightCell.title = cell.title
                                 lightCell.youtube = cell.youtube
                                 lightCell.scale = cell.scale
                             } else if (cell instanceof ImageCell) {
+                                lightCell.type = 'IMAGE'
                                 lightCell.title = cell.title
                                 lightCell.scale = cell.scale
                                 lightCell.image = null
                                 file = cell.image
                             } else if (cell instanceof MarkdownCell) {
+                                lightCell.type = 'MARKDOWN'
                                 lightCell.text = cell.text.replace(/\\/g, '\\\\')
                                 lightCell.text = lightCell.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
                             } else if (cell instanceof FileCell) {
+                                lightCell.type = 'FILE'
                                 lightCell.title = cell.title
                                 lightCell.url = cell.url // escape for markdown monospace syntaxe
+                            } else if (cell instanceof NumericalQuestionCell) {
+                                lightCell.type = 'NUMERICAL_QUESTION'
+                                lightCell.answer = cell.answer
+                            } else if (cell instanceof OpenEndedQuestionCell) {
+                                lightCell.type = 'OPEN_ENDED_QUESTION'
+                                lightCell.answer = cell.answer
                             }
 
                             formData = new FormData()
