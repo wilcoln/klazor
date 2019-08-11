@@ -195,9 +195,7 @@ def save_cell(request, id):
             proposition = Proposition()
             proposition.question_cell = multiple_choice_question_cell
             proposition.statement = proposition_dict['statement']
-            print(proposition_dict['isTrue'])
             proposition.is_true = proposition_dict['isTrue']
-            print(proposition.is_true)
             proposition.save()
 
     return HttpResponse(str(cell_dict))
