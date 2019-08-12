@@ -121,37 +121,30 @@ def save_cell(request, id):
     cell_dict = json.loads(data['cell'])  # Contains modified data and is a dictionary
     sheet = Sheet.objects.get(pk=id)  # The saved sheet, and is instance of Sheet
 
-    storage = FileSystemStorage()
     cell_type = cell_dict['type']
     if cell_type == 'VIDEO':
-        filename = str(cell_dict['filename'])
         video_cell = VideoCell()
         video_cell.sheet = sheet
         video_cell.sequence = cell_dict['sequence']
         video_cell.title = cell_dict['title']
         video_cell.scale = cell_dict['scale']
-        video_cell.video.save(filename, storage.open('videos/' + filename))
+        video_cell.video = cell_dict['video']
         video_cell.save()
-        # storage.delete('videos/' + filename)
     elif cell_type == 'IMAGE':
-        filename = str(cell_dict['filename'])
         image_cell = ImageCell()
         image_cell.sheet = sheet
         image_cell.sequence = cell_dict['sequence']
         image_cell.title = cell_dict['title']
         image_cell.scale = cell_dict['scale']
-        image_cell.image.save(filename, storage.open('images/' + filename))
+        image_cell.image = cell_dict['image']
         image_cell.save()
-        # storage.delete('images/' + filename)
     elif cell_type == 'AUDIO':
-        filename = str(cell_dict['filename'])
         audio_cell = AudioCell()
         audio_cell.sheet = sheet
         audio_cell.sequence = cell_dict['sequence']
         audio_cell.title = cell_dict['title']
-        audio_cell.audio.save(filename, storage.open('audios/' + filename))
+        audio_cell.audio = cell_dict['audio']
         audio_cell.save()
-        # storage.delete('audios/' + filename)
     elif cell_type == 'MARKDOWN':
         markdown_cell = MarkdownCell()
         markdown_cell.sheet = sheet
@@ -171,7 +164,7 @@ def save_cell(request, id):
         file_cell.sheet = sheet
         file_cell.sequence = cell_dict['sequence']
         file_cell.title = cell_dict['title']
-        file_cell.url = cell_dict['url']
+        file_cell.file = cell_dict['file']
         file_cell.save()
     elif cell_type == 'NUMERICAL_QUESTION':
         numerical_question_cell = NumericalQuestionCell()

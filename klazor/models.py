@@ -149,7 +149,7 @@ class MarkdownCell(Cell):
 
 
 class VideoCell(GraphicMediaCell):
-    video = models.FileField(upload_to='videos')
+    video = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'video_cell'
@@ -163,21 +163,21 @@ class YoutubeCell(GraphicMediaCell):
 
 
 class AudioCell(MediaCell):
-    audio = models.FileField(upload_to='audios')
+    audio = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'audio_cell'
 
 
 class FileCell(MediaCell):
-    url = models.TextField(blank=True, null=True)
+    file = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'file_cell'
 
 
 class ImageCell(GraphicMediaCell):
-    image = models.FileField(upload_to='images')
+    image = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'image_cell'
@@ -193,7 +193,7 @@ class Folder(Content):
     def siblings(self):
         result = []
         if self.parent:
-            result =  [folder for folder in self.parent.folder_set.filter(user=self.user) if folder.id != self.id and folder.id != 1]
+            result = [folder for folder in self.parent.folder_set.filter(user=self.user) if folder.id != self.id and folder.id != 1]
         return result
 
     def ascendants(self):

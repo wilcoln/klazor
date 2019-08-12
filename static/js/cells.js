@@ -11,7 +11,6 @@ class VideoCell extends Cell {
         super(id)
         if (video) {
             this.editMode = false
-            this.filename = video.substring(14)
         }
         this.title = title
         this.video = video
@@ -19,7 +18,7 @@ class VideoCell extends Cell {
     }
 }
 
-function getVideoId(url){
+function getYoutubeVideoId(url){
     url = url.replace('&t', '')
     let urlparts = url.split('/')
     urlparts = urlparts[urlparts.length - 1].split('=')
@@ -36,7 +35,7 @@ class YoutubeCell extends Cell {
         this.scale = scale
     }
     embedUrl(){
-        let videoId = getVideoId(this.youtube)
+        let videoId = getYoutubeVideoId(this.youtube)
         this.youtube =  'https://www.youtube.com/embed/' + videoId
         return this.youtube
     }
@@ -46,7 +45,6 @@ class AudioCell extends Cell {
         super(id)
         if (audio){
             this.editMode = false
-            this.filename = getFilenameFromUrl(audio)
         }
         this.title = title
         this.audio = audio
@@ -58,7 +56,6 @@ class ImageCell extends Cell {
         super(id)
         if (image){
             this.editMode = false
-            this.filename = getFilenameFromUrl(image)
         }
         this.title = title
         this.image = image
@@ -80,7 +77,6 @@ class FileCell extends Cell {
         super(id)
         if (url){
             this.editMode = false
-            this.filename = getFilenameFromUrl(url)
         }
         this.title = title
         this.url = url
