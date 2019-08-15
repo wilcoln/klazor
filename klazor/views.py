@@ -82,8 +82,6 @@ def view_folder(request, id):
 
 
 def view_folder_editor(request, id, sheet_id):
-    if id == 1:
-        return welcome(request)
     courses = Course.objects.filter(folder=id)
     active_sheet = Sheet.objects.get(pk=sheet_id)
     sheets = Sheet.objects.filter(folder=id)
@@ -103,17 +101,6 @@ def convert_folder_to_course(request, id):
 def view_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)
     return render(request, 'pages/sheet.html', {'sheet': sheet, 'edit_mode': False})
-
-
-# Not useful at all (new_folder_sheet instead)
-def new_sheet(request):
-    new_sheet = Sheet()
-    new_sheet.title = "Nouveau titre"
-    new_sheet.user_id = request.user.id
-    print(new_sheet.user_id)
-    new_sheet.folder_id = 1
-    new_sheet.save()
-    return redirect('sheet', new_sheet.id)
 
 
 def save_cell(request, id):
@@ -287,15 +274,17 @@ def remove_folder_file(request, id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-def new_folder_sheet(request, id):
+def add_sheet(request, id):
     new_sheet = Sheet()
     new_sheet.title = "Nouveau titre"
     new_sheet.user = request.user
-    new_sheet.save()
     folder = Folder.objects.get(pk=id)
     new_sheet.folder = folder
     new_sheet.save()
-    return redirect('folder-editor', folder.id, new_sheet.id)
+    if id == 1:
+        return redirect('sheet', new_sheet.id)
+    else:
+        return redirect('folder-editor', folder.id, new_sheet.id)
 
 
 def upload(request):

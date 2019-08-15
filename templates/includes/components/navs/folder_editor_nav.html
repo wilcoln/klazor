@@ -6,7 +6,7 @@
         <a href="{% url 'folder' folder.id %}">
             <i class="fa fa-folder-open"></i> <strong>{{ folder.name | truncatechars:40 }}</strong>
         </a>
-        <a href="{% url 'new-folder-sheet' folder.id %}" class="float-right badge badge-success"> <i
+        <a href="{% url 'add-sheet' folder.id %}" class="float-right badge badge-success"> <i
                 class="fa fa-plus"></i></a>
     </div>
     <div class="folder-content pl-2">

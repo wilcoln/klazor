@@ -222,7 +222,7 @@
         data: { // Represents the sheet as described by the Sheet class
             title: `{{ sheet.title|safe}}`, // sheets title
             cells: [],
-            editMode: false,
+            editMode: {{ edit_mode | lower }},
             saved: false,
             nbCellsSaved: 0,
             autosave: false,

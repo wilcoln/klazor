@@ -3,7 +3,7 @@
     id="folder-menu_{{ folder.id }}"
 {% endblock %}
 {% block contextmenu_items %}
-    <li class="list-group-item list-group-item-action"><a href="{% url 'new-folder-sheet' folder.id %}"> <i
+    <li class="list-group-item list-group-item-action"><a href="{% url 'add-sheet' folder.id %}"> <i
             class="fa fa-leaf"></i> &nbsp; Add Sheet</a></li>
     <li class="list-group-item list-group-item-action">
         <button data-toggle="modal"
