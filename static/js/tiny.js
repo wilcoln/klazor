@@ -16,7 +16,25 @@ function openTinyFileContextMenu(e, id) {
     let contextmenuId = "file-menu_" + id
     openContextMenu(e, contextmenuId)
 }
-
+function copyFileUrl(url){
+    copyTextToClipboard(url)
+}
+function copySheetUrl(id){
+    // Change this in production mode
+    let url = 'http:/127.0.0.1/8000/sheet/' + id
+    copyTextToClipboard(url)
+}
+function copyTextToClipboard(textValue){
+    /* Select the text field */
+    let inputElt = document.createElement("input")
+    inputElt.type = 'text'
+    inputElt.value = textValue
+    document.body.append(inputElt)
+    inputElt.select()
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+    document.body.removeChild(inputElt)
+}
 function deleteFolder(id) {
     axios({
         method: 'post',
