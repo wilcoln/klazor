@@ -177,8 +177,8 @@
         },
     })
 
-    Vue.component('numerical-question-cell', {
-        template: "#numerical-question-cell",
+    Vue.component('numerical-input-cell', {
+        template: "#numerical-input-cell",
         props: ['cell', 'editable'],
         methods: {
             toggleMode: function () {
@@ -188,8 +188,8 @@
         },
     })
 
-    Vue.component('open-ended-question-cell', {
-        template: "#open-ended-question-cell",
+    Vue.component('open-ended-input-cell', {
+        template: "#open-ended-input-cell",
         props: ['cell', 'editable'],
         methods: {
             toggleMode: function () {
@@ -199,8 +199,8 @@
         },
     })
 
-    Vue.component('multiple-choice-question-cell', {
-        template: "#multiple-choice-question-cell",
+    Vue.component('multiple-choice-input-cell', {
+        template: "#multiple-choice-input-cell",
         props: ['cell', 'editable'],
         methods: {
             toggleMode: function () {
@@ -266,21 +266,21 @@
                 let fileCell = new FileCell(this.lastInsertedId + 1, '')
                 this.cells.push(fileCell)
             },
-            addQuestionCell(typeIndex) {
-                let questionCell = null
+            addInputCell(typeIndex) {
+                let inputCell = null
                 switch (typeIndex) {
                     case 1: // MCQ
-                        questionCell = new MultipleChoiceQuestionCell(this.lastInsertedId + 1)
+                        inputCell = new MultipleChoiceInputCell(this.lastInsertedId + 1)
                         break;
                     case 2: // NQ
-                        questionCell = new NumericalQuestionCell(this.lastInsertedId + 1, 0)
+                        inputCell = new NumericalInputCell(this.lastInsertedId + 1, 0)
                         break;
                     case 3: // OEQ
-                        questionCell = new OpenEndedQuestionCell(this.lastInsertedId + 1, '')
+                        inputCell = new OpenEndedInputCell(this.lastInsertedId + 1, '')
                         break;
                 }
-                console.log(questionCell)
-                this.cells.push(questionCell)
+                console.log(inputCell)
+                this.cells.push(inputCell)
             },
             moveCell(id, shift) {
                 let cell = this.cells.filter((cell) => {
@@ -346,12 +346,12 @@
                                 lightCell.text = lightCell.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
                             } else if (cell instanceof FileCell) {
                                 lightCell.type = 'FILE'
-                            } else if (cell instanceof NumericalQuestionCell) {
-                                lightCell.type = 'NUMERICAL_QUESTION'
-                            } else if (cell instanceof OpenEndedQuestionCell) {
-                                lightCell.type = 'OPEN_ENDED_QUESTION'
-                            } else if (cell instanceof MultipleChoiceQuestionCell) {
-                                lightCell.type = 'MULTIPLE_CHOICE_QUESTION'
+                            } else if (cell instanceof NumericalInputCell) {
+                                lightCell.type = 'NUMERICAL_INPUT'
+                            } else if (cell instanceof OpenEndedInputCell) {
+                                lightCell.type = 'OPEN_ENDED_INPUT'
+                            } else if (cell instanceof MultipleChoiceInputCell) {
+                                lightCell.type = 'MULTIPLE_CHOICE_INPUT'
                             }
                             console.log(" saving cell ...")
                             let lightCellJson = JSON.stringify(lightCell)
@@ -428,18 +428,18 @@
                         this.cells.push(new MarkdownCell(counter, text))
                     {% elif cell.filecell %}
                         this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.file}}`))
-                    {% elif cell.multiplechoicequestioncell %}
-                        let questionCell = new MultipleChoiceQuestionCell(counter)
-                        questionCell.nbPropositions = 0
-                        {% for proposition in cell.multiplechoicequestioncell.proposition_set.all %}
-                            questionCell.addProposition(`{{ proposition.statement }}`, {{ proposition.is_true | lower }})
-                            questionCell.nbPropositions++
+                    {% elif cell.multiplechoiceinputcell %}
+                        let inputCell = new MultipleChoiceInputCell(counter)
+                        inputCell.nbPropositions = 0
+                        {% for proposition in cell.multiplechoiceinputcell.proposition_set.all %}
+                            inputCell.addProposition(`{{ proposition.statement }}`, {{ proposition.is_true | lower }})
+                            inputCell.nbPropositions++
                         {% endfor %}
-                        this.cells.push(questionCell)
-                    {% elif cell.numericalquestioncell %}
-                        this.cells.push(new NumericalQuestionCell(counter, `{{ cell.numericalquestioncell.answer}}`))
-                    {% elif cell.openendedquestioncell %}
-                        this.cells.push(new OpenEndedQuestionCell(counter, `{{ cell.openendedquestioncell.answer}}`))
+                        this.cells.push(inputCell)
+                    {% elif cell.numericalinputcell %}
+                        this.cells.push(new NumericalInputCell(counter, `{{ cell.numericalinputcell.answer}}`))
+                    {% elif cell.openendedinputcell %}
+                        this.cells.push(new OpenEndedInputCell(counter, `{{ cell.openendedinputcell.answer}}`))
                     {% endif %}
             {% endfor %}
         }

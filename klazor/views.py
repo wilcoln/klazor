@@ -153,27 +153,27 @@ def save_cell(request, id):
         file_cell.title = cell_dict['title']
         file_cell.file = cell_dict['file']
         file_cell.save()
-    elif cell_type == 'NUMERICAL_QUESTION':
-        numerical_question_cell = NumericalQuestionCell()
+    elif cell_type == 'NUMERICAL_INPUT':
+        numerical_question_cell = NumericalInputCell()
         numerical_question_cell.sheet = sheet
         numerical_question_cell.sequence = cell_dict['sequence']
         numerical_question_cell.answer = cell_dict['answer']
         numerical_question_cell.save()
-    elif cell_type == 'OPEN_ENDED_QUESTION':
-        open_ended_question_cell = OpenEndedQuestionCell()
+    elif cell_type == 'OPEN_ENDED_INPUT':
+        open_ended_question_cell = OpenEndedInputCell()
         open_ended_question_cell.sheet = sheet
         open_ended_question_cell.sequence = cell_dict['sequence']
         open_ended_question_cell.answer = cell_dict['answer']
         open_ended_question_cell.save()
-    elif cell_type == 'MULTIPLE_CHOICE_QUESTION':
-        multiple_choice_question_cell = MultipleChoiceQuestionCell()
+    elif cell_type == 'MULTIPLE_CHOICE_INPUT':
+        multiple_choice_question_cell = MultipleChoiceInputCell()
         multiple_choice_question_cell.sheet = sheet
         multiple_choice_question_cell.sequence = cell_dict['sequence']
         multiple_choice_question_cell.save()
         propositions = cell_dict['propositions']
         for proposition_dict in propositions:
             proposition = Proposition()
-            proposition.question_cell = multiple_choice_question_cell
+            proposition.input_cell = multiple_choice_question_cell
             proposition.statement = proposition_dict['statement']
             proposition.is_true = proposition_dict['isTrue']
             proposition.save()

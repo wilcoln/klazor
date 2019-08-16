@@ -116,6 +116,9 @@ class Cell(PolymorphicModel):
     sequence = models.IntegerField(blank=False, null=False)
     sheet = models.ForeignKey(Sheet, models.CASCADE)
 
+    def type(self):
+        return self.__class__.__name__[:-4]
+
     class Meta:
         db_table = 'cell'
         ordering = ['sequence', ]
@@ -212,27 +215,30 @@ class Folder(Content):
         ordering = ['id', ]
 
 
-class MultipleChoiceQuestionCell(Cell):
+class MultipleChoiceInputCell(Cell):
 
     class Meta:
-        db_table = 'multiple_choice_question'
+        db_table = 'multiple_choice_input_cell'
 
 
-class NumericalQuestionCell(Cell):
+class NumericalInputCell(Cell):
     answer = models.FloatField(blank=True, null=True)
 
     class Meta:
-        db_table = 'numerical_question'
+        db_table = 'numerical_input_cell'
 
 
-class OpenEndedQuestionCell(Cell):
+class OpenEndedInputCell(Cell):
     answer = models.TextField(blank=True, null=True)
 
     class Meta:
-        db_table = 'open_ended_question'
+        db_table = 'open_ended_input_cell'
 
 
 class Proposition(models.Model):
-    question_cell = models.ForeignKey(MultipleChoiceQuestionCell, on_delete=models.CASCADE)
+    input_cell = models.ForeignKey(MultipleChoiceInputCell, on_delete=models.CASCADE)
     statement = models.TextField(blank=True, null=True)
     is_true = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'proposition'

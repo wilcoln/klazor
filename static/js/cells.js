@@ -82,7 +82,7 @@ class FileCell extends Cell {
         this.url = url
     }
 }
-class MultipleChoiceQuestionCell extends Cell{
+class MultipleChoiceInputCell extends Cell{
     constructor(id){
         super(id)
         this.propositions = []
@@ -107,13 +107,13 @@ class Proposition{
         this.isTrue = truthValue
     }
 }
-class NumericalQuestionCell extends Cell{
+class NumericalInputCell extends Cell{
     constructor(id, answer){
         super(id)
         this.answer = answer
     }
 }
-class OpenEndedQuestionCell extends Cell{
+class OpenEndedInputCell extends Cell{
     constructor(id, answer){
         super(id)
         this.answer = answer
