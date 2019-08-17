@@ -2,7 +2,7 @@
     <div class="row cell-editable" v-if="editable && cell.editMode">
         <div class="col-11">
             <figure class="figure text-center">
-                <label>File Url : </label> &nbsp; <input class="mb-2" v-bind:id="'input-' + cell.id" type="text" v-model="cell.url">
+                <label>File Url : </label> &nbsp; <input class="mb-2" v-bind:id="'input-' + cell.id" type="text" v-model="cell.file">
                 <br>
                 <figcaption
                         class="figure-caption text-center">
@@ -12,11 +12,11 @@
         </div>
         {% include 'includes/components/menus/cell_edit_menu.html' %}
     </div>
-    <div v-else v-on:dblclick="toggleMode" class="text-center">
+    <div v-else v-on:dblclick="toggleMode">
         <figure class="figure">
             {% verbatim %}
             <div>
-                <a :href="cell.url"><i class="file fa" :class="cell.url | iconclass"></i> {{ cell.title }}</a>
+                <a :href="cell.file"><i class="file fa" :class="cell.file | iconclass"></i> {{ cell.title }}</a>
             </div>
             {% endverbatim %}
         </figure>

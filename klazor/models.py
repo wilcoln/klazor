@@ -38,7 +38,6 @@ class Content(models.Model):
     # remove null=True for these three
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
-    view_at = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         abstract = True
@@ -61,6 +60,26 @@ class FileItem(Item):
 
     class Meta:
         db_table = 'file'
+
+
+class Log(models.Model):
+    datetime = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class UserItemLog(Log):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class ViewItemLog(UserItemLog):
+    class Meta:
+        db_table = 'view_item_record'
 
 
 class Course(Item):

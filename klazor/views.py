@@ -10,6 +10,7 @@ from klazor.models import *
 from klazor.forms import *
 from klazor import converters as cvt
 import io
+import datetime
 import base64
 import json
 
@@ -55,15 +56,27 @@ def welcome(request):
 
 def view_course(request, id):
     course = Course.objects.get(pk=id)
+    #save_user_item_record(action='view', user=request.user, item=course)
     return render(request, 'pages/course.html', {'course': course})
+
+
+def save_user_item_record(action, user, item):
+    user_item_record = UserItemRecord()
+    if action == 'view':
+        user_item_record = ViewItemRecord()
+    user_item_record.user = user
+    user_item_record.item = item
+    user_item_record.save()
 
 
 def view_course_element(request, course_id, part_sequence, element_sequence):
     course = Course.objects.get(pk=course_id)
+    #save_user_item_record(action='view', user=request.user, item=course)
     course_part = course.coursepart_set.all()[part_sequence - 1]
     try:
         course_element = course_part.courseelement_set.all()[element_sequence - 1]
-        return render(request, 'pages/course_element.html', {'course_element': course_element})
+        #save_user_item_record(action='view', user=request.user, item=course_element)
+        return render(request, 'pages/course_element.html', {'course_element': course_element, 'edit_mode': False})
     except IndexError:
         return redirect('/course/' + str(course.id))
 
