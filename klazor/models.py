@@ -43,6 +43,7 @@ class Content(models.Model):
 
 
 class Item(PolymorphicModel, Content):
+    tag_set = models.ManyToManyField(Tag, blank=True)
     title = models.CharField(max_length=128, blank=True, null=True)
     folder = models.ForeignKey('Folder', null=True, blank=True, on_delete=models.CASCADE)
 
@@ -111,7 +112,6 @@ class SharedItem(models.Model):
 
 
 class Course(Item):
-    tag_set = models.ManyToManyField(Tag, blank=True)
     instructor_set = models.ManyToManyField(Instructor, blank=True)
     resource_set = models.ManyToManyField(FileItem, blank=True)
     year = models.SmallIntegerField(blank=True, null=True)

@@ -1,5 +1,5 @@
 from django.db import models
-from klazor.models import FileItem, Tag
+from klazor.models import Item
 # Create your models here.
 
 
@@ -23,12 +23,11 @@ class Author(models.Model):
         db_table = 'author'
 
 
-class Book(models.Model):
+class Book(Item):
     url = models.URLField(blank=True, null=True)
     year = models.SmallIntegerField(blank=True, null=True)
     isbn = models.CharField(max_length=13, blank=True, null=True, unique=True)
     publisher = models.ForeignKey(Publisher, models.CASCADE)
-    tag_set = models.ManyToManyField(Tag)
     author_set = models.ManyToManyField(Author)
     nb_pages = models.SmallIntegerField(blank=True, null=True)
     lang_alpha2 = models.CharField(max_length=2, blank=True, null=True)
