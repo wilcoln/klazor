@@ -159,7 +159,7 @@
                 else if (['mp4', 'mkv', 'avi', 'mov', 'flv', '3gp', 'wmv', 'vob', 'swf', 'mpg', 'mpeg', '3g2'].includes(ext))
                     return 'fa-file-movie-o'
                 else if (['mp3', 'ogg', 'webm', 'aif', 'cda', 'mpa', 'wav', 'wma', 'wpl'].includes(ext))
-                    return 'fa-file-movie-o'
+                    return 'fa-file-audio-o'
                 else
                     return 'fa-file-o'
             }
@@ -279,7 +279,6 @@
                         inputCell = new OpenEndedInputCell(this.lastInsertedId + 1, '')
                         break;
                 }
-                console.log(inputCell)
                 this.cells.push(inputCell)
             },
             moveCell(id, shift) {
@@ -415,19 +414,19 @@
             {% for cell in sheet.cell_set.all  %}
                 counter = {{ forloop.counter }}
                     {% if cell.videocell %}
-                        this.cells.push(new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.video }}`, {{ cell.videocell.scale }}))
+                        this.cells.push(new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.url }}`, {{ cell.videocell.scale }}))
                     {% elif cell.youtubecell %}
-                        this.cells.push(new YoutubeCell(counter, `{{ cell.youtubecell.title }}`, `{{ cell.youtubecell.youtube}}`, {{ cell.youtubecell.scale }}))
+                        this.cells.push(new YoutubeCell(counter, `{{ cell.youtubecell.title }}`, `{{ cell.youtubecell.url}}`, {{ cell.youtubecell.scale }}))
                     {% elif cell.audiocell %}
-                        this.cells.push(new AudioCell(counter, `{{ cell.audiocell.title }}`, `{{ cell.audiocell.audio}}`))
+                        this.cells.push(new AudioCell(counter, `{{ cell.audiocell.title }}`, `{{ cell.audiocell.url}}`))
                     {% elif cell.imagecell %}
-                        this.cells.push(new ImageCell(counter, `{{ cell.imagecell.title }}`, `{{ cell.imagecell.image }}`, {{ cell.imagecell.scale }}))
+                        this.cells.push(new ImageCell(counter, `{{ cell.imagecell.title }}`, `{{ cell.imagecell.url }}`, {{ cell.imagecell.scale }}))
                     {% elif cell.markdowncell %}
                         text = `{{ cell.markdowncell.text|safe }}`
                         text = text.replace(/\\\\/g, '\\\\') // escape backslash for mathjax compatibility
                         this.cells.push(new MarkdownCell(counter, text))
                     {% elif cell.filecell %}
-                        this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.file}}`))
+                        this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.url}}`))
                     {% elif cell.multiplechoiceinputcell %}
                         let inputCell = new MultipleChoiceInputCell(counter)
                         inputCell.nbPropositions = 0

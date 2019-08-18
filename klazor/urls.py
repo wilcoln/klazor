@@ -38,6 +38,7 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('', welcome, name='welcome'),
+    path('shared-with-me/', view_shared_with_me, name='shared-with-me'),
     url(r'^register/$', register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('course/<int:id>/', view_course, name='course'),

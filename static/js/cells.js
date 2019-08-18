@@ -5,16 +5,25 @@ class Cell {
         this.selected = true
     }
 }
-
-class VideoCell extends Cell {
-    constructor(id, title, video, scale) {
+class MediaCell extends Cell{
+    constructor(id, title, url) {
         super(id)
-        if (video) {
+        if (url) {
             this.editMode = false
         }
         this.title = title
-        this.video = video
+        this.url = url
+    }
+}
+class GraphicMediaCell extends  MediaCell{
+    constructor(id, title, url, scale){
+        super(id, title, url)
         this.scale = scale
+    }
+}
+class VideoCell extends GraphicMediaCell {
+    constructor(id, title, url, scale){
+        super(id, title, url, scale)
     }
 }
 
@@ -25,41 +34,25 @@ function getYoutubeVideoId(url){
     let videoId = urlparts.length > 1 ? urlparts[1]: urlparts[0]
     return videoId
 }
-class YoutubeCell extends Cell {
-    constructor(id, title, youtube, scale) {
-        super(id)
-        this.title = title
-        if(youtube)
-            this.editMode = false
-        this.youtube = youtube
-        this.scale = scale
+class YoutubeCell extends GraphicMediaCell {
+    constructor(id, title, url, scale) {
+        super(id, title, url, scale)
     }
     embedUrl(){
-        let videoId = getYoutubeVideoId(this.youtube)
-        this.youtube =  'https://www.youtube.com/embed/' + videoId
-        return this.youtube
+        let videoId = getYoutubeVideoId(this.url)
+        this.url =  'https://www.youtube.com/embed/' + videoId
+        return this.url
     }
 }
-class AudioCell extends Cell {
-    constructor(id, title, audio) {
-        super(id)
-        if (audio){
-            this.editMode = false
-        }
-        this.title = title
-        this.audio = audio
+class AudioCell extends MediaCell {
+    constructor(id, title, url) {
+        super(id, title, url)
     }
 }
 
 class ImageCell extends Cell {
-    constructor(id, title, image, scale) {
-        super(id)
-        if (image){
-            this.editMode = false
-        }
-        this.title = title
-        this.image = image
-        this.scale = scale
+   constructor(id, title, url, scale){
+        super(id, title, url, scale)
     }
 }
 
@@ -72,14 +65,9 @@ class MarkdownCell extends Cell {
     }
 }
 
-class FileCell extends Cell {
-    constructor(id, title, file) {
-        super(id)
-        if (file){
-            this.editMode = false
-        }
-        this.title = title
-        this.file = file
+class FileCell extends MediaCell {
+    constructor(id, title, url){
+        super(id, title, url)
     }
 }
 class MultipleChoiceInputCell extends Cell{

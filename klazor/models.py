@@ -33,7 +33,7 @@ class Instructor(PolymorphicModel):
 
 
 class Content(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     is_public = models.BooleanField(default=False)
     # remove null=True for these three
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -46,6 +46,9 @@ class Content(models.Model):
 class Item(PolymorphicModel, Content):
     title = models.CharField(max_length=128, blank=True, null=True)
     folder = models.ForeignKey('Folder', null=True, blank=True, on_delete=models.CASCADE)
+
+    def type(self):
+        return self.__class__.__name__
 
     def __str__(self):
         return self.title
@@ -72,14 +75,40 @@ class Log(models.Model):
 class UserItemLog(Log):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    # Defining actions
+    VIEWED = 'VI',
+    COMPLETED = 'CP'
+    SHARE = 'SH'
+
+    ACTIONS = [
+        (VIEWED, 'View'),
+        (COMPLETED, 'Complete'),
+        (SHARE, 'Share')
+    ]
+    action = models.CharField(max_length=2, choices=ACTIONS)
+
+    @staticmethod
+    def save_log(action, user, item):
+        user_item_log = UserItemLog()
+        user_item_log.action = action
+        user_item_log.user = user
+        user_item_log.item = item
+        user_item_log.save()
 
     class Meta:
-        abstract = True
+        abstract = 'user_item_log'
 
 
-class ViewItemLog(UserItemLog):
+class SharedItem(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    @staticmethod
+    def shared_with(user):
+        return [shared_item.item for shared_item in SharedItem.objects.filter(user=user)]
+
     class Meta:
-        db_table = 'view_item_record'
+        db_table = 'shared_item'
 
 
 class Course(Item):
@@ -98,7 +127,6 @@ class Sheet(Item):
 
 
 class CourseElement(Sheet):
-    # completed = models.BooleanField(default=False)
     sequence = models.IntegerField(blank=True, null=True)
     course_part = models.ForeignKey('CoursePart', on_delete=models.CASCADE)
 
@@ -109,8 +137,6 @@ class CourseElement(Sheet):
 
 class School(Instructor):
     colloquial_name = models.CharField(max_length=8, blank=True, null=True)
-    # admissions_link = models.TextField(blank=True, null=True)
-    # programs_link = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'school'
@@ -145,6 +171,7 @@ class Cell(PolymorphicModel):
 
 class MediaCell(Cell):
     title = models.CharField(max_length=64, blank=True, null=True)
+    url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -171,36 +198,26 @@ class MarkdownCell(Cell):
 
 
 class VideoCell(GraphicMediaCell):
-    video = models.TextField(blank=True, null=True)
-
     class Meta:
         db_table = 'video_cell'
 
 
 class YoutubeCell(GraphicMediaCell):
-    youtube = models.TextField(blank=True, null=True)
-
     class Meta:
         db_table = 'youtube_cell'
 
 
 class AudioCell(MediaCell):
-    audio = models.TextField(blank=True, null=True)
-
     class Meta:
         db_table = 'audio_cell'
 
 
 class FileCell(MediaCell):
-    file = models.TextField(blank=True, null=True)
-
     class Meta:
         db_table = 'file_cell'
 
 
 class ImageCell(GraphicMediaCell):
-    image = models.TextField(blank=True, null=True)
-
     class Meta:
         db_table = 'image_cell'
 
@@ -215,7 +232,7 @@ class Folder(Content):
     def siblings(self):
         result = []
         if self.parent:
-            result = [folder for folder in self.parent.folder_set.filter(user=self.user) if folder.id != self.id and folder.id != 1]
+            result = [folder for folder in self.parent.folder_set.filter(owner=self.owner) if folder.id != self.id and folder.id != 1]
         return result
 
     def ascendants(self):
@@ -235,7 +252,6 @@ class Folder(Content):
 
 
 class MultipleChoiceInputCell(Cell):
-
     class Meta:
         db_table = 'multiple_choice_input_cell'
 

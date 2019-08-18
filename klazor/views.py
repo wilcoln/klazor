@@ -10,7 +10,6 @@ from klazor.models import *
 from klazor.forms import *
 from klazor import converters as cvt
 import io
-import datetime
 import base64
 import json
 
@@ -35,14 +34,14 @@ def register(request):
 
 def welcome(request):
     if request.user.is_authenticated:
-        quick_access = Sheet.objects.filter(folder_id__isnull=False, user_id=request.user.id).order_by('-updated_at')[
+        quick_access = Sheet.objects.filter(owner_id=request.user.id).order_by('-updated_at')[
                        :6]
         root_folder = Folder.objects.get(pk=1)
-        courses = Course.objects.filter(user_id=request.user.id, folder_id=1)
-        folders = Folder.objects.filter(parent_id=1, user_id=request.user.id)  # We remove the root folder
+        courses = Course.objects.filter(owner_id=request.user.id, folder_id=1)
+        folders = Folder.objects.filter(parent_id=1, owner_id=request.user.id)  # We remove the root folder
         # sheets libres # les course elements n'ont pas de dossier parent
-        free_sheets = Sheet.objects.filter(folder=1, user_id=request.user.id)
-        file_items = FileItem.objects.filter(folder=1, user_id=request.user.id)
+        free_sheets = Sheet.objects.filter(folder=1, owner_id=request.user.id)
+        file_items = FileItem.objects.filter(folder=1, owner_id=request.user.id)
         return render(request, 'pages/welcome.html', {
             'quick_access': quick_access,
             'folder': root_folder,
@@ -54,28 +53,38 @@ def welcome(request):
     return redirect('/login')
 
 
+def view_shared_with_me(request):
+    if request.user.is_authenticated:
+        shared_with_me = SharedItem.shared_with(request.user)
+        # return HttpResponse(str(shared_with_me[0].type()))
+        #courses = [item for item in shared_with_me if item.type() == 'Course']
+        #folders = [item for item in shared_with_me if item.type() == 'Folder']
+        #folders = Folder.objects.filter(parent_id=1, user_id=request.user.id)  # We remove the root folder
+        # sheets libres # les course elements n'ont pas de dossier parent
+        sheets = [item for item in shared_with_me if item.type() == 'Sheet']
+        file_items = [item for item in shared_with_me if item.type() == 'FileItem']
+        return render(request, 'pages/shared_with_me.html', {
+            #'courses': courses,
+            #'sub_folders': folders,
+            'sheets': sheets,
+            'file_items': file_items
+        })
+    return redirect('/login')
+
+
 def view_course(request, id):
     course = Course.objects.get(pk=id)
-    #save_user_item_record(action='view', user=request.user, item=course)
+    #UserItemLog.save_log(UserItemLog.VIEWED, user=request.user, item=course)
     return render(request, 'pages/course.html', {'course': course})
-
-
-def save_user_item_record(action, user, item):
-    user_item_record = UserItemRecord()
-    if action == 'view':
-        user_item_record = ViewItemRecord()
-    user_item_record.user = user
-    user_item_record.item = item
-    user_item_record.save()
 
 
 def view_course_element(request, course_id, part_sequence, element_sequence):
     course = Course.objects.get(pk=course_id)
-    #save_user_item_record(action='view', user=request.user, item=course)
+    #UserItemLog.save_log(UserItemLog.VIEWED, user=request.user, item=course)
     course_part = course.coursepart_set.all()[part_sequence - 1]
     try:
         course_element = course_part.courseelement_set.all()[element_sequence - 1]
-        #save_user_item_record(action='view', user=request.user, item=course_element)
+        #UserItemLog.save_log(UserItemLog.VIEWED, user=request.user, item=course_element)
         return render(request, 'pages/course_element.html', {'course_element': course_element, 'edit_mode': False})
     except IndexError:
         return redirect('/course/' + str(course.id))
@@ -128,7 +137,7 @@ def save_cell(request, id):
         video_cell.sequence = cell_dict['sequence']
         video_cell.title = cell_dict['title']
         video_cell.scale = cell_dict['scale']
-        video_cell.video = cell_dict['video']
+        video_cell.url = cell_dict['url']
         video_cell.save()
     elif cell_type == 'IMAGE':
         image_cell = ImageCell()
@@ -136,14 +145,14 @@ def save_cell(request, id):
         image_cell.sequence = cell_dict['sequence']
         image_cell.title = cell_dict['title']
         image_cell.scale = cell_dict['scale']
-        image_cell.image = cell_dict['image']
+        image_cell.url = cell_dict['url']
         image_cell.save()
     elif cell_type == 'AUDIO':
         audio_cell = AudioCell()
         audio_cell.sheet = sheet
         audio_cell.sequence = cell_dict['sequence']
         audio_cell.title = cell_dict['title']
-        audio_cell.audio = cell_dict['audio']
+        audio_cell.url = cell_dict['url']
         audio_cell.save()
     elif cell_type == 'MARKDOWN':
         markdown_cell = MarkdownCell()
@@ -155,7 +164,7 @@ def save_cell(request, id):
         youtube_cell = YoutubeCell()
         youtube_cell.sheet = sheet
         youtube_cell.sequence = cell_dict['sequence']
-        youtube_cell.youtube = cell_dict['youtube']
+        youtube_cell.url = cell_dict['url']
         youtube_cell.title = cell_dict['title']
         youtube_cell.scale = cell_dict['scale']
         youtube_cell.save()
@@ -164,7 +173,7 @@ def save_cell(request, id):
         file_cell.sheet = sheet
         file_cell.sequence = cell_dict['sequence']
         file_cell.title = cell_dict['title']
-        file_cell.file = cell_dict['file']
+        file_cell.url = cell_dict['url']
         file_cell.save()
     elif cell_type == 'NUMERICAL_INPUT':
         numerical_question_cell = NumericalInputCell()
@@ -196,8 +205,12 @@ def save_cell(request, id):
 
 def delete_item(request, id):
     item = Item.objects.get(pk=id)
-    item.delete()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    item.owner_id = User.objects.filter(username='trash').first().id
+    item.save()
+    try:
+        item.delete()
+    finally:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def save_sheet(request, id):
@@ -214,13 +227,17 @@ def save_sheet(request, id):
 
 def delete_folder(request, id):
     folder = Folder.objects.get(pk=id)
-    folder.delete()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    folder.owner_id = User.objects.filter(username='trash').first().id
+    folder.save()
+    try:
+        folder.delete()
+    finally:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def add_course(request, folder_id):
     course = Course()
-    course.user = request.user
+    course.owner = request.user
     course.folder_id = folder_id
     course.title = 'New Course'
     course.save()
@@ -232,7 +249,7 @@ def add_course(request, folder_id):
 
 def add_folder(request):
     folder = Folder()
-    folder.user = request.user
+    folder.owner = request.user
     folder.parent_id = request.POST['parent-id']
     folder.name = request.POST['folder-name']
     folder.save()
@@ -264,11 +281,10 @@ def add_folder_files(request):
     folder_id = request.POST['folder-id']
     folder = Folder.objects.get(pk=folder_id)
     files = request.FILES.getlist('files')
-    user = request.user
     for file in files:
         file_item = FileItem()
         file_item.folder = folder
-        file_item.user = user
+        file_item.owner = request.user
         file_item.title = file.name
         file_item.file = file
         file_item.save()
@@ -278,7 +294,7 @@ def add_folder_files(request):
 def add_sheet(request, id):
     new_sheet = Sheet()
     new_sheet.title = "Nouveau titre"
-    new_sheet.user = request.user
+    new_sheet.owner = request.user
     folder = Folder.objects.get(pk=id)
     new_sheet.folder = folder
     new_sheet.save()
@@ -313,7 +329,8 @@ def upload(request):
 def toggle_course_element_status(request, id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     # TODO Implement this
-    # item = CourseElement.objects.get(pk=id)
+    completed_course_element_log = CompletedCourseElementLog()
+
     # item.completed = not item.completed
     # item.save()
     # return redirect(request.META.get('HTTP_REFERER'))

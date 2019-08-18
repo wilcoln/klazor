@@ -73,25 +73,25 @@ class FileCellSerializer(CellSerializer):
 class VideoCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = VideoCell
-        fields = ('id', 'sequence', 'type', 'title', 'video', 'scale')
+        fields = ('id', 'sequence', 'type', 'title', 'url', 'scale')
 
 
 class YoutubeCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = YoutubeCell
-        fields = ('id', 'sequence', 'type', 'title', 'youtube', 'scale')
+        fields = ('id', 'sequence', 'type', 'title', 'url', 'scale')
 
 
 class ImageCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = ImageCell
-        fields = ('id', 'sequence', 'type', 'title', 'image', 'scale')
+        fields = ('id', 'sequence', 'type', 'title', 'url', 'scale')
 
 
 class AudioCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = AudioCell
-        fields = ('id', 'sequence', 'type', 'title', 'audio')
+        fields = ('id', 'sequence', 'type', 'title', 'url')
 
 
 class MultipleChoiceInputCellSerializer(CellSerializer):

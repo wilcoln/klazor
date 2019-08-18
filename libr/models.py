@@ -23,7 +23,8 @@ class Author(models.Model):
         db_table = 'author'
 
 
-class Book(FileItem):
+class Book(models.Model):
+    url = models.URLField(blank=True, null=True)
     year = models.SmallIntegerField(blank=True, null=True)
     isbn = models.CharField(max_length=13, blank=True, null=True, unique=True)
     publisher = models.ForeignKey(Publisher, models.CASCADE)
