@@ -67,7 +67,7 @@ class MarkdownCellSerializer(CellSerializer):
 class FileCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = FileCell
-        fields = ('id', 'sequence', 'type', 'title', 'file',)
+        fields = ('id', 'sequence', 'type', 'title', 'url',)
 
 
 class VideoCellSerializer(CellSerializer):
@@ -128,10 +128,10 @@ class CoursePartSerializer(serializers.ModelSerializer):
         fields = ('id', 'level', 'sequence', 'label', 'title', 'courseelement_set',)
 
 
-class TopicSerializer(serializers.ModelSerializer):
+class TagSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Topic
-        fields = ('id', 'title', 'subtopic_set')
+        model = Tag
+        fields = ('id', 'name')
 
 
 class DynamicInstructorSerializer(serializers.HyperlinkedModelSerializer):
@@ -148,13 +148,13 @@ class DynamicInstructorSerializer(serializers.HyperlinkedModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     coursepart_set = CoursePartSerializer(many=True)
-    topic_set = TopicSerializer(many=True)
+    tag_set = TagSerializer(many=True)
     instructor_set = DynamicInstructorSerializer(many=True)
     resource_set = FileItemSerializer(many=True)
 
     class Meta:
         model = Course
-        fields = ('id', 'title', 'topic_set', 'coursepart_set', 'instructor_set', 'resource_set', 'year')
+        fields = ('id', 'title', 'tag_set', 'coursepart_set', 'instructor_set', 'resource_set', 'year')
 
 
 class InstructorSerializer(serializers.HyperlinkedModelSerializer):

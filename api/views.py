@@ -4,12 +4,12 @@ from api.permissions import *
 # Create your views here.
 
 
-class TopicViewSet(viewsets.ModelViewSet):
+class TagViewSet(viewsets.ModelViewSet):
     """
         API endpoint that allows topics to be viewed or edited.
         """
-    queryset = Topic.objects.all()
-    serializer_class = TopicSerializer
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 class InstructorViewSet(viewsets.ModelViewSet):

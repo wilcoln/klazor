@@ -10,15 +10,14 @@ from django.contrib.auth.models import User
 from polymorphic.models import PolymorphicModel
 
 
-class Topic(models.Model):
-    title = models.CharField(max_length=64, blank=True, null=True)
-    subtopic_set = models.ManyToManyField('Topic', blank=True)
+class Tag(models.Model):
+    name = models.CharField(max_length=64, blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
-        db_table = 'topic'
+        db_table = 'tag'
 
 
 class Instructor(PolymorphicModel):
@@ -112,7 +111,7 @@ class SharedItem(models.Model):
 
 
 class Course(Item):
-    topic_set = models.ManyToManyField(Topic, blank=True)
+    tag_set = models.ManyToManyField(Tag, blank=True)
     instructor_set = models.ManyToManyField(Instructor, blank=True)
     resource_set = models.ManyToManyField(FileItem, blank=True)
     year = models.SmallIntegerField(blank=True, null=True)
