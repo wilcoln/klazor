@@ -154,7 +154,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('id', 'title', 'tag_set', 'coursepart_set', 'instructor_set', 'resource_set', 'year')
+        fields = ('id', 'title', 'tag_set', 'coursepart_set', 'instructor_set', 'resource_set', 'release_date')
 
 
 class InstructorSerializer(serializers.HyperlinkedModelSerializer):

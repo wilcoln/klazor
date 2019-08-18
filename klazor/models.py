@@ -71,10 +71,15 @@ class Log(models.Model):
     class Meta:
         abstract = True
 
-
-class UserItemLog(Log):
+class UserItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+class UserItemActionLog(Log, UserItem):
+
     # Defining actions
     VIEWED = 'VI',
     COMPLETED = 'CP'
@@ -89,7 +94,7 @@ class UserItemLog(Log):
 
     @staticmethod
     def save_log(action, user, item):
-        user_item_log = UserItemLog()
+        user_item_log = UserItemActionLog()
         user_item_log.action = action
         user_item_log.user = user
         user_item_log.item = item
@@ -99,10 +104,14 @@ class UserItemLog(Log):
         abstract = 'user_item_log'
 
 
-class SharedItem(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class RatedItem(models.Model):
+    rate = models.SmallIntegerField(blank=True, null=True)
 
+    class Meta:
+        db_table = 'rated_item'
+
+
+class SharedItem(UserItem):
     @staticmethod
     def shared_with(user):
         return [shared_item.item for shared_item in SharedItem.objects.filter(user=user)]
@@ -114,7 +123,7 @@ class SharedItem(models.Model):
 class Course(Item):
     instructor_set = models.ManyToManyField(Instructor, blank=True)
     resource_set = models.ManyToManyField(FileItem, blank=True)
-    year = models.SmallIntegerField(blank=True, null=True)
+    release_date = models.DateField(blank=True, null=True)
 
     class Meta:
         db_table = 'course'
