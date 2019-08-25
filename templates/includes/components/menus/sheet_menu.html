@@ -2,7 +2,7 @@
     <div class="container sheet-toolbar d-flex align-items-center">
         <!-- Rounded switch -->
         <label class="switch mr-3">
-            <input type="checkbox" v-on:click="toggleMode">
+            <input type="checkbox" v-on:click="toggleMode" checked>
             <span class="slider round"></span>
         </label>
         <div class="mode"><i class="fa" v-bind:class="{'fa-eye': !editMode, 'fa-edit':editMode}" ></i></div>
