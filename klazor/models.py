@@ -71,12 +71,14 @@ class Log(models.Model):
     class Meta:
         abstract = True
 
+
 class UserItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
+
 
 class UserItemActionLog(Log, UserItem):
 
@@ -132,6 +134,10 @@ class Course(Item):
 class Sheet(Item):
     class Meta:
         db_table = 'sheet'
+
+
+class NoteBook(Item):
+    sheet_set = models.ManyToManyField(Sheet, blank=True)
 
 
 class CourseElement(Sheet):
