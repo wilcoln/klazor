@@ -85,7 +85,7 @@ def view_course_element(request, course_id, part_sequence, element_sequence):
     try:
         course_element = course_part.courseelement_set.all()[element_sequence - 1]
         #UserItemLog.save_log(UserItemLog.VIEWED, user=request.user, item=course_element)
-        return render(request, 'pages/course_element.html', {'course_element': course_element, 'edit_mode': False})
+        return render(request, 'pages/course_element.html', {'course_element': course_element})
     except IndexError:
         return redirect('/course/' + str(course.id))
 
@@ -110,8 +110,7 @@ def view_folder_editor(request, id, sheet_id):
     folder = Folder.objects.get(pk=id)
     file_items = FileItem.objects.filter(folder=id)
     return render(request, 'pages/folder_editor.html',
-                  {'folder': folder, 'active_sheet': active_sheet, 'courses': courses, 'sheets': sheets, 'edit_mode': False,
-                   'file_items': file_items})
+                  {'folder': folder, 'active_sheet': active_sheet, 'courses': courses, 'sheets': sheets, 'file_items': file_items})
 
 
 def convert_folder_to_course(request, id):
@@ -122,7 +121,7 @@ def convert_folder_to_course(request, id):
 
 def view_sheet(request, id):
     sheet = Sheet.objects.get(pk=id)
-    return render(request, 'pages/sheet.html', {'sheet': sheet, 'edit_mode': False})
+    return render(request, 'pages/sheet.html', {'sheet': sheet})
 
 
 def save_cell(request, id):

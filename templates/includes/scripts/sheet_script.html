@@ -222,7 +222,7 @@
         data: { // Represents the sheet as described by the Sheet class
             title: `{{ sheet.title|safe}}`, // sheets title
             cells: [],
-            editMode: {{ edit_mode | lower }},
+            editMode: {% if user.id == sheet.owner.id %} true {% else %} false {% endif %},
             saved: false,
             nbCellsSaved: 0,
             autosave: false,
