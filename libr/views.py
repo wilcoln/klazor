@@ -7,4 +7,4 @@ from klazor.models import Tag
 def index(request):
     books = Book.objects.all()
     tags = Tag.objects.all()
-    return render(request, 'pages/libr.html', {'books': books, 'tags': tags})
+    return render(request, 'pages/index_libr.html', {'books': books, 'tags': tags})

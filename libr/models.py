@@ -51,8 +51,8 @@ class Book(Document):
         db_table = 'book'
 
 
-class PaperBook(Book):
-    nb_pages = models.SmallIntegerField(blank=True, null=True)
+class TextBook(Book):
+    nb_pages = models.PositiveSmallIntegerField(blank=True, null=True)
 
     class Meta:
         db_table = 'paper_book'
@@ -65,5 +65,9 @@ class AudioBook(Book):
         db_table = 'audio_book'
 
 
+class DocumentFile(Document):
+    nb_pages = models.PositiveSmallIntegerField(blank=True, null=True)
 
+    class Meta:
+        db_table = 'document_file'
 
