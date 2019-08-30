@@ -310,7 +310,7 @@
                     {
                         headers: {
                             'X-CSRFToken': csrftoken,
-                            'cell-Type': "text/plain"
+                            'Content-Type': "text/plain"
                         }
                     }
                 ).then((response) => {
@@ -363,7 +363,7 @@
                                 },
                                 headers: {
                                     "X-CSRFToken": csrftoken,
-                                    "cell-type": "application/json"
+                                    "'Content-Type": "application/json"
                                 }
                             }).then((response) => {
                                 console.log("1 cell saved !")

@@ -1,6 +1,6 @@
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse, HttpResponseRedirect, FileResponse
+from django.http import HttpResponse, HttpResponseRedirect, FileResponse, JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from reportlab.pdfgen import canvas
@@ -240,10 +240,49 @@ def add_course(request, folder_id):
     course.folder_id = folder_id
     course.title = 'New Course'
     course.save()
+    return redirect('/course/edit/' + str(course.id))
 
+
+def edit_course(request, id):
+    course = Course.objects.get(pk=id)
     form = CourseForm()
-
     return render(request, 'pages/edit_course.html', {'course': course, 'form': form})
+
+
+def save_course(request, id):
+    course = None
+    old_course = Course.objects.get(pk=id)
+    folder_id = old_course.folder_id
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            course = form.save()
+            course.owner = old_course.owner
+            course.folder_id = folder_id
+            course.save()
+            old_course.delete()
+            # TODO : if sucess redirect to course element creation
+    return redirect('course', course.id)
+
+
+def add_course_part(request, course_id):
+    course_part = CoursePart()
+    course_part.course_id = course_id
+    course_part.title = request.POST['part-title']
+    course_part.label = request.POST['part-label']
+    course_part.sequence = request.POST['part-sequence']
+    course_part.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def add_course_element(request, course_part_id):
+    course_element = CourseElement()
+    course_element.owner = request.user
+    course_element.course_part_id = course_part_id
+    course_element.title = request.POST['element-title']
+    course_element.sequence = request.POST['element-sequence']
+    course_element.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def add_folder(request):
@@ -253,6 +292,23 @@ def add_folder(request):
     folder.name = request.POST['folder-name']
     folder.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def add_tag(request):
+    tag = Tag()
+    tag.name = request.POST['tag-name']
+    tag.save()
+    tag_dict = {'id': tag.id, 'name': tag.name}
+    return HttpResponse(json.dumps(tag_dict))
+
+
+def add_instructor(request):
+    instructor = Instructor()
+    instructor.name = request.POST['instructor-name']
+    instructor.link = request.POST['instructor-link']
+    instructor.save()
+    instructor_dict = {'id': instructor.id, 'name': instructor.name}
+    return HttpResponse(json.dumps(instructor_dict))
 
 
 def rename_folder(request, id):
