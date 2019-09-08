@@ -414,19 +414,19 @@
             {% for cell in sheet.cell_set.all  %}
                 counter = {{ forloop.counter }}
                     {% if cell.videocell %}
-                        this.cells.push(new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.url }}`, {{ cell.videocell.scale }}))
+                        this.cells.push(new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.url | safe }}`, {{ cell.videocell.scale }}))
                     {% elif cell.youtubecell %}
-                        this.cells.push(new YoutubeCell(counter, `{{ cell.youtubecell.title }}`, `{{ cell.youtubecell.url}}`, {{ cell.youtubecell.scale }}))
+                        this.cells.push(new YoutubeCell(counter, `{{ cell.youtubecell.title }}`, `{{ cell.youtubecell.url | safe}}`, {{ cell.youtubecell.scale }}))
                     {% elif cell.audiocell %}
-                        this.cells.push(new AudioCell(counter, `{{ cell.audiocell.title }}`, `{{ cell.audiocell.url}}`))
+                        this.cells.push(new AudioCell(counter, `{{ cell.audiocell.title }}`, `{{ cell.audiocell.url | safe}}`))
                     {% elif cell.imagecell %}
-                        this.cells.push(new ImageCell(counter, `{{ cell.imagecell.title }}`, `{{ cell.imagecell.url }}`, {{ cell.imagecell.scale }}))
+                        this.cells.push(new ImageCell(counter, `{{ cell.imagecell.title }}`, `{{ cell.imagecell.url | safe }}`, {{ cell.imagecell.scale }}))
                     {% elif cell.markdowncell %}
                         text = `{{ cell.markdowncell.text|safe }}`
                         text = text.replace(/\\\\/g, '\\\\') // escape backslash for mathjax compatibility
                         this.cells.push(new MarkdownCell(counter, text))
                     {% elif cell.filecell %}
-                        this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.url}}`))
+                        this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.url | safe}}`))
                     {% elif cell.multiplechoiceinputcell %}
                         let inputCell = new MultipleChoiceInputCell(counter)
                         inputCell.nbPropositions = 0
