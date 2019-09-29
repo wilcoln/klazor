@@ -16,6 +16,12 @@ class PropositionSerializer(serializers.ModelSerializer):
         fields = ('id', 'statement', 'is_true')
 
 
+class VideoCellSubtitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoCellSubtitle
+        fields = ('id', 'lang', 'url')
+
+
 class DynamicCellSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cell
@@ -71,9 +77,11 @@ class FileCellSerializer(CellSerializer):
 
 
 class VideoCellSerializer(CellSerializer):
+    videocellsubtitle_set = VideoCellSubtitleSerializer(required=False, many=True)
+
     class Meta(CellSerializer.Meta):
         model = VideoCell
-        fields = ('id', 'sequence', 'type', 'title', 'url', 'scale')
+        fields = ('id', 'sequence', 'type', 'title', 'url', 'scale', 'videocellsubtitle_set')
 
 
 class YoutubeCellSerializer(CellSerializer):

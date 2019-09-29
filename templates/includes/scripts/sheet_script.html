@@ -414,7 +414,11 @@
             {% for cell in sheet.cell_set.all  %}
                 counter = {{ forloop.counter }}
                     {% if cell.videocell %}
-                        this.cells.push(new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.url | safe }}`, {{ cell.videocell.scale }}))
+                        let videoCell = new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.url | safe }}`, {{ cell.videocell.scale }})
+                        {% for subtitle in cell.videocell.videocellsubtitle_set.all %}
+                            videoCell.addSubtitle(new VideoCellSubtitle(`{{ subtitle.lang }}`, `{{ subtitle.url | safe }}`))
+                        {% endfor %}
+                        this.cells.push(videoCell)
                     {% elif cell.youtubecell %}
                         this.cells.push(new YoutubeCell(counter, `{{ cell.youtubecell.title }}`, `{{ cell.youtubecell.url | safe}}`, {{ cell.youtubecell.scale }}))
                     {% elif cell.audiocell %}

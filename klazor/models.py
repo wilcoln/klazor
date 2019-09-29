@@ -216,6 +216,15 @@ class VideoCell(GraphicMediaCell):
         db_table = 'video_cell'
 
 
+class VideoCellSubtitle(models.Model):
+    lang = models.CharField(max_length=64, blank=True, null=True)
+    url = models.URLField(blank=True, null=True)
+    video_cell = models.ForeignKey(VideoCell, models.CASCADE, null=True)
+
+    class Meta:
+        db_table = 'video_cell_subtitle'
+
+
 class YoutubeCell(GraphicMediaCell):
     class Meta:
         db_table = 'youtube_cell'
