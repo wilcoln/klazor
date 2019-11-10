@@ -396,7 +396,7 @@
                         sheet.saved = false
                     }, 2500)
                     sheet.nbCellsSaved = 0
-                    $('.info-modification').text('All modifications saved')
+                    $('.info-modification').text('All modifications saved  at ' + (new Date()).toLocaleString());       // -> "2/1/2013 7:37:08 AM")
                 }
             },
             autosave: function (val) {

@@ -48,8 +48,10 @@ body{
 
 }
 .sheet-component .sheet-body h2{
-    color: #252525;
-    font-size: 1.2rem;
+     color: #252525;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: .1rem;
 }
 .sheet-component .sheet-body h3{
     color: #505050;
