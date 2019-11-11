@@ -23,6 +23,8 @@ class Tag(models.Model):
 class Instructor(PolymorphicModel):
     name = models.CharField(max_length=128, blank=True, null=True)
     link = models.TextField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=64, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -123,8 +125,8 @@ class SharedItem(UserItem):
 
 
 class Course(Item):
+    note = models.OneToOneField('Sheet', blank=True, on_delete=models.CASCADE, null=True)
     instructor_set = models.ManyToManyField(Instructor, blank=True)
-    resource_set = models.ManyToManyField(FileItem, blank=True)
     release_date = models.DateField(blank=True, null=True)
 
     class Meta:
@@ -147,6 +149,23 @@ class CourseElement(Sheet):
     class Meta:
         db_table = 'course_element'
         ordering = ['sequence', ]
+
+
+class CourseResource(models.Model):
+    title = models.CharField(max_length=128, blank=True, null=True)
+    link = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+class CourseResourceSet(models.Model):
+    title = models.CharField(max_length=128, blank=True, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    resource_set = models.ManyToManyField(CourseResource, blank=True)
+
+    def __str__(self):
+        return self.title + ' : ' + self.course.title
 
 
 class School(Instructor):

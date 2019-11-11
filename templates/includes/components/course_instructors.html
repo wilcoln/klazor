@@ -1,9 +1,12 @@
 <section>
-    <h2 class="text-muted">Instructeurs</h2><br>
+    <h2 class="text-muted">Instructeurs</h2>
     <ul>
         {% for instructor in instructors %}
             <li>
-                <a href="{{ instructor.link }}">{% if instructor.school %}({{ instructor.school.colloquial_name }}) {% endif %}{{ instructor.name | capfirst }}</a>
+                {% if instructor.school %}({{ instructor.school.colloquial_name }}) {% endif %}{{ instructor.name | capfirst }}
+                <br>
+                {% if instructor.email %}<a href="mailto:{{instructor.email}}"><i class="fa fa-envelope"></i> {{instructor.email}}</a><br>{% endif %}
+                {% if instructor.link %}<a href="{{ instructor.link }}"><i class="fa fa-globe"></i> {{instructor.link}}</a><br>{% endif %}
             </li>
         {% endfor %}
     </ul>

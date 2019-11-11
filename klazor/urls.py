@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^register/$', register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('course/<int:id>/', view_course, name='course'),
+    path('course/<int:course_id>/note', view_course_note, name='course-note'),
     path('course/<int:course_id>/part/<int:part_sequence>/element/<int:element_sequence>/',
          view_course_element, name='course-element'),
     path('folder/<int:id>/', view_folder, name='folder'),

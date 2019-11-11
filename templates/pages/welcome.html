@@ -11,7 +11,11 @@
                     <div class="col-lg-2  col-md-3">
                         {% include 'includes/components/tiny/tiny_recent_sheet.html' with sheet=sheet %}
                     </div>
-                {% else %}
+                {% elif sheet.note %}
+                    <div class="col-lg-2  col-md-3">
+                        {% include 'includes/components/tiny/tiny_recent_course_note.html' with course_note=sheet %}
+                    </div>
+                {% elif sheet.courseelement %}
                     <div class="col-lg-2  col-md-3">
                         {% include 'includes/components/tiny/tiny_recent_course_element.html' with course_element=sheet.courseelement %}
                     </div>

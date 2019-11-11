@@ -1,0 +1,29 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block style %}
+    {% include 'includes/styles/highlightjs_style.html' %}
+    {% include 'includes/styles/codemirror_style.html' %}
+    <link rel="stylesheet" href="{% static 'css/course.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sheet.css' %}">
+    <link rel="stylesheet" href="{% static 'css/course_element.css' %}">
+{% endblock %}
+{% block title %} Course note {% endblock %}
+{% block content %}
+    <div class="base-container">
+        <div class="row">
+            <div class="col-md-3">
+                {% include 'includes/components/navs/course_nav.html' with course=course_note.course %}
+            </div>
+            <div class="col-md-9">
+                {% include 'includes/components/sheet.html' with sheet=course_note %}
+                <hr>
+                {% include 'includes/components/course_resources.html' with course_resource_sets=course_note.course.courseresourceset_set.all %}
+                <hr>
+                {% include 'includes/components/course_instructors.html' with instructors=course_note.course.instructor_set.all %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    {% include 'includes/scripts/sheet_script.html' with sheet=course_note %}
+{% endblock %}

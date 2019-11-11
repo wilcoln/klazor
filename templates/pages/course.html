@@ -18,7 +18,7 @@
                     <h2 class="text-muted">Contenu du cours <button class="float-right btn p-0" data-toggle="modal" data-target="#addCoursePartModal"><i class="text-secondary fa fa-plus"></i> Partie</button></h2><br>
                     {% for coursepart in course.coursepart_set.all  %}
                         <div class="row">
-                            <h3 class="col-md-2">{{ coursepart.label }} {{ coursepart.sequence }} :</h3>
+                            <h3 class="col-md-2">{{ coursepart.label }}:</h3>
                             <h3 class="col-md-10">{{ coursepart.title }} <button class="float-right btn p-0" data-toggle="modal" data-target="#addCourseElementModal" onmouseover="changeAddCourseElementModal({{ coursepart.id }})"><i class="text-primary fa fa-plus"></i> Elément</button> </h3>
                         </div>
                         <ul class="row">
@@ -29,7 +29,7 @@
                     {% endfor %}
                 </section>
                 <hr>
-                {% include 'includes/components/course_resources.html' with resources=course.resource_set.all %}
+                {% include 'includes/components/course_resources.html' with course_resource_sets=course.courseresourceset_set.all %}
                 <hr>
                 {% include 'includes/components/course_instructors.html' with instructors=course.instructor_set.all %}
             </div>

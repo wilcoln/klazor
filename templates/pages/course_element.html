@@ -46,7 +46,7 @@
                     </ul>
                 </nav>
                 <hr>
-                {% include 'includes/components/course_resources.html' with resources=course_element.course_part.course.resource_set.all %}
+                {% include 'includes/components/course_resources.html' with course_resource_sets=course_element.course_part.course.courseresourceset_set.all %}
                 <hr>
                 {% include 'includes/components/course_instructors.html' with instructors=course_element.course_part.course.instructor_set.all %}
             </div>

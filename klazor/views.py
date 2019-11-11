@@ -90,6 +90,13 @@ def view_course_element(request, course_id, part_sequence, element_sequence):
         return redirect('/course/' + str(course.id))
 
 
+def view_course_note(request, course_id):
+    course = Course.objects.get(pk=course_id)
+    course_note = course.note
+    print(course_note.title)
+    return render(request, 'pages/course_note.html', {'course_note': course_note})
+
+
 def view_folder(request, id):
     if id == 1:
         return redirect('welcome')

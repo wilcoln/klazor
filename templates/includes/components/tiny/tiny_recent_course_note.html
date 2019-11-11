@@ -1,0 +1,14 @@
+<div class="tiny card sheet mb-3">
+    <i class="fa fa-leaf"></i>
+    <div class="card-body">
+        <a href="{% url 'course-note' course_note.course_id%}">
+            <div class="sheet-title">{{ course_note.title }}</div>
+        </a>
+        <small class="text-muted ">{{ course_note.cell_set.all.count }} cell{{ course_note.cell_set.all.count|pluralize }}</small>
+       <small><a href="{% url 'course' course_note.course.id %}">
+            <div class="sheet-location-title"> <i class="fa fa-graduation-cap"></i> {{ course_note.course.title }}</div>
+        </a></small>
+    <span class="recent-info">{% include 'includes/components/tiny/created_updated.html' with obj=course_note %}</span>
+
+    </div>
+</div>

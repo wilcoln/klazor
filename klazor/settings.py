@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'klazor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'klazor_test',
+        'NAME': 'klazor_dev',
         'USER': 'wilcoln',
         'PASSWORD': '',
         'HOST': '',
