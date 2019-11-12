@@ -15,6 +15,7 @@
             <hr>
             <div class="container">
                 <section>
+                    <h2 class="text-center"><a class="text-success" href="{% url 'course-note' course.id %}"><i class="fa fa-leaf" ></i> Notice du cours</a></h2><br>
                     <h2 class="text-muted">Contenu du cours <button class="float-right btn p-0" data-toggle="modal" data-target="#addCoursePartModal"><i class="text-secondary fa fa-plus"></i> Partie</button></h2><br>
                     {% for coursepart in course.coursepart_set.all  %}
                         <div class="row">
