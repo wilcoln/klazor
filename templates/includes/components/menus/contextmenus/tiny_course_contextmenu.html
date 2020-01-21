@@ -9,4 +9,8 @@
             <button role="submit" class="rmenu-action text-danger"><i class="fa fa-trash"></i> &nbsp; Delete course
             </button>
         </form>
+    </li>
+     <li class="list-group-item list-group-item-action">
+        <a href="#moveCourseModal_{{ course.id }}" data-toggle="modal" data-target="#moveCourseModal_{{ course.id }}"> <i class="fa fa-arrows"></i> &nbsp; Move course</a>
+    </li>
 {% endblock %}
