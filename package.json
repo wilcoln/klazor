@@ -14,7 +14,7 @@
     "codemirror": "^5.47.0",
     "font-awesome": "^4.7.0",
     "highlightjs": "^9.12.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "js-cookie": "^2.2.0",
     "marked": "^0.6.2",
     "mathjax": "^2.7.5",
