@@ -6,5 +6,4 @@ venv/
 media/
 __pycache__/
 backup.sql
-todo.txt
 fixed.txt

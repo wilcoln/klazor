@@ -1,0 +1,53 @@
+DONE
+    1. welcome.html
+    2. mooc_course.html
+    3. mooc_item.html
+    4. Rename Document resource to file resource
+    7. Ne plus afficher le dossier Root : dossier d'id 1
+    8. Ainsi, il faut afficher le nombre total de dossiers - 1
+    10. In includes/components/sheet_script.html, change vue instance editMode default value to false
+    11. In that same file change all components editMode default values to false
+    13. Create file  (for fileField) from base64 string. See https://stackoverflow.com/questions/39576174/save-base64-image-in-django-file-field
+        import base64
+        from django.core.files.base import ContentFile
+        format, imgstr = data.split(';base64,')
+        ext = format.split('/')[-1]
+        data = ContentFile(base64.b64decode(imgstr), name='temp.' + ext) # You can save this as file instance.
+    14. In sheet_script.html add watchers on each vue component data element to update their corresponding field in the content prop so that it matches at all time
+        Because the contents are the one to be send to the server side
+    17. Ajouter un attribut editable dans la classe Cell pour initialiser le mode d'un nouvel élement à edit =true
+    22. N'accepte plus, plus d'un media par page.
+    25. Add size field for image and video display (like in latex)
+    27. Ctr+S on an element save the sheet.
+    30. Enable folder with subfolders delete.
+    38. !!! URGENT Faire la sauvegarde des Youtube cells
+TODO
+    5. Define the path method in folder
+    6. Add breadcrumb to path
+    12. Rename Week model (too specific) into Step (more generic)
+    15. The informations on the audio element doesnt update on audio change.
+    16. Prevent the audio and video from playing when we click to edit (make them unclickable)
+    20. Style markdown content
+    21. Mettre des conditions pour la validation d'une feuille (Pour sauvegarder, toutes les contenus doivent avoir editmode = false)
+    23. Automate the creation of the root folder
+    24. Ajouter un attribut sequence aux weeks et items et les utiliser à la place de l'id dans la paginatino "next" et "previous"
+    26. Permettre l'ajout d'un content sous un autre : on ajoute sous le content qui est actif, si aucun content actif, on ajoute en dernière position.
+    28. Add Nav drawer menu
+    	add enable auto save in options 
+    29. Place cursor at the end of markdown content text area
+    31. For content: add attribute "selected", we select with one click, we edit with two clicks (it selects too), selected can be moved up and down
+    32. Echappe les caractères de mathjax
+    33. Add Generator class which enables to generate items from folders, e.g generate mooc course from folder, course form folder, school course from folder, music playlist from folder, video playlist from folder..
+    34. Change iconify to iconclass
+    35. la vidéo fait la taille de la cellule et quand e double clique ça met en plein écran, sans titre impossible de revenir en mode edition
+    36. Refactor content to cell
+    37. Refactor week to coursepart
+    39. Require authentication for api
+    40. Add Quill cell (cf Quilljs) to enable rich text editing
+    41. Add a 'folded' attribute to cell model (which when sett to true "folds" the elt like with html secret tag
+        NB!! It might be better to define a "view" model associated to a user and a sheet which defines how the sheet should look to a specific user.
+    42. Add static code analysis with pylint for backend, and eslint for frontend
+    43. TDD will be done with selenium https://www.youtube.com/watch?v=_rLPDxpXIFc (Cf related book) for backend, and with jest for frontend
+    44. Add coverage test and report for backend and frontend
+    45. Add pitesting for backend + frontend
+
