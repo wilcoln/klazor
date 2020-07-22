@@ -22,7 +22,9 @@ DONE
     30. Enable folder with subfolders delete.
     38. !!! URGENT Faire la sauvegarde des Youtube cells
 TODO
-    5. Define the path method in folder
+    * Refactor all models to items (inherit item)
+    * While designing each page take a look at https://ui-patterns.com/patterns
+    5. Define the path method in folder (or maybe in an utility class it would be better)
     6. Add breadcrumb to path
     12. Rename Week model (too specific) into Step (more generic)
     15. The informations on the audio element doesnt update on audio change.
@@ -50,4 +52,7 @@ TODO
     43. TDD will be done with selenium https://www.youtube.com/watch?v=_rLPDxpXIFc (Cf related book) for backend, and with jest for frontend
     44. Add coverage test and report for backend and frontend
     45. Add pitesting for backend + frontend
-
+    46. Créer une notice de cours en même temps qu'un cours (actuellement erreur lors d'un clique sur la notice d'un nouveau cours)
+    47. Ajouter un historique d'accès, un historique de modification et un historique de recherche (comme sur youtube)
+    48. Add Cornell note Sheet layout http://lsc.cornell.edu/study-skills/cornell-note-taking-system/
+    50. Enable layouts (Grid, Column)
