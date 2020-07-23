@@ -7,10 +7,6 @@ function openTinySheetContextMenu(e, id) {
     let contextmenuId = "smenu_" + id
     openContextMenu(e, contextmenuId)
 }
-function openTinyCourseContextMenu(e, id) {
-    let contextmenuId = "cmenu_" + id
-    openContextMenu(e, contextmenuId)
-}
 
 function openTinyFileContextMenu(e, id) {
     let contextmenuId = "file-menu_" + id

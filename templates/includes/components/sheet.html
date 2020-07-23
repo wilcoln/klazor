@@ -2,7 +2,7 @@
     {% include 'includes/components/menus/sheet_menu.html' %}
     <div class="sheet-component">
         {% verbatim %}
-        <sheet-title v-bind:title="title" v-bind:editable="editMode" v-on:update="updateTitle($event)" v-on:save="saveSheet"></sheet-title>
+        <sheet-name v-bind:name="name" v-bind:editable="editMode" v-on:update="updateName($event)" v-on:save="saveSheet"></sheet-name>
         <hr>
         <div class="sheet-body row">
             <div class="col-md-12">

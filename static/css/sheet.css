@@ -36,7 +36,7 @@ body{
 .sheet-component .sheet-body .markdown-display{
     min-height: 3px;
 }
-.sheet-component h1.sheet-title{
+.sheet-component h1.sheet-name{
     color: black;
     font-size: 1.4rem;
 }
@@ -129,7 +129,7 @@ body{
 .sheet-toolbar .btn-clear:hover{
     color: #dc3545;
 }
-.sheet-component h1.sheet-title > input{
+.sheet-component h1.sheet-name > input{
     display: inline-block;
     width: 100%;
     padding: .2rem;

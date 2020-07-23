@@ -39,11 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'klazor',
-    'libr',
     'rest_framework',
+    'klazor',
     'api',
-    'corsheaders',
     'crispy_forms'
 ]
 
@@ -98,7 +96,7 @@ WSGI_APPLICATION = 'klazor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'klazor_dev',
+        'NAME': 'klazor_devel',
         'USER': 'wilcoln',
         'PASSWORD': '',
         'HOST': '',

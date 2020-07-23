@@ -1,17 +1,9 @@
 from django.contrib import admin
 from klazor.models import *
 
-admin.site.register(Course)
 admin.site.register(Tag)
 admin.site.register(FileItem)
-admin.site.register(CourseElement)
-admin.site.register(CoursePart)
-admin.site.register(CourseResourceSet)
-admin.site.register(CourseResource)
-admin.site.register(Instructor)
-admin.site.register(School)
 admin.site.register(VideoCell)
-admin.site.register(VideoCellSubtitle)
 admin.site.register(AudioCell)
 admin.site.register(FileCell)
 admin.site.register(MarkdownCell)
@@ -22,5 +14,4 @@ admin.site.register(MultipleChoiceInputCell)
 admin.site.register(Proposition)
 admin.site.register(ImageCell)
 admin.site.register(Sheet)
-admin.site.register(SharedItem)
 admin.site.register(Folder)

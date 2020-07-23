@@ -7,7 +7,7 @@ from klazor.models import *
 class FileItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = FileItem
-        fields = ('id', 'title', 'file',)
+        fields = ('id', 'type', 'name', 'file',)
 
 
 class PropositionSerializer(serializers.ModelSerializer):
@@ -16,10 +16,16 @@ class PropositionSerializer(serializers.ModelSerializer):
         fields = ('id', 'statement', 'is_true')
 
 
-class VideoCellSubtitleSerializer(serializers.ModelSerializer):
+class DynamicItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = VideoCellSubtitle
-        fields = ('id', 'lang', 'url')
+        model = Item
+        fields = ()
+
+    def to_representation(self, obj):
+        if isinstance(obj, Sheet):
+            return SheetSerializer(obj, context=self.context).to_representation(obj)
+        elif isinstance(obj, FileItem):
+            return FileItemSerializer(obj, context=self.context).to_representation(obj)
 
 
 class DynamicCellSerializer(serializers.ModelSerializer):
@@ -53,7 +59,7 @@ class SheetSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Sheet
-        fields = ('id', 'title', 'cell_set', 'updated_at')
+        fields = ('id', 'type', 'name', 'cell_set', 'updated_at')
 
 
 class CellSerializer(serializers.HyperlinkedModelSerializer):
@@ -76,12 +82,25 @@ class FileCellSerializer(CellSerializer):
         fields = ('id', 'sequence', 'type', 'title', 'url',)
 
 
-class VideoCellSerializer(CellSerializer):
-    videocellsubtitle_set = VideoCellSubtitleSerializer(required=False, many=True)
+class SubFolderSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Folder
+        fields = ('id', 'name',)
 
+
+class FolderSerializer(serializers.HyperlinkedModelSerializer):
+    item_set = DynamicItemSerializer(required=False, many=True)
+    sub_folder_set = SubFolderSerializer(required=False, many=True)
+
+    class Meta:
+        model = Folder
+        fields = ('id', 'name', 'item_set', 'sub_folder_set')
+
+
+class VideoCellSerializer(CellSerializer):
     class Meta(CellSerializer.Meta):
         model = VideoCell
-        fields = ('id', 'sequence', 'type', 'title', 'url', 'scale', 'videocellsubtitle_set')
+        fields = ('id', 'sequence', 'type', 'title', 'url', 'scale')
 
 
 class YoutubeCellSerializer(CellSerializer):
@@ -122,56 +141,8 @@ class OpenEndedInputCellSerializer(CellSerializer):
         fields = ('id', 'sequence', 'type', 'answer')
 
 
-class CourseElementSerializer(SheetSerializer):
-    class Meta(SheetSerializer.Meta):
-        model = CourseElement
-        fields = ('id', 'sequence', 'title', 'cell_set')
-
-
-class CoursePartSerializer(serializers.ModelSerializer):
-    courseelement_set = CourseElementSerializer(many=True)
-
-    class Meta:
-        model = CoursePart
-        fields = ('id', 'level', 'sequence', 'label', 'title', 'courseelement_set',)
-
-
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ('id', 'name')
 
-
-class DynamicInstructorSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Instructor
-        fields = ()
-
-    def to_representation(self, obj):
-        if isinstance(obj, School):
-            return SchoolSerializer(obj, context=self.context).to_representation(obj)
-        else:
-            return InstructorSerializer(obj, context=self.context).to_representation(obj)
-
-
-class CourseSerializer(serializers.ModelSerializer):
-    coursepart_set = CoursePartSerializer(many=True)
-    tag_set = TagSerializer(many=True)
-    instructor_set = DynamicInstructorSerializer(many=True)
-    resource_set = FileItemSerializer(many=True)
-
-    class Meta:
-        model = Course
-        fields = ('id', 'title', 'tag_set', 'coursepart_set', 'instructor_set', 'resource_set', 'release_date')
-
-
-class InstructorSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Instructor
-        fields = ('id', 'name', 'link',)
-
-
-class SchoolSerializer(InstructorSerializer):
-    class Meta(InstructorSerializer.Meta):
-        model = School
-        fields = ('id', 'name', 'link', 'colloquial_name',)

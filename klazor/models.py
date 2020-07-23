@@ -20,23 +20,9 @@ class Tag(models.Model):
         db_table = 'tag'
 
 
-class Instructor(PolymorphicModel):
-    name = models.CharField(max_length=128, blank=True, null=True)
-    link = models.TextField(blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
-    phone = models.CharField(max_length=64, blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'instructor'
-
-
 class Content(models.Model):
     owner = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
-    is_public = models.BooleanField(default=False)
-    # remove null=True for these three
+    name = models.CharField(max_length=128, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
@@ -46,14 +32,13 @@ class Content(models.Model):
 
 class Item(PolymorphicModel, Content):
     tag_set = models.ManyToManyField(Tag, blank=True)
-    title = models.CharField(max_length=128, blank=True, null=True)
     folder = models.ForeignKey('Folder', null=True, blank=True, on_delete=models.CASCADE)
 
     def type(self):
         return self.__class__.__name__
 
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
         db_table = 'item'
@@ -67,127 +52,37 @@ class FileItem(Item):
         db_table = 'file'
 
 
-class Log(models.Model):
-    datetime = models.DateTimeField(auto_now=True)
+class Folder(Content):
+    parent = models.ForeignKey('Folder', models.CASCADE, null=True, blank=True, related_name='sub_folder_set')
+
+    def __str__(self):
+        return self.name
+
+    def siblings(self):
+        result = []
+        if self.parent:
+            result = [folder for folder in self.parent.sub_folder_set.filter(owner=self.owner) if folder.id != self.id and folder.id != 1]
+        return result
+
+    def ascendants(self):
+        result = []
+        folder = self
+        while folder.id != 1:
+            result.append(folder.parent)
+            folder = folder.parent
+
+        result.reverse()
+        print(result)
+        return result
 
     class Meta:
-        abstract = True
-
-
-class UserItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-
-    class Meta:
-        abstract = True
-
-
-class UserItemActionLog(Log, UserItem):
-
-    # Defining actions
-    VIEWED = 'VI',
-    COMPLETED = 'CP'
-    SHARE = 'SH'
-
-    ACTIONS = [
-        (VIEWED, 'View'),
-        (COMPLETED, 'Complete'),
-        (SHARE, 'Share')
-    ]
-    action = models.CharField(max_length=2, choices=ACTIONS)
-
-    @staticmethod
-    def save_log(action, user, item):
-        user_item_log = UserItemActionLog()
-        user_item_log.action = action
-        user_item_log.user = user
-        user_item_log.item = item
-        user_item_log.save()
-
-    class Meta:
-        abstract = 'user_item_log'
-
-
-class RatedItem(models.Model):
-    rate = models.SmallIntegerField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'rated_item'
-
-
-class SharedItem(UserItem):
-    @staticmethod
-    def shared_with(user):
-        return [shared_item.item for shared_item in SharedItem.objects.filter(user=user)]
-
-    class Meta:
-        db_table = 'shared_item'
-
-
-class Course(Item):
-    note = models.OneToOneField('Sheet', blank=True, on_delete=models.CASCADE, null=True)
-    instructor_set = models.ManyToManyField(Instructor, blank=True)
-    release_date = models.DateField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'course'
+        db_table = 'folder'
+        ordering = ['id', ]
 
 
 class Sheet(Item):
     class Meta:
         db_table = 'sheet'
-
-
-class NoteBook(Item):
-    sheet_set = models.ManyToManyField(Sheet, blank=True)
-
-
-class CourseElement(Sheet):
-    sequence = models.IntegerField(blank=True, null=True)
-    course_part = models.ForeignKey('CoursePart', on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'course_element'
-        ordering = ['sequence', ]
-
-
-class CourseResource(models.Model):
-    title = models.CharField(max_length=128, blank=True, null=True)
-    link = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.title
-
-
-class CourseResourceSet(models.Model):
-    title = models.CharField(max_length=128, blank=True, null=True)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    resource_set = models.ManyToManyField(CourseResource, blank=True)
-
-    def __str__(self):
-        return self.title + ' : ' + self.course.title
-
-
-class School(Instructor):
-    colloquial_name = models.CharField(max_length=8, blank=True, null=True)
-
-    class Meta:
-        db_table = 'school'
-
-
-class CoursePart(models.Model):
-    label = models.CharField(max_length=32, default='Week')
-    title = models.CharField(max_length=64, blank=True, null=True)
-    course = models.ForeignKey(Course, models.CASCADE)
-    level = models.SmallIntegerField(default=1)
-    sequence = models.SmallIntegerField(default=1)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        db_table = 'course_part'
-        ordering = ['id', ]
 
 
 class Cell(PolymorphicModel):
@@ -235,15 +130,6 @@ class VideoCell(GraphicMediaCell):
         db_table = 'video_cell'
 
 
-class VideoCellSubtitle(models.Model):
-    lang = models.CharField(max_length=64, blank=True, null=True)
-    url = models.URLField(blank=True, null=True)
-    video_cell = models.ForeignKey(VideoCell, models.CASCADE, null=True)
-
-    class Meta:
-        db_table = 'video_cell_subtitle'
-
-
 class YoutubeCell(GraphicMediaCell):
     class Meta:
         db_table = 'youtube_cell'
@@ -262,35 +148,6 @@ class FileCell(MediaCell):
 class ImageCell(GraphicMediaCell):
     class Meta:
         db_table = 'image_cell'
-
-
-class Folder(Content):
-    name = models.CharField(max_length=128, blank=True, null=True)
-    parent = models.ForeignKey('Folder', models.CASCADE, null=True)
-
-    def __str__(self):
-        return self.name
-
-    def siblings(self):
-        result = []
-        if self.parent:
-            result = [folder for folder in self.parent.folder_set.filter(owner=self.owner) if folder.id != self.id and folder.id != 1]
-        return result
-
-    def ascendants(self):
-        result = []
-        folder = self
-        while folder.id != 1:
-            result.append(folder.parent)
-            folder = folder.parent
-
-        result.reverse()
-        print(result)
-        return result
-
-    class Meta:
-        db_table = 'folder'
-        ordering = ['id', ]
 
 
 class MultipleChoiceInputCell(Cell):

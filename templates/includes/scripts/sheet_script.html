@@ -19,9 +19,9 @@
     /* TODO Remove this line in production mode */
     // Enabling devtools
     Vue.config.devtools = true
-    Vue.component('sheet-title', {
-        template: "#sheet-title",
-        props: ['title', 'editable'],
+    Vue.component('sheet-name', {
+        template: "#sheet-name",
+        props: ['name', 'editable'],
         data: function () {
             return {
                 editMode: false,
@@ -220,7 +220,7 @@
     let sheet = new Vue({
         el: "#sheet",
         data: { // Represents the sheet as described by the Sheet class
-            title: `{{ sheet.title|safe}}`, // sheets title
+            name: `{{ sheet.name|safe}}`, // sheets name
             cells: [],
             editMode: {% if user.id == sheet.owner.id %} true {% else %} false {% endif %},
             saved: false,
@@ -233,8 +233,8 @@
                 // this.autosave = !this.autosave
                 this.editMode = !this.editMode
             },
-            updateTitle(title) {
-                this.title = title
+            updateName(name) {
+                this.name = name
             },
             deleteCell(id) {
                 this.cells = this.cells.filter((cell) => {
@@ -304,7 +304,7 @@
                 let csrftoken = Cookies.get('csrftoken')
                 let sheet = this // capture the vue instance to use in the callback
                 let formData = new FormData()
-                formData.append('title', this.title)
+                formData.append('name', this.name)
                 axios.post('/sheet/' + {{ sheet.id }} +'/save/',
                     formData,
                     {
@@ -315,13 +315,13 @@
                     }
                 ).then((response) => {
                     console.log(response)
-                    console.log("sheet title saved !")
+                    console.log("sheet name saved !")
                     /**
-                     * Update sheet-title-text elts
+                     * Update sheet-name-text elts
                      */
-                    let sheetTitleText = $('.sheet-title-text')
-                    if (sheetTitleText.length)
-                        sheetTitleText.text(sheet.title)
+                    let sheetNameText = $('.sheet-name-text')
+                    if (sheetNameText.length)
+                        sheetNameText.text(sheet.name)
                     /**
                      * End update
                      */
@@ -414,11 +414,7 @@
             {% for cell in sheet.cell_set.all  %}
                 counter = {{ forloop.counter }}
                     {% if cell.videocell %}
-                        let videoCell = new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.url | safe }}`, {{ cell.videocell.scale }})
-                        {% for subtitle in cell.videocell.videocellsubtitle_set.all %}
-                            videoCell.addSubtitle(new VideoCellSubtitle(`{{ subtitle.lang }}`, `{{ subtitle.url | safe }}`))
-                        {% endfor %}
-                        this.cells.push(videoCell)
+                        this.cells.push(new VideoCell(counter, `{{ cell.videocell.title }}`, `{{ cell.videocell.url | safe }}`, {{ cell.videocell.scale }}))
                     {% elif cell.youtubecell %}
                         this.cells.push(new YoutubeCell(counter, `{{ cell.youtubecell.title }}`, `{{ cell.youtubecell.url | safe}}`, {{ cell.youtubecell.scale }}))
                     {% elif cell.audiocell %}

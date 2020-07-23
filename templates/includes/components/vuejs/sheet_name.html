@@ -1,0 +1,8 @@
+{% verbatim %}
+<template id="sheet-name">
+    <div v-if="editable && editMode" class="row">
+        <h1  class="col-11 text-center sheet-name" ><input @keydown.ctrl.enter="toggleMode"  @keydown.ctrl.83.prevent="$emit('save')" v-on:input="$emit('update', name)"  v-model="name" type="text" placeholder="Sheet name..."></h1>
+    </div>
+     <h1 v-else class="text-center sheet-name" v-text="name" v-on:dblclick="toggleMode"></h1>
+</template>
+{% endverbatim %}

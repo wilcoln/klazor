@@ -21,19 +21,10 @@ class GraphicMediaCell extends  MediaCell{
         this.scale = scale
     }
 }
-class VideoCellSubtitle {
-    constructor(lang, url){
-        this.lang = lang
-        this.url = url
-    }
-}
+
 class VideoCell extends GraphicMediaCell {
     constructor(id, title, url, scale){
         super(id, title, url, scale)
-        this.subtitles = []
-    }
-    addSubtitle(subtitle){
-        this.subtitles.push(subtitle)
     }
 }
 

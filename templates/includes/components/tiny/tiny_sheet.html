@@ -2,7 +2,7 @@
     <i class="fa fa-leaf"></i>
     <div class="card-body">
         <a href="{% url 'sheet' sheet.id %}">
-            <div class="sheet-title">{{ sheet.title }}</div>
+            <div class="sheet-name">{{ sheet.name }}</div>
         </a>
         <small class="text-muted ">{{ sheet.cell_set.all.count }} cell{{ sheet.cell_set.all.count|pluralize }}</small>
         {% block other_info %}{% endblock %}

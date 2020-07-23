@@ -1,6 +1,5 @@
 DONE
     1. welcome.html
-    2. mooc_course.html
     3. mooc_item.html
     4. Rename Document resource to file resource
     7. Ne plus afficher le dossier Root : dossier d'id 1

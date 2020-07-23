@@ -3,12 +3,9 @@ from rest_framework import routers
 from api.views import *
 
 router = routers.DefaultRouter()
+router.register(r'folder', FolderViewSet)
 router.register(r'sheet', SheetViewSet)
 router.register(r'cell', CellViewSet)
-router.register(r'instructor', InstructorViewSet)
-router.register(r'course', CourseViewSet)
-router.register(r'sheet', SheetViewSet)
-router.register(r'course-part', CoursePartViewSet)
 router.register(r'file', FileItemViewSet)
 router.register(r'tag', TagViewSet)
 

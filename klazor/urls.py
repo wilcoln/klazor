@@ -1,18 +1,4 @@
-"""Klazor URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+"""Klazor URL Configuration. """
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
@@ -38,13 +24,8 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('', welcome, name='welcome'),
-    path('shared-with-me/', view_shared_with_me, name='shared-with-me'),
     url(r'^register/$', register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('course/<int:id>/', view_course, name='course'),
-    path('course/<int:course_id>/note', view_course_note, name='course-note'),
-    path('course/<int:course_id>/part/<int:part_sequence>/element/<int:element_sequence>/',
-         view_course_element, name='course-element'),
     path('folder/<int:id>/', view_folder, name='folder'),
     path('folder/editor/<int:id>/sheet/<int:sheet_id>', view_folder_editor, name='folder-editor'),
     path('sheet/<int:id>/', view_sheet, name='sheet'),
@@ -56,22 +37,9 @@ urlpatterns = [
     path('folder/delete/<int:id>/', delete_folder, name='delete-folder'),
     path('folder/move/<int:id>/into/<int:destination_id>', move_folder, name='move-folder'),
     path('folder/rename/<int:id>/', rename_folder, name='rename-folder'),
-    path('course/edit/<int:id>/', edit_course, name='edit-course'),
-    path('course/save/<int:id>/', save_course, name='save-course'),
-    path('course/<int:course_id>/add-part/', add_course_part, name='add-course-part'),
-    path('course-part/<int:course_part_id>/add-element/', add_course_element, name='add-course-element'),
     path('folder/add/', add_folder, name='add-folder'),
     path('tag/add/', add_tag, name='add-tag'),
-    path('instructor/add/', add_instructor, name='add-instructor'),
-    path('folder/<int:id>/convert/course', convert_folder_to_course, name='folder-to-course'),
     path('folder/file/add/', add_folder_files, name='add-folder-files'),
-    path('course/add/into/<int:folder_id>/', add_course, name='add-course'),
-    path('upload/', upload, name='upload'),
-    path('sheet/<int:id>/print', print_sheet, name='print-sheet'),
-    path('course-element/check/<int:id>/', toggle_course_element_status, name='check-course-element'),
-
-    # Libr urls
-    url(r'^libr/', include('libr.urls')),
     # Api urls
     url(r'^api/', include('api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

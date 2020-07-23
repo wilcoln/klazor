@@ -6,7 +6,6 @@ from klazor.models import *
 class ItemModelTests(TestCase):
     pass
 
-
 class SheetModelTests(TestCase):
     pass
 

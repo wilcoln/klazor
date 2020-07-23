@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Déplacer Feuille '{{ sheet.title }}'</h5>
+                <h5 class="modal-title">Déplacer Feuille '{{ sheet.name }}'</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -29,7 +29,7 @@
                             </div>
                         {% endfor %}
                     {% else %}
-                        {% for sub_folder in sheet.folder.folder_set.all %}
+                        {% for sub_folder in sheet.folder.sub_folder_set.all %}
                             <div>
                                 <a href="{% url 'move-item' sheet.id sub_folder.id %}">
                                     <i class="text-primary fa fa-folder"></i> {{ sub_folder.name | truncatechars:40 }}
