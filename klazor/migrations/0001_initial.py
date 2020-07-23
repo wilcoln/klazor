@@ -20,7 +20,16 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sequence', models.IntegerField()),
-                ('polymorphic_ctype', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='polymorphic_klazor.cell_set+', to='contenttypes.ContentType')),
+                (
+                    'polymorphic_ctype',
+                    models.ForeignKey(
+                        editable=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='polymorphic_klazor.cell_set+',
+                        to='contenttypes.ContentType'
+                    )
+                ),
             ],
             options={
                 'db_table': 'cell',
@@ -34,8 +43,19 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(blank=True, max_length=128, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('owner', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('parent', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='klazor.Folder')),
+                (
+                    'owner',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL
+                    )
+                ),
+                (
+                    'parent',
+                    models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='klazor.Folder')
+                ),
             ],
             options={
                 'db_table': 'folder',
@@ -49,9 +69,31 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(blank=True, max_length=128, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('folder', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='klazor.Folder')),
-                ('owner', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('polymorphic_ctype', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='polymorphic_klazor.item_set+', to='contenttypes.ContentType')),
+                (
+                    'folder',
+                    models.ForeignKey(
+                        blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='klazor.Folder'
+                    )
+                ),
+                (
+                    'owner',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL
+                    )
+                ),
+                (
+                    'polymorphic_ctype',
+                    models.ForeignKey(
+                        editable=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='polymorphic_klazor.item_set+',
+                        to='contenttypes.ContentType'
+                    )
+                ),
             ],
             options={
                 'db_table': 'item',
@@ -71,7 +113,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AudioCell',
             fields=[
-                ('cell_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Cell')),
+                (
+                    'cell_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Cell'
+                    )
+                ),
                 ('title', models.CharField(blank=True, max_length=64, null=True)),
                 ('url', models.URLField(blank=True, null=True)),
             ],
@@ -83,7 +135,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FileCell',
             fields=[
-                ('cell_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Cell')),
+                (
+                    'cell_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Cell'
+                    )
+                ),
                 ('title', models.CharField(blank=True, max_length=64, null=True)),
                 ('url', models.URLField(blank=True, null=True)),
             ],
@@ -95,7 +157,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FileItem',
             fields=[
-                ('item_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Item')),
+                (
+                    'item_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Item'
+                    )
+                ),
                 ('file', models.FileField(null=True, upload_to='files')),
             ],
             options={
@@ -106,7 +178,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ImageCell',
             fields=[
-                ('cell_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Cell')),
+                (
+                    'cell_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Cell'
+                    )
+                ),
                 ('title', models.CharField(blank=True, max_length=64, null=True)),
                 ('url', models.URLField(blank=True, null=True)),
                 ('scale', models.FloatField(default=1)),
@@ -119,7 +201,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MarkdownCell',
             fields=[
-                ('cell_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Cell')),
+                (
+                    'cell_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Cell'
+                    )
+                ),
                 ('text', models.TextField(blank=True, null=True)),
             ],
             options={
@@ -130,7 +222,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MultipleChoiceInputCell',
             fields=[
-                ('cell_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Cell')),
+                (
+                    'cell_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Cell'
+                    )
+                ),
             ],
             options={
                 'db_table': 'multiple_choice_input_cell',
@@ -140,7 +242,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='NumericalInputCell',
             fields=[
-                ('cell_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Cell')),
+                (
+                    'cell_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Cell'
+                    )
+                ),
                 ('answer', models.FloatField(blank=True, null=True)),
             ],
             options={
@@ -151,7 +263,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='OpenEndedInputCell',
             fields=[
-                ('cell_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Cell')),
+                (
+                    'cell_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Cell'
+                    )
+                ),
                 ('answer', models.TextField(blank=True, null=True)),
             ],
             options={
@@ -162,7 +284,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Sheet',
             fields=[
-                ('item_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Item')),
+                (
+                    'item_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Item'
+                    )
+                ),
             ],
             options={
                 'db_table': 'sheet',
@@ -172,7 +304,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='VideoCell',
             fields=[
-                ('cell_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Cell')),
+                (
+                    'cell_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Cell'
+                    )
+                ),
                 ('title', models.CharField(blank=True, max_length=64, null=True)),
                 ('url', models.URLField(blank=True, null=True)),
                 ('scale', models.FloatField(default=1)),
@@ -185,7 +327,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='YoutubeCell',
             fields=[
-                ('cell_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='klazor.Cell')),
+                (
+                    'cell_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='klazor.Cell'
+                    )
+                ),
                 ('title', models.CharField(blank=True, max_length=64, null=True)),
                 ('url', models.URLField(blank=True, null=True)),
                 ('scale', models.FloatField(default=1)),
@@ -206,7 +358,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('lang', models.CharField(blank=True, max_length=64, null=True)),
                 ('url', models.URLField(blank=True, null=True)),
-                ('video_cell', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='klazor.VideoCell')),
+                (
+                    'video_cell',
+                    models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='klazor.VideoCell')
+                ),
             ],
             options={
                 'db_table': 'video_cell_subtitle',
@@ -218,7 +373,12 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('statement', models.TextField(blank=True, null=True)),
                 ('is_true', models.BooleanField(default=False)),
-                ('input_cell', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='klazor.MultipleChoiceInputCell')),
+                (
+                    'input_cell',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to='klazor.MultipleChoiceInputCell'
+                    )
+                ),
             ],
             options={
                 'db_table': 'proposition',

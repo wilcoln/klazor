@@ -17,4 +17,3 @@ class CellModelTests(TestCase):
 
 class FolderModelTests(TestCase):
     pass
-

@@ -42,7 +42,9 @@ class Item(PolymorphicModel, Content):
 
     class Meta:
         db_table = 'item'
-        ordering = ['id', ]
+        ordering = [
+            'id',
+        ]
 
 
 class FileItem(Item):
@@ -61,7 +63,10 @@ class Folder(Content):
     def siblings(self):
         result = []
         if self.parent:
-            result = [folder for folder in self.parent.sub_folder_set.filter(owner=self.owner) if folder.id != self.id and folder.id != 1]
+            result = [
+                folder for folder in self.parent.sub_folder_set.filter(owner=self.owner)
+                if folder.id != self.id and folder.id != 1
+            ]
         return result
 
     def ascendants(self):
@@ -77,10 +82,13 @@ class Folder(Content):
 
     class Meta:
         db_table = 'folder'
-        ordering = ['id', ]
+        ordering = [
+            'id',
+        ]
 
 
 class Sheet(Item):
+
     class Meta:
         db_table = 'sheet'
 
@@ -94,7 +102,9 @@ class Cell(PolymorphicModel):
 
     class Meta:
         db_table = 'cell'
-        ordering = ['sequence', ]
+        ordering = [
+            'sequence',
+        ]
 
 
 class MediaCell(Cell):
@@ -126,31 +136,37 @@ class MarkdownCell(Cell):
 
 
 class VideoCell(GraphicMediaCell):
+
     class Meta:
         db_table = 'video_cell'
 
 
 class YoutubeCell(GraphicMediaCell):
+
     class Meta:
         db_table = 'youtube_cell'
 
 
 class AudioCell(MediaCell):
+
     class Meta:
         db_table = 'audio_cell'
 
 
 class FileCell(MediaCell):
+
     class Meta:
         db_table = 'file_cell'
 
 
 class ImageCell(GraphicMediaCell):
+
     class Meta:
         db_table = 'image_cell'
 
 
 class MultipleChoiceInputCell(Cell):
+
     class Meta:
         db_table = 'multiple_choice_input_cell'
 

@@ -28,21 +28,12 @@ ALLOWED_HOSTS = []
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
-    'rest_framework',
-    'klazor',
-    'api',
-    'crispy_forms'
+    'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.sessions',
+    'django.contrib.messages', 'django.contrib.staticfiles', 'django.contrib.humanize', 'rest_framework', 'klazor',
+    'api', 'crispy_forms'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -50,9 +41,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
 }
 
 MIDDLEWARE = [
@@ -82,8 +71,7 @@ TEMPLATES = [
             ],
             'libraries': {
                 'filename': 'klazor.templatetags.filename',
-                'iconclass':  'klazor.templatetags.iconclass',
-
+                'iconclass': 'klazor.templatetags.iconclass',
             }
         },
     },
@@ -140,12 +128,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'node_modules')
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'node_modules'))
 MEDIA_ROOT = BASE_DIR + '/media/'
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 500242880
-LOGIN_REDIRECT_URL='/'
-LOGOUT_REDIRECT_URL='/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

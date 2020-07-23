@@ -6,7 +6,6 @@ from django.shortcuts import redirect
 from klazor.models import *
 import json
 
-
 # Organize all these views into CourseView, SheetView, FolderView, CellView, FileView
 
 
@@ -32,13 +31,15 @@ def welcome(request):
         folders = Folder.objects.filter(parent_id=1, owner_id=request.user.id)  # We remove the root folder
         free_sheets = Sheet.objects.filter(folder=1, owner_id=request.user.id)
         file_items = FileItem.objects.filter(folder=1, owner_id=request.user.id)
-        return render(request, 'pages/welcome.html', {
-            'quick_access': quick_access,
-            'folder': root_folder,
-            'sub_folders': folders,
-            'sheets': free_sheets,
-            'file_items': file_items
-        })
+        return render(
+            request, 'pages/welcome.html', {
+                'quick_access': quick_access,
+                'folder': root_folder,
+                'sub_folders': folders,
+                'sheets': free_sheets,
+                'file_items': file_items
+            }
+        )
     return redirect('/login')
 
 
@@ -49,9 +50,14 @@ def view_folder(request, id):
     file_items = FileItem.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
     sub_folders = folder.sub_folder_set.all()
-    return render(request, 'pages/folder.html',
-                  {'folder': folder, 'sub_folders': sub_folders, 'sheets': sheets,
-                   'file_items': file_items})
+    return render(
+        request, 'pages/folder.html', {
+            'folder': folder,
+            'sub_folders': sub_folders,
+            'sheets': sheets,
+            'file_items': file_items
+        }
+    )
 
 
 def view_folder_editor(request, id, sheet_id):
@@ -59,9 +65,14 @@ def view_folder_editor(request, id, sheet_id):
     sheets = Sheet.objects.filter(folder=id)
     folder = Folder.objects.get(pk=id)
     file_items = FileItem.objects.filter(folder=id)
-    return render(request, 'pages/folder_editor.html',
-                  {'folder': folder, 'active_sheet': active_sheet,
-                   'sheets': sheets, 'file_items': file_items})
+    return render(
+        request, 'pages/folder_editor.html', {
+            'folder': folder,
+            'active_sheet': active_sheet,
+            'sheets': sheets,
+            'file_items': file_items
+        }
+    )
 
 
 def view_sheet(request, id):

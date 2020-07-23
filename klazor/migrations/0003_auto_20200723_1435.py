@@ -14,9 +14,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='folder',
             name='parent',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='sub_folder_set', to='klazor.Folder'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='sub_folder_set',
+                to='klazor.Folder'
+            ),
         ),
-        migrations.DeleteModel(
-            name='VideoCellSubtitle',
-        ),
+        migrations.DeleteModel(name='VideoCellSubtitle',),
     ]
