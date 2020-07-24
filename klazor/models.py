@@ -31,6 +31,7 @@ class Content(models.Model):
 
 
 class Item(PolymorphicModel, Content):
+    non_polymorphic = models.Manager()
     tag_set = models.ManyToManyField(Tag, blank=True)
     folder = models.ForeignKey('Folder', null=True, blank=True, on_delete=models.CASCADE)
 
@@ -45,6 +46,7 @@ class Item(PolymorphicModel, Content):
         ordering = [
             'id',
         ]
+        base_manager_name = 'non_polymorphic'
 
 
 class FileItem(Item):
@@ -94,8 +96,9 @@ class Sheet(Item):
 
 
 class Cell(PolymorphicModel):
+    non_polymorphic = models.Manager()
     sequence = models.IntegerField(blank=False, null=False)
-    sheet = models.ForeignKey(Sheet, models.CASCADE)
+    sheet = models.ForeignKey(Sheet, on_delete=models.CASCADE)
 
     def type(self):
         return self.__class__.__name__[:-4]
@@ -105,6 +108,7 @@ class Cell(PolymorphicModel):
         ordering = [
             'sequence',
         ]
+        base_manager_name = 'non_polymorphic'
 
 
 class MediaCell(Cell):

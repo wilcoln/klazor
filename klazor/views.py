@@ -160,13 +160,8 @@ def save_cell(request, id):
 
 def delete_item(request, id):
     item = Item.objects.get(pk=id)
-    try:
-        item.delete()
-    except:
-        item.folder_id = request.user.folder_set.filter(name='trash').first().id
-        item.save()
-    finally:
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    item.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def save_sheet(request, id):
