@@ -160,10 +160,11 @@ def save_cell(request, id):
 
 def delete_item(request, id):
     item = Item.objects.get(pk=id)
-    item.owner_id = User.objects.filter(username='trash').first().id
-    item.save()
     try:
         item.delete()
+    except:
+        item.folder_id = request.user.folder_set.filter(name='trash').first().id
+        item.save()
     finally:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
@@ -182,12 +183,8 @@ def save_sheet(request, id):
 
 def delete_folder(request, id):
     folder = Folder.objects.get(pk=id)
-    folder.owner_id = User.objects.filter(username='trash').first().id
-    folder.save()
-    try:
-        folder.delete()
-    finally:
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    folder.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def add_folder(request):
