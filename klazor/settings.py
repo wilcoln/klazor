@@ -42,7 +42,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAdminUser',
+    ]
 }
 
 MIDDLEWARE = [
@@ -99,7 +102,6 @@ else:
 
     ALLOWED_HOSTS = env.HOSTS
     DATABASES = {'default': {'ENGINE': 'django.db.backends.mysql', 'OPTIONS': env.DATABASE_OPTIONS}}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
