@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -81,16 +82,24 @@ WSGI_APPLICATION = 'klazor.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'klazor_devel',
-        'USER': 'wilcoln',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '3306'
+
+if sys.argv[1] == 'test':
+    ALLOWED_HOSTS = ['testserver']
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+
+# read configs from env file
+else:
+    import env
+
+    ALLOWED_HOSTS = env.HOSTS
+    DATABASES = {'default': {'ENGINE': 'django.db.backends.mysql', 'OPTIONS': env.DATABASE_OPTIONS}}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
