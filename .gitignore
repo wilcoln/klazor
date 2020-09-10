@@ -5,5 +5,8 @@ env/
 venv/
 media/
 __pycache__/
-backup.sql
-fixed.txt
+todo.txt
+env.py
+htmlcov/
+*.pyc
+setup.txt
