@@ -15,7 +15,7 @@
         <div class="col-12">
             <div v-for="proposition in cell.propositions">
                 <input :type="cell.getNbChecked() != 1 ? 'checkbox': 'radio'">
-                <label v-text="proposition.statement"></label>
+                <label class="mathjax-display" v-text="proposition.statement"></label>
             </div>
         </div>
     </div>

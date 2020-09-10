@@ -204,8 +204,10 @@
         props: ['cell', 'editable'],
         methods: {
             toggleMode: function () {
-                if (this.editable)
+                if (this.editable) {
                     this.cell.editMode = !this.cell.editMode
+                }
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.$el.querySelector('.mathjax-display')]);
             },
             createBlankPropositions: function () {
                 this.cell.propositions = []
@@ -341,7 +343,7 @@
                                 lightCell.type = 'IMAGE'
                             } else if (cell instanceof MarkdownCell) {
                                 lightCell.type = 'MARKDOWN'
-                                lightCell.text = lightCell.text.replace(/\\/g, '\\\\')
+                                console.log(lightCell.text)
                                 lightCell.text = lightCell.text.replace(/`/g, '\\`') // escape for markdown monospace syntaxe
                             } else if (cell instanceof FileCell) {
                                 lightCell.type = 'FILE'
@@ -422,8 +424,7 @@
                     {% elif cell.imagecell %}
                         this.cells.push(new ImageCell(counter, `{{ cell.imagecell.title }}`, `{{ cell.imagecell.url | safe }}`, {{ cell.imagecell.scale }}))
                     {% elif cell.markdowncell %}
-                        text = `{{ cell.markdowncell.text|safe }}`
-                        text = text.replace(/\\\\/g, '\\\\') // escape backslash for mathjax compatibility
+                        text = `{{ cell.markdowncell.text | escapejs }}`
                         this.cells.push(new MarkdownCell(counter, text))
                     {% elif cell.filecell %}
                         this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.url | safe}}`))
