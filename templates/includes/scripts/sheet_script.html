@@ -429,7 +429,7 @@
                     {% elif cell.filecell %}
                         this.cells.push(new FileCell(counter, `{{ cell.filecell.title }}`, `{{ cell.filecell.url | safe}}`))
                     {% elif cell.multiplechoiceinputcell %}
-                        let inputCell = new MultipleChoiceInputCell(counter)
+                        var inputCell = new MultipleChoiceInputCell(counter)
                         inputCell.nbPropositions = 0
                         {% for proposition in cell.multiplechoiceinputcell.proposition_set.all %}
                             inputCell.addProposition(`{{ proposition.statement }}`, {{ proposition.is_true | lower }})
