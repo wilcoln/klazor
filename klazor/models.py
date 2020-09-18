@@ -79,7 +79,6 @@ class Folder(Content):
             folder = folder.parent
 
         result.reverse()
-        print(result)
         return result
 
     class Meta:
@@ -90,13 +89,12 @@ class Folder(Content):
 
 
 class Sheet(Item):
-
     class Meta:
         db_table = 'sheet'
 
 
 class Cell(PolymorphicModel):
-    non_polymorphic = models.Manager()
+    # non_polymorphic = models.Manager()
     sequence = models.IntegerField(blank=False, null=False)
     sheet = models.ForeignKey(Sheet, on_delete=models.CASCADE)
 
@@ -108,7 +106,7 @@ class Cell(PolymorphicModel):
         ordering = [
             'sequence',
         ]
-        base_manager_name = 'non_polymorphic'
+        # base_manager_name = 'non_polymorphic'
 
 
 class MediaCell(Cell):
