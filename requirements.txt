@@ -7,7 +7,7 @@ djangorestframework==3.9.4
 iso639==0.1.4
 Markdown==3.1.1
 mysql==0.0.2
-mysqlclient==1.4.2.post1
+mysqlclient==2.0.1
 pbr==5.2.1
 Pillow==6.2.0
 pytz==2019.1
