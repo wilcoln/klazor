@@ -9,7 +9,7 @@
   "author": "wilcoln",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "codemirror": "^5.47.0",
     "font-awesome": "^4.7.0",
